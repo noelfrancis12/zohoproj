@@ -61,27 +61,19 @@ def register(request):
 
 def login(request):
     if request.method == 'POST':
-        username=request.POST['username']
-        password=request.POST['password']
-        user = auth.authenticate(username=username, password=password) 
-        #request.session["uid"]=user.id#session method part
-        if user is not None:
-            if user.is_staff:
-                login(request,user)
-                messages.success(request,'Welcome Admin...')
-                return redirect('eventrequest')
-            else:
-                login(request,user)
-                auth.login(request,user)
-                messages.success(request,'Welcome Back...')
-                return redirect('accountpg')
             
-        else:
-            messages.info(request,'Invalid Username or Password. Try again.')
-            return redirect('home')
-    else:
-        return redirect('home') 
+            email_or_username = request.POST['emailorusername']
+            password = request.POST['password']
+            print(password)
+            user = authenticate(request, username=email_or_username, password=password)
+            print(user)
+            if user is not None:
+                auth.login(request, user)
+                return redirect('base')
+            else:
+                return redirect('/')
 
+    return render(request, 'register.html')
 @login_required(login_url='login')
 def logout(request):
     auth.logout(request)
@@ -2607,3 +2599,11 @@ def edit_sales_order(request,id):
 
     }
     return render(request,'edit_sale_page.html',context)
+
+def proj(request):
+    return render(request,'proj.html')
+def vproj(request):
+    user_id=request.user.id
+    udata=User.objects.get(id=user_id)
+    data=customer.objects.filter(user=udata)
+    return render(request,'projlist.html',{'data':data})
