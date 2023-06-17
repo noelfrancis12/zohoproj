@@ -6,7 +6,13 @@
 
 <!-- class="row fixed-top " -->
 <!-- style=" position: fixed;" -->
-
+<style>
+    .dark-select {
+    background-color: #333;
+    color: #fff;
+    width: 200px;
+}
+</style>
 <!-- <section > -->
     <div class="fixed-top" style="top: 7rem; margin-left: 18rem;" >
      
@@ -43,7 +49,7 @@
                     <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label>Customer Name*</label></div>
                      <div class="col-sm-12 col-md-6 col-lg-6">
                         
-                        <select name="" id="">
+                        <select name="" id=""   class="form-control">
                             
                             <option value="">Select Customer</option>
     {% for d in data %}
@@ -62,7 +68,7 @@
                  <div class="form-group row mt-4">
                     <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label>Billing Method*</label></div>
                     <div class="col-sm-12 col-md-6 col-lg-6">
-                        <select name="billingMethod" id="billingMethodSelect">
+                        <select name="billingMethod" id="billingMethodSelect" class="form-control">
                             <option value="Fixed cost for project">Fixed cost for project</option>
                             <option value="Based on project hours">Based on project hours</option>
                             <option value="">Based on staff hours</option>
@@ -104,10 +110,10 @@
         <tbody>
             <tr id="user_row1">
                 <td>
-                    <input type="text" id="user1">
+                    <input type="text" class="form-control" id="user1">
                 </td>
                 <td class="text-right">
-                    <input type="email" id="email1">
+                    <input type="email" class="form-control" id="email1">
                 </td>
                 <td class="text-center">
                     <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" style="width:30px">
@@ -133,13 +139,13 @@
         <tbody>
             <tr id="task_row1">
                 <td>
-                    <input type="text" id="task1">
+                    <input type="text" class="form-control" id="task1">
                 </td>
                 <td class="text-right">
-                    <input type="text" id="desc1">
+                    <input type="text" class="form-control" id="desc1">
                 </td>
                 <td class="text-right">
-                    <input type="text" id="desc1">
+                    <input type="text" class="form-control" id="desc1">
                 </td>
                 <td class="text-center">
                     <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" style="width:30px">
