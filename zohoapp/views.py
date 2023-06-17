@@ -2601,9 +2601,16 @@ def edit_sales_order(request,id):
     return render(request,'edit_sale_page.html',context)
 
 def proj(request):
-    return render(request,'proj.html')
+    user_id=request.user.id
+    udata=User.objects.get(id=user_id)
+    data=customer.objects.filter(user=udata)
+    print("Hello")
+    print(data)
+    return render(request,'proj.html',{'data':data})
 def vproj(request):
     user_id=request.user.id
     udata=User.objects.get(id=user_id)
     data=customer.objects.filter(user=udata)
+    print("Hello")
+    print(data)
     return render(request,'projlist.html',{'data':data})

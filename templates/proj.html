@@ -62,18 +62,28 @@
                  <div class="form-group row mt-4">
                     <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label>Billing Method*</label></div>
                     <div class="col-sm-12 col-md-6 col-lg-6">
-                        <select name="" id="">
-                            <option value="">Fixed cost for project</option>
-                            <option value="">Based on project hours</option>
+                        <select name="billingMethod" id="billingMethodSelect">
+                            <option value="Fixed cost for project">Fixed cost for project</option>
+                            <option value="Based on project hours">Based on project hours</option>
                             <option value="">Based on staff hours</option>
                             <option value="">Based on task hours</option>
                         </select>
-                     </div>
- 
- 
-                 </div>
-
-                 
+                    </div>
+                </div>
+                <div id="inputBoxContainer" style="display: none;">
+                    <div class=" form-group row">
+                        <div class="col-sm-12 col-md-3 col-lg-3 col-form-label">
+                            <label >Rate per hour*</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <input  type="text" class="form-control" name="company_name"  id="inputBox" >     
+                                
+         
+                        </div>
+                        
+                    </div>
+                    
+                </div>
                     <center>
                     <div class="col-sm-12 col-md-6 col-lg-6">
                          <input  type="checkbox"  name="w_phone" placeholder="work phone" required>
@@ -115,13 +125,18 @@
             <tr>
                 <th>Task name</th>
                 <th class="text-right">Description</th>
+                <th class="text-right">Rate per hour</th>
                 <th class="text-center">Actions</th>
+
             </tr>
         </thead>
         <tbody>
             <tr id="task_row1">
                 <td>
                     <input type="text" id="task1">
+                </td>
+                <td class="text-right">
+                    <input type="text" id="desc1">
                 </td>
                 <td class="text-right">
                     <input type="text" id="desc1">
@@ -134,9 +149,58 @@
             </tr>
         </tbody>
     </table>
-    <button type="button" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="add-task-row">Add another line</button>
+    <button type="button" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="add-task-row">Add another line</button><br><br>
+    <div class="col-sm-12 col-md-6 col-lg-6">
+        <input  type="checkbox"  name="w_phone" placeholder="work phone" required>
+           
+        <label class="col-sm-12 col-md-6 col-lg-6 ">Add to the watchlist on my dashboard.</label>
+    </div>
+    <button type="button" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="add-task-row">Save</button>
+    <button type="button" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="add-task-row">Cancel</button>
 
-          
+    <script>
+        // Wait for the document to be ready
+        $(document).ready(function() {
+            // Handle select change event
+            $('#billingMethodSelect').on('change', function() {
+                var selectedOption = $(this).val();
+                
+                // Check if the selected option requires an input box
+                if (selectedOption === 'Fixed cost for project' || selectedOption === 'Based on project hours') {
+                    $('#inputBoxContainer').hide();
+                    $('#task_table th:nth-child(3), #task_table td:nth-child(3)').hide();
+                } else {
+                    $('#inputBoxContainer').show();
+                    $('#task_table th:nth-child(3), #task_table td:nth-child(3)').show();
+                }
+            });
+        });
+    </script>
+
+
+    <script>
+        // Wait for the document to be ready
+        $(document).ready(function() {
+            // Handle select change event
+            $('#billingMethodSelect').on('change', function() {
+                var selectedOption = $(this).val();
+                
+                // Check if the selected option requires an input box
+                if (selectedOption === 'Fixed cost for project' || selectedOption === 'Based on project hours') {
+                    $('#inputBoxContainer').show();
+                } else {
+                    $('#inputBoxContainer').hide();
+                }
+            });
+        });
+    </script>
+
+
+
+
+
+
+
                     <script>
                         var userRowCounter = 1;
                         var taskRowCounter = 1;
@@ -162,6 +226,7 @@
                 
                             var newRow = '<tr id="task_row' + taskRowCounter + '">' +
                                 '<td><input type="text" id="task' + taskRowCounter + '"></td>' +
+                                '<td class="text-right"><input type="text" id="desc' + taskRowCounter + '"></td>' +
                                 '<td class="text-right"><input type="text" id="desc' + taskRowCounter + '"></td>' +
                                 '<td class="text-center">' +
                                 '<button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" style="width:30px">' +
