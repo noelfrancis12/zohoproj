@@ -405,3 +405,14 @@ class sales_item(models.Model):
     rate=models.TextField(max_length=255,null=True,blank=True)
     sale=models.ForeignKey(SalesOrder,on_delete=models.CASCADE,null=True,blank=True)
 
+class project1(models.Model):
+    name=models.CharField(max_length=255)
+    desc=models.CharField(max_length=255)
+    c_name=models.ForeignKey(customer,on_delete=models.CASCADE,null=True,blank=True)
+    billing=models.CharField(max_length=255)
+    rateperhour=models.CharField(max_length=255)
+    usern=models.CharField(max_length=255)
+    email=models.CharField(max_length=255)
+    taskn=models.CharField(max_length=255)
+    taskdesc=models.CharField(max_length=255)
+    taskrate=models.CharField(max_length=255)
