@@ -56,7 +56,10 @@
              
                         <!--<td onclick="location.href ='{% url 'detail' v.id %}' " > {{v.name}}</td> -->
                         <td>{{v.c_name.customerName}}</td>
-                        <td  > {{v.name}}</td> 
+                        <td>
+                          <a href="{% url 'overview' v.id %}">{{v.name}}</a>
+                        </td>
+                        
                         <td>{{v.billing}}</td>
                         <td><span class="description-icon" title="{{v.desc}}">&#9432;</span></td>
                         <td>{{v.rateperhour}}</td>

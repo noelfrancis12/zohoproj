@@ -120,7 +120,7 @@ urlpatterns = [
     path('proj', views.proj, name='proj'),
     path('vproj', views.vproj, name='vproj'),
     path('addproj', views.addproj, name='addproj'),
-    path('overview', views.overview, name='overview'),
+    path('overview/<int:id>/', views.overview, name='overview'),
 
     
     path('view_sales_order',views.view_sales_order,name='view_sales_order'),

@@ -16,19 +16,13 @@
         <div class="row">
             <div class="col-sm-12 col-md-4 col-lg-4">
                 <div class="row">
+                    
                     <div class="col-md-2"><a class="text-white" style="font-size: 1.5rem;">All Projects</a>
-                        <input type="text" id="myInput"  onkeyup="myFunction()" placeholder="search for names" style="border-radius: 15px;">                        
-
+                        
+                        
                     </div>
                     <div class="col-md-2 form-inline" style="margin-left: 9rem;margin-top: -2rem;">  
-                        <div class="row">
-                            <div class="col-md-12">
-                                <a style="color: #ccc;" class="btn btn-success mr-2" href="{% url 'proj' %}"><i class="fa-solid fa-plus "></i>New</a>
-                            </div>
-                            <div class="col-md-12 mt-2">
-                                <button onclick="sortTable()" class="btn btn-primary" style="width: 4.5rem;">a-z</button>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
                 <div style="height: 500px;overflow-y: scroll;">
@@ -38,9 +32,10 @@
                             <table class="table  text-white" id="myTable">
                                 
                                 <tbody>
-                                  {% for v in proj %}                    
+                                  {% for v in proje %}                    
                                   <tr id="over">                     
-                                    <td><i class="fa-sharp fa-light fa-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<a id="aover" href="#" style="color: rgb(230, 171, 45);">{{v.name}}</a></td>                             
+                                    <td><i class="fa-sharp fa-light fa-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<a id="aover" href="{% url 'overview' v.id %}" style="color: rgb(230, 171, 45);">{{v.name}}</a></td>
+                                    <td><i class="fa-sharp fa-light fa-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<a id="aover" href="#" style="color: rgb(230, 171, 45);">Rs. {{v.rateperhour}}</a></td>                          
                                   </tr>
                                   {% endfor %}
                                 </tbody>
@@ -52,7 +47,7 @@
             <div class="col-sm-12 col-md-8 col-lg-8">
                 <div class="row">
                     <div class="col-sm-12 col-md-8 col-lg-8 mt-3">
-                        <a class="text-white" style="font-size: 2rem;"><i class="fa-sharp fa-regular fa-circle-dot"></i>&nbsp;&nbsp;&nbsp;&nbsp;Name</a>
+                        <a class="text-white" style="font-size: 2rem;"><i class="fa-sharp fa-regular fa-circle-dot"></i>&nbsp;&nbsp;&nbsp;&nbsp;Overview</a>
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-4  mt-3">
                         <a style="color: #ccc;" class="btn btn-success mr-2" href="#"></i>Edit</a>
@@ -67,141 +62,117 @@
 
                     <div id="over"  class="toggle2"
                       style="color: rgb(230, 171, 45);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
-                      <button onclick="fieldset2_function()" class="btn btn-warning">Comments</button></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <button onclick="fieldset2_function()" class="btn btn-warning">Timesheet</button></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                      
                     <div id="over" class="toggle4"
                       style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
                       <button onclick="fieldset3_function()" class="btn btn-warning">
-                      Mail</button></div>
+                      Purchases</button></div>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <div id="over" class="toggle6"
                       style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
                       <button onclick="fieldset5_function()" class="btn btn-warning">
 
-                      Attach</button></div>
+                      Sales</button></div>
+                    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                    <div id="over" class="toggle6"
+                      style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
+                      <button onclick="fieldset5_function()" class="btn btn-warning">
+
+                      Journals</button></div>
+                    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                    <div id="over" class="toggle6"
+                      style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
+                      <button onclick="fieldset5_function()" class="btn btn-warning">
+
+                      Related list</button></div>
                     &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
                     <div id="over"
                       style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
                       <!-- <button class="btn btn-warning">
 
                       Delete</button> -->
-                      <a href="#" class="btn btn-warning" onclick="return confirm('Are you sure to delete?')">Delete</a>
+                      <a href="#" class="btn btn-warning">Comment</a>
                     </div>
                     
                   </span> 
 
                   <fieldset1 id="overview" class="Overview" >
                     <div style="height: 400px;overflow-y: scroll;">
-                            <div class="form-group row mt-4">
-                                <div class="col-sm-12 col-md-2 col-lg-2"></div>
-                                <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color:rgb(214, 75, 75) ;font-weight: bold;">Company Name*</label></div>
-                                 <div class="col-sm-12 col-md-6 col-lg-6 col-form-label">
-                                    <label style="font-weight: bold;">{{ vdata2.company_name }}</label>      
-                                 </div>   
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-12 col-md-2 col-lg-2"></div>
-
-                                <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color:rgb(214, 75, 75) ;font-weight: bold;">GST Treatment*</label></div>
-                                 <div class="col-sm-12 col-md-6 col-lg-6 col-form-label">
-                                    <label style="font-weight: bold;">{{ vdata2.gst_treatment }}</label>      
-                                 </div>   
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-12 col-md-2 col-lg-2"></div>
-
-                                <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color:rgb(214, 75, 75) ;font-weight: bold;">GST-PAN Number*</label></div>
-                                 <div class="col-sm-12 col-md-6 col-lg-6 col-form-label">
-                                    {% if vdata2.gst_number == "null" %}
-                                    <label style="font-weight: bold;">{{ vdata2.pan_number }}</label> 
-                                    {% else %}   
-                                    <label style="font-weight: bold;">{{ vdata2.gst_number }}</label> 
-                                    <label for="">,</label>
-                                    <label style="font-weight: bold;">{{ vdata2.pan_number }}</label> 
-    
-                                    {% endif %}                
-                                 </div>   
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-sm-12 col-md-2 col-lg-2"></div>
-
-                                <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color:rgb(214, 75, 75) ;font-weight: bold;">Opening Balance*</label></div>
-                                 <div class="col-sm-12 col-md-6 col-lg-6 col-form-label">
-                                    <label style="font-weight: bold;">{{ vdata2.opening_bal }}</label>      
-                                 </div>   
-                            </div>
-                        <div class="form-group row">
-                            <div class="col-sm-12 col-md-2 col-lg-2"></div>
-
-                            <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color: rgb(230, 171, 45);font-size:medium;">Email Id</label></div>
-                             <div class="col-sm-12 col-md-6 col-lg-6 col-form-label">
-                                <label style="font-weight:lighter;">{{ vdata2.vendor_email }}</label>      
-                             </div>   
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-12 col-md-2 col-lg-2"></div>
-
-                            <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color: rgb(230, 171, 45);">Phone Number</label></div>
-                             <div class="col-sm-12 col-md-6 col-lg-6 col-form-label">
-                                <label style="font-weight:lighter;">{{ vdata2.vendor_wphone }} , {{ vdata2.vendor_mphone }}</label>      
-                             </div>   
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-12 col-md-2 col-lg-2"></div>
-
-                            <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color: rgb(230, 171, 45);">Website</label></div>
-                             <div class="col-sm-12 col-md-6 col-lg-6 col-form-label">
-                                <label style="font-weight:lighter;">{{ vdata2.website }}</label>      
-                             </div>   
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-12 col-md-2 col-lg-2"></div>
-
-                            <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color: rgb(230, 171, 45);">Skype Number</label></div>
-                             <div class="col-sm-12 col-md-6 col-lg-6 col-form-label">
-                                <label style="font-weight:lighter;">{{ vdata2.skype_number }}</label>      
-                             </div>   
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-12 col-md-2 col-lg-2"></div>
-
-                            <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color: rgb(230, 171, 45);">Designation</label></div>
-                             <div class="col-sm-12 col-md-6 col-lg-6 col-form-label">
-                                <label style="font-weight:lighter;">{{ vdata2.designation }}</label>      
-                             </div>   
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-12 col-md-2 col-lg-2"></div>
-
-                            <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color: rgb(230, 171, 45);">Department</label></div>
-                             <div class="col-sm-12 col-md-6 col-lg-6 col-form-label">
-                                <label style="font-weight:lighter;">{{ vdata2.department }}</label>      
-                             </div>   
-                        </div>                       
+                        {% for v in proj %}
+                        <div class="form-group row mt-4"><label style="color: rgb(230, 171, 45);font-size: 1.5rem;">Project Name:</label>
+                        <a class="text-white"  style="font-size: 1.5rem;">{{v.name}}</a><br>
+                        <label style="color: rgb(230, 171, 45);font-size: 1.5rem;">Project Description:</label><br>
+                            <a class="text-white" style="font-size: 1.5rem;">{{v.desc}}</a><br>
+                            <label style="color: rgb(230, 171, 45);font-size: 1.5rem;">Rate per hour (in Rs.):</label><br>
+                                <a class="text-white" style="font-size: 1.5rem;">Rs. {{v.rateperhour}}</a><br>
+                                <label style="color: rgb(230, 171, 45);font-size: 1.5rem;">Billing:</label><br>
+                                    <a class="text-white" style="font-size: 1.5rem;">{{v.billing}}</a><br>
+                                    <label style="color: rgb(230, 171, 45);font-size: 1.5rem;">Customer Name:</label><br>
+                                        <a class="text-white" style="font-size: 1.5rem;">{{v.c_name.customerName}}</a></div>
+                            {% endfor %}
+                            {% for v in proj %}
+                            <label for="">Users</label><br>
+                            <table class="table text-black" id="user_table">
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th class="text-right">E-mail</th>
+                                        <th class="text-right">Role</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id="user_row1">
+                                        <td>
+                                            <a class="text-white"  style="font-size: 1.5rem;">{{v.usern}}</a>
+                                        </td>
+                                        <td class="text-right">
+                                            <a class="text-white"  style="font-size: 1.5rem;">{{v.email}}</a>
+                                        </td>
+                                        <td class="text-right">
+                                            <a class="text-white"  style="font-size: 1.5rem;">staff</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <label for="">Tasks</label><br>
+                            <table class="table text-black" id="task_table">
+                                <thead>
+                                    <tr>
+                                        <th>Task name</th>
+                                        <th class="text-right">Description</th>
+                                        <th class="text-right">Type</th>
+                                        
                         
-                       
-                        <div class="form-group row">
-                            <div class="col-sm-12 col-md-2 col-lg-2"></div>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id="task_row1">
+                                        <td>
+                                            <a class="text-white"  style="font-size: 1.5rem;">{{v.taskn}}</a>
+                                        </td>
+                                        <td class="text-right">
+                                            <a class="text-white"  style="font-size: 1.5rem;">{{v.taskdesc}}</a>
+                                        </td>
+                                        <td class="text-right">
+                                            <a class="text-white"  style="font-size: 1.5rem;">Billable</a>
+                                        </td>
+                                        
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                          
+                          
+                            {% endfor %}
 
-                            <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color: rgb(230, 171, 45);">Payment Terms</label></div>
-                             <div class="col-sm-12 col-md-6 col-lg-6 col-form-label">
-                                <label style="font-weight:lighter;">{{ vdata2.payment_terms }}</label>      
-                             </div>   
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-12 col-md-2 col-lg-2"></div>
-
-                            <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color: rgb(230, 171, 45);">Source of supply</label></div>
-                             <div class="col-sm-12 col-md-6 col-lg-6 col-form-label">
-                                <label style="font-weight:lighter;">{{ vdata2.source_supply }}</label>      
-                             </div>   
-                        </div>
                     </div>
                     <br><br><br> <br><br>          
                   </fieldset1> 
 
                   <fieldset2 id="comments" style="display: none;">
-                    <form action="{% url 'add_comment' vdata2.id %}" method="post">
+                    <form action="#" method="post">
                         {% csrf_token %}
                         <div class="form-group row mt-4">
                             <div class="col-sm-12 col-md-6 col-lg-6">
@@ -232,7 +203,7 @@
                         </div>
                     </div>
                     <div style="height: 450px;overflow-y: scroll;">
-                        <form action="{% url 'sendmail' vdata2.id %}" method="post" enctype="multipart/form-data" class="was-validated">
+                        <form action="#" method="post" enctype="multipart/form-data" class="was-validated">
                             {% csrf_token %}
                             <div class="form-group row mt-4">
                                 <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color: rgb(230, 171, 45);">To</label></div>
@@ -331,7 +302,7 @@
 
                         </div>
                     </div>
-                    <form action="{% url 'upload_document' vdata2.id %}" method="post" enctype="multipart/form-data" class="was-validated">
+                    <form action="#" method="post" enctype="multipart/form-data" class="was-validated">
                         {% csrf_token %}
                         
                         <div class="form-group row mt-4">
@@ -406,6 +377,7 @@
         </div>
     </div>
 </div>
+
 
 <script>
    

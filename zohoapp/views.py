@@ -2626,6 +2626,9 @@ def addproj(request):
         proj=project1(name=name,desc=desc,c_name=cat,billing=billing,rateperhour=rateperhour,usern=usern,email=email,taskn=taskn,taskdesc=taskdesc)
         proj.save()  
         return render(request,'proj.html')   
-def overview(request):
-    proj=project1.objects.all()
-    return render(request,'overview.html',{'proj':proj})
+def overview(request,id):
+    proj=project1.objects.filter(id=id)
+    print(proj)
+    proje=project1.objects.all()
+    return render(request,'overview.html',{'proj':proj,'proje':proje})
+
