@@ -48,18 +48,23 @@
                 <div class="row">
                     <div class="col-sm-12 col-md-8 col-lg-8 mt-3">
                         <a class="text-white" style="font-size: 2rem;"><i class="fa-sharp fa-regular fa-circle-dot"></i>&nbsp;&nbsp;&nbsp;&nbsp;Overview</a>
-                    </div> {% for v in proj %} 
+                    </div>
                     <div class="col-sm-12 col-md-4 col-lg-4  mt-3">
-                        <a style="color: #ccc;" class="btn btn-success mr-2" href="{% url 'editproj' v.id %}"></i>Edit</a>
+                        <a style="color: #ccc;" class="btn btn-success mr-2" href="#"></i>Edit</a>
                         <!-- <a style="color: #ccc;background-color: rgb(46, 46, 46);" class="btn  mr-2" href="" ></i><i class="fa-solid fa-paperclip"></i></a>
                         <a style="color: #ccc;background-color: rgb(46, 46, 46);" class="btn  mr-2" href=""></i><i class="fa-sharp fa-solid fa-xmark"></i></a> -->
-                    </div>  {% endfor %}                 
+                    </div>                   
                 </div>
+               
                 <span class="input-group mb-1 pt-3" style="border-bottom: 1px solid rgb(37, 37, 37);border-top: 1px solid rgb(37, 37, 37);">
-                    <div id="over" class="toggle1"
-                      style="color: rgb(230, 171, 45);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
-                      <button onclick="fieldset1_function()"   class="btn btn-warning">Overview</button> </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <div id="over"
+                    style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
+                    <!-- <button class="btn btn-warning">
 
+                    Delete</button> -->
+                    <a href="{% url 'overview' id=1 %}" class="btn btn-warning">Overview</a>
+                  </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      
                     <div id="over"  class="toggle2"
                       style="color: rgb(230, 171, 45);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
                       <button onclick="fieldset2_function()" class="btn btn-warning">Timesheet</button></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -77,84 +82,25 @@
                     &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
                     
                     <div id="over"
-                      style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
-                      <!-- <button class="btn btn-warning">
+                    style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
+                    <!-- <button class="btn btn-warning">
 
-                      Delete</button> -->
-                      <a href="{% url 'comment'  %}" class="btn btn-warning">Comment</a>
-                    </div>
+                    Delete</button> -->
+                    <a href="{% url 'comment'  %}" class="btn btn-warning">Comment</a>
+                  </div>
                     
                   </span> 
 
                   <fieldset1 id="overview" class="Overview" >
                     <div style="height: 400px;overflow-y: scroll;">
-                        {% for v in proj %}
-                        <div class="form-group row mt-4"><label style="color: rgb(230, 171, 45);font-size: 1.5rem;">Project Name:</label>
-                        <a class="text-white"  style="font-size: 1.5rem;">{{v.name}}</a><br>
-                        <label style="color: rgb(230, 171, 45);font-size: 1.5rem;">Project Description:</label><br>
-                            <a class="text-white" style="font-size: 1.5rem;">{{v.desc}}</a><br>
-                            <label style="color: rgb(230, 171, 45);font-size: 1.5rem;">Rate per hour (in Rs.):</label><br>
-                                <a class="text-white" style="font-size: 1.5rem;">Rs. {{v.rateperhour}}</a><br>
-                                <label style="color: rgb(230, 171, 45);font-size: 1.5rem;">Billing:</label><br>
-                                    <a class="text-white" style="font-size: 1.5rem;">{{v.billing}}</a><br>
-                                    <label style="color: rgb(230, 171, 45);font-size: 1.5rem;">Customer Name:</label><br>
-                                        <a class="text-white" style="font-size: 1.5rem;">{{v.c_name.customerName}}</a></div>
-                            {% endfor %}
-                            {% for v in proj %}
-                            <label for="">Users</label><br>
-                            <table class="table text-black" id="user_table">
-                                <thead>
-                                    <tr>
-                                        <th>User</th>
-                                        <th class="text-right">E-mail</th>
-                                        <th class="text-right">Role</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr id="user_row1">
-                                        <td>
-                                            <a class="text-white"  >{{v.usern}}</a>
-                                        </td>
-                                        <td class="text-right">
-                                            <a class="text-white"  >{{v.email}}</a>
-                                        </td>
-                                        <td class="text-right">
-                                            <a class="text-white"  >staff</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            
-                            <label for="">Tasks</label><br>
-                            <table class="table text-black" id="task_table">
-                                <thead>
-                                    <tr>
-                                        <th>Task name</th>
-                                        <th class="text-right">Description</th>
-                                        <th class="text-right">Type</th>
-                                        
-                        
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr id="task_row1">
-                                        <td>
-                                            <a class="text-white"  >{{v.taskn}}</a>
-                                        </td>
-                                        <td class="text-right">
-                                            <a class="text-white"  >{{v.taskdesc}}</a>
-                                        </td>
-                                        <td class="text-right">
-                                            <a class="text-white"  >Billable</a>
-                                        </td>
-                                        
-                                        
-                                    </tr>
-                                </tbody>
-                            </table>
-                          
-                          
-                            {% endfor %}
+                     <textarea name="comment" rows="12" cols="56"> </textarea><br>
+                     <div id="over"
+                    style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
+                    <!-- <button class="btn btn-warning">
+
+                    Delete</button> -->
+                    <a href="#" class="btn btn-warning">Add Comment</a>
+                  </div>
 
                     </div>
                     <br><br><br> <br><br>          

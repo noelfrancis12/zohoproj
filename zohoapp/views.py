@@ -2632,3 +2632,26 @@ def overview(request,id):
     proje=project1.objects.all()
     return render(request,'overview.html',{'proj':proj,'proje':proje})
 
+def comment(request):
+    proje=project1.objects.all()
+    return render(request,'comment.html',{'proj':proj,'proje':proje})
+def editproj(request,id):
+    proj=project1.objects.get(id=id)
+    data=customer.objects.all()
+    return render(request,'editoverview.html',{'data':data,'proj':proj})
+def editprojdb(request,id):
+   if request.method=='POST':
+         proj=project1.objects.get(id=id)
+         proj.name=request.POST['name']
+         proj.desc=request.POST['desc']
+         proj.billing=request.POST['billing']
+         proj.rateperhour=request.POST['rateperhour']
+         proj.usern=request.POST['usern']
+         proj.email=request.POST['email']
+         proj.taskn=request.POST['taskn']
+         proj.taskdesc=request.POST['taskdesc']
+         c_name=request.POST['c_name']
+         cat=customer.objects.get(id=c_name)
+         proj.c_name=cat
+         proj.save()
+   return render(request,'editoverview.html')

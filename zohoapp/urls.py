@@ -121,8 +121,9 @@ urlpatterns = [
     path('vproj', views.vproj, name='vproj'),
     path('addproj', views.addproj, name='addproj'),
     path('overview/<int:id>/', views.overview, name='overview'),
+    path('editproj/<int:id>',views.editproj,name='editproj'),
+    path('editprojdb/<int:id>',views.editprojdb,name='editprojdb'),
 
-    
     path('view_sales_order',views.view_sales_order,name='view_sales_order'),
     path('create_sales_order',views.create_sales_order,name='create_sales_order'),
     path('add_customer_for_sorder',views.add_customer_for_sorder,name='add_customer_for_sorder'),
@@ -132,7 +133,7 @@ urlpatterns = [
     path('sales_order_det/<int:id>',views.sales_order_det,name='sales_order_det'),
     path('edit_sales_order/<int:id>',views.edit_sales_order,name='edit_sales_order'),
     path('delet_sales/<int:id>',views.delet_sales,name='delet_sales'),
-
+    path('comment', views.comment, name='comment'),
     
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
     
