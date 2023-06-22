@@ -2637,8 +2637,9 @@ def comment(request):
     return render(request,'comment.html',{'proj':proj,'proje':proje})
 def editproj(request,id):
     proj=project1.objects.get(id=id)
+    proje=project1.objects.all()
     data=customer.objects.all()
-    return render(request,'editoverview.html',{'data':data,'proj':proj})
+    return render(request,'editoverview.html',{'data':data,'proj':proj,'proje':proje})
 def editprojdb(request,id):
    if request.method=='POST':
          proj=project1.objects.get(id=id)

@@ -90,15 +90,15 @@
                     <div style="height: 400px;overflow-y: scroll;">
                         {% for v in proj %}
                         <div class="form-group row mt-4"><label style="color: rgb(230, 171, 45);font-size: 1.5rem;">Project Name:</label>
-                        <a class="text-white"  style="font-size: 1.5rem;">{{v.name}}</a><br>
+                        <a class="text-white" >{{v.name}}</a><br>
                         <label style="color: rgb(230, 171, 45);font-size: 1.5rem;">Project Description:</label><br>
-                            <a class="text-white" style="font-size: 1.5rem;">{{v.desc}}</a><br>
+                            <a class="text-white" >{{v.desc}}</a><br>
                             <label style="color: rgb(230, 171, 45);font-size: 1.5rem;">Rate per hour (in Rs.):</label><br>
-                                <a class="text-white" style="font-size: 1.5rem;">Rs. {{v.rateperhour}}</a><br>
+                                <a class="text-white" >Rs. {{v.rateperhour}}</a><br>
                                 <label style="color: rgb(230, 171, 45);font-size: 1.5rem;">Billing:</label><br>
-                                    <a class="text-white" style="font-size: 1.5rem;">{{v.billing}}</a><br>
+                                    <a class="text-white" >{{v.billing}}</a><br>
                                     <label style="color: rgb(230, 171, 45);font-size: 1.5rem;">Customer Name:</label><br>
-                                        <a class="text-white" style="font-size: 1.5rem;">{{v.c_name.customerName}}</a></div>
+                                        <a class="text-white" >{{v.c_name.customerName}}</a></div>
                             {% endfor %}
                             {% for v in proj %}
                             <label for="">Users</label><br>
