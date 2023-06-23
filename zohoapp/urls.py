@@ -123,6 +123,7 @@ urlpatterns = [
     path('overview/<int:id>/', views.overview, name='overview'),
     path('editproj/<int:id>',views.editproj,name='editproj'),
     path('editprojdb/<int:id>',views.editprojdb,name='editprojdb'),
+    path('delproj/<int:id>',views.delproj,name='delproj'),
 
     path('view_sales_order',views.view_sales_order,name='view_sales_order'),
     path('create_sales_order',views.create_sales_order,name='create_sales_order'),

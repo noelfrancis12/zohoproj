@@ -8,7 +8,9 @@
         background-color: rgba(110, 110, 110, 0.616);
         font-weight:bold ;
     }
-    
+    .image-upload>input {
+  display: none;
+}
 </style>
 
 <div class="fixed-top" style="top: 7rem; margin-left: 18rem;">
@@ -35,7 +37,7 @@
                                   {% for v in proje %}                    
                                   <tr id="over">                     
                                     <td><i class="fa-sharp fa-light fa-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<a id="aover" href="{% url 'overview' v.id %}" style="color: rgb(230, 171, 45);">{{v.name}}</a></td>
-                                    <td><i class="fa-sharp fa-light fa-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<a id="aover" href="#" style="color: rgb(230, 171, 45);">Rs. {{v.rateperhour}}</a></td>                          
+                                    <td><i class="fa-sharp fa-light fa-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<a id="aover" href="#" style="color: rgb(230, 171, 45);">Rs. {{v.rateperhour}} {{v.taskrate}}</a></td>                          
                                   </tr>
                                   {% endfor %}
                                 </tbody>
@@ -50,10 +52,20 @@
                         <a class="text-white" style="font-size: 2rem;"><i class="fa-sharp fa-regular fa-circle-dot"></i>&nbsp;&nbsp;&nbsp;&nbsp;Overview</a>
                     </div> {% for v in proj %} 
                     <div class="col-sm-12 col-md-4 col-lg-4  mt-3">
-                        <a style="color: #ccc;" class="btn btn-success mr-2" href="{% url 'editproj' v.id %}"></i>Edit</a>
+                        <a style="color: #ccc;" class="btn btn-success mr-2" href="{% url 'editproj' v.id %}"></i>Edit</a>  
+                        <a style="color: #ccc;" class="btn btn-success mr-2" href="{% url 'delproj' v.id %}"></i>Delete</a>
+                        
+                            <label for="file-input">
+                              <img src="https://cdn-icons-png.flaticon.com/128/9329/9329892.png" style="height: 40px;width: 40px;"/>
+                            </label>
+                          
+                            <input id="file-input" type="file" style="display: none;" />
+                         
                         <!-- <a style="color: #ccc;background-color: rgb(46, 46, 46);" class="btn  mr-2" href="" ></i><i class="fa-solid fa-paperclip"></i></a>
                         <a style="color: #ccc;background-color: rgb(46, 46, 46);" class="btn  mr-2" href=""></i><i class="fa-sharp fa-solid fa-xmark"></i></a> -->
-                    </div>  {% endfor %}                 
+                    </div> 
+                    
+                    {% endfor %}                 
                 </div>
                 <span class="input-group mb-1 pt-3" style="border-bottom: 1px solid rgb(37, 37, 37);border-top: 1px solid rgb(37, 37, 37);">
                     <div id="over" class="toggle1"
@@ -89,17 +101,53 @@
                   <fieldset1 id="overview" class="Overview" >
                     <div style="height: 400px;overflow-y: scroll;">
                         {% for v in proj %}
-                        <div class="form-group row mt-4"><label style="color: rgb(230, 171, 45);font-size: 1.5rem;">Project Name:</label>
-                        <a class="text-white" >{{v.name}}</a><br>
-                        <label style="color: rgb(230, 171, 45);font-size: 1.5rem;">Project Description:</label><br>
-                            <a class="text-white" >{{v.desc}}</a><br>
-                            <label style="color: rgb(230, 171, 45);font-size: 1.5rem;">Rate per hour (in Rs.):</label><br>
-                                <a class="text-white" >Rs. {{v.rateperhour}}</a><br>
-                                <label style="color: rgb(230, 171, 45);font-size: 1.5rem;">Billing:</label><br>
-                                    <a class="text-white" >{{v.billing}}</a><br>
-                                    <label style="color: rgb(230, 171, 45);font-size: 1.5rem;">Customer Name:</label><br>
-                                        <a class="text-white" >{{v.c_name.customerName}}</a></div>
+                        <div class="form-group row mt-4">
+                            <div class="col-sm-12 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color:rgb(214, 75, 75) ;font-weight: bold;">Project Name:</label></div>
+                             <div class="col-sm-12 col-md-6 col-lg-6 col-form-label">
+                                <label style="font-weight: bold;">{{ v.name }}</label>      
+                             </div>   
+                        </div>
+                        <div class="form-group row mt-4">
+                            <div class="col-sm-12 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color:rgb(214, 75, 75) ;font-weight: bold;">Project Description:</label></div>
+                             <div class="col-sm-12 col-md-6 col-lg-6 col-form-label">
+                                <label style="font-weight: bold;">{{ v.desc }}</label>      
+                             </div>   
+                        </div>
+                        <div class="form-group row mt-4">
+                            <div class="col-sm-12 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color:rgb(214, 75, 75) ;font-weight: bold;">Rate per hour(in Rs.):</label></div>
+                             <div class="col-sm-12 col-md-6 col-lg-6 col-form-label">
+                                <label style="font-weight: bold;">{{ v.taskrate }} {{v.rateperhour}}</label>      
+                             </div>   
+                        </div>
+                                <div class="form-group row mt-4">
+                            <div class="col-sm-12 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color:rgb(214, 75, 75) ;font-weight: bold;">Billing:</label></div>
+                             <div class="col-sm-12 col-md-6 col-lg-6 col-form-label">
+                                <label style="font-weight: bold;">{{ v.billing}}</label>      
+                             </div>   
+                        </div>
+                        <div class="form-group row mt-4">
+                            <div class="col-sm-12 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color:rgb(214, 75, 75) ;font-weight: bold;">Budget Type:</label></div>
+                             <div class="col-sm-12 col-md-6 col-lg-6 col-form-label">
+                                <label style="font-weight: bold;">{{ v.budget }}</label>      
+                             </div>   
+                        </div>
+                        <div class="form-group row mt-4">
+                            <div class="col-sm-12 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color:rgb(214, 75, 75) ;font-weight: bold;">Customer Name:</label></div>
+                             <div class="col-sm-12 col-md-6 col-lg-6 col-form-label">
+                                <label style="font-weight: bold;">{{ v.c_name.customerName }}</label>      
+                             </div>   
+                        </div>
                             {% endfor %}
+
+
+
+                            
                             {% for v in proj %}
                             <label for="">Users</label><br>
                             <table class="table text-black" id="user_table">

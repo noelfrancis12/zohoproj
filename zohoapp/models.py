@@ -415,4 +415,6 @@ class project1(models.Model):
     email=models.CharField(max_length=255)
     taskn=models.CharField(max_length=255)
     taskdesc=models.CharField(max_length=255)
-    taskrate=models.CharField(max_length=255)
+    budget=models.CharField(max_length=255,null=True)
+    taskrate=models.CharField(max_length=255, null=True)
+    

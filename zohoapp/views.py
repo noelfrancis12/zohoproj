@@ -2606,6 +2606,7 @@ def proj(request):
     data=customer.objects.filter(user=udata)
     print("Hello")
     print(data)
+   
     return render(request,'proj.html',{'data':data})
 def vproj(request):
     proj=project1.objects.all()
@@ -2621,10 +2622,12 @@ def addproj(request):
         email=request.POST.get('email')
         taskn=request.POST.get('taskn')
         taskdesc=request.POST.get('taskdesc')
-        
+        taskrate=request.POST.get('taskrate')
+        budget=request.POST.get('budget')
         cat=customer.objects.get(id=c_name)
-        proj=project1(name=name,desc=desc,c_name=cat,billing=billing,rateperhour=rateperhour,usern=usern,email=email,taskn=taskn,taskdesc=taskdesc)
-        proj.save()  
+        proj=project1(name=name,desc=desc,c_name=cat,billing=billing,rateperhour=rateperhour,usern=usern,email=email,taskn=taskn,taskdesc=taskdesc,taskrate=taskrate,budget=budget)
+        proj.save() 
+        
         return render(request,'proj.html')   
 def overview(request,id):
     proj=project1.objects.filter(id=id)
@@ -2651,8 +2654,17 @@ def editprojdb(request,id):
          proj.email=request.POST['email']
          proj.taskn=request.POST['taskn']
          proj.taskdesc=request.POST['taskdesc']
+         proj.budget=request.POST['budget']
+         if request.POST['taskrate'] !=None :
+              
+            proj.taskrate=request.POST['taskrate']
          c_name=request.POST['c_name']
          cat=customer.objects.get(id=c_name)
          proj.c_name=cat
          proj.save()
-   return render(request,'editoverview.html')
+         
+   return redirect('overview',id)
+def delproj(request,id):
+    projd=project1.objects.get(id=id)
+    projd.delete()
+    return redirect('vproj')

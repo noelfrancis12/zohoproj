@@ -19,7 +19,7 @@
           <div style="height: 600px;overflow-y: scroll;">
              <h3  class="mb-3  text-white " style="font-size: 2rem;">EditProject</h3><br>     
       
-            <form  method="post" action="{% url 'editprojdb' proj.id %}"  enctype="multipart/form-data" class="">
+            <form  method="post" action="{% url 'editprojdb' proj.id %}"  enctype="multipart/form-data" >
               {% csrf_token %}
               
               
@@ -92,7 +92,7 @@
                             <label >Rate per hour*</label>
                         </div>
                         <div class="col-sm-12 col-md-6 col-lg-6">
-                            <input  type="text" class="form-control" name="rateperhour"  id="inputBox"  value="{{proj.rateperhour}}">     
+                            <input  type="text" class="form-control" name="rateperhour"  id="inputBox"  value="{{proj.rateperhour}} ">     
                                 
          
                         </div>
@@ -100,12 +100,39 @@
                     </div>
                     
                 </div>
-                    <center>
+
+                <div id="inputBoxContainer" >
+                    <div class=" form-group row">
+                        <div class="col-sm-12 col-md-3 col-lg-3 col-form-label">
+                            <label >Task Rate*</label>
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <input  type="text" class="form-control" name="taskrate"  id="inputBox"  value="{{proj.taskrate}}">     
+                                
+         
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="form-group row mt-4">
+                    <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label>Budget Type*</label></div>
                     <div class="col-sm-12 col-md-6 col-lg-6">
+                        <select name="budget" id="budgetMethodSelect" class="form-control">
+                            <option value="Total budget cost">Total budget cost</option>
+                            <option value="Total project hours">Total project hours(HH:MM)</option>
+                            <option value="Hours per task">Hours per task</option>
+                            <option value="Hours per staff">Hours per staff</option>
+                        </select>
+                    </div>
+                </div>
+
+                    <center>
+                    <!--<div class="col-sm-12 col-md-6 col-lg-6">
                          <input  type="checkbox"  name="w_phone" placeholder="work phone" required>
                             
                          <label class="col-sm-12 col-md-6 col-lg-6 ">Add budget for this project.</label>
-                     </div>
+                     </div>-->
                     </center>
  
                     <label for="">Users</label><br>
@@ -164,11 +191,11 @@
         </tbody>
     </table>
     <button type="button" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="add-task-row">Add another line</button><br><br>
-    <div class="col-sm-12 col-md-6 col-lg-6">
+    <!--<div class="col-sm-12 col-md-6 col-lg-6">
         <input  type="checkbox"  name="w_phone" placeholder="work phone" required>
            
         <label class="col-sm-12 col-md-6 col-lg-6 ">Add to the watchlist on my dashboard.</label>
-    </div>
+    </div>-->
     <button type="submit" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="save-btn">Save</button>
     <button type="button" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="cancel-btn">Cancel</button>
     <script>
