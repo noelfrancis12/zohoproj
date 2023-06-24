@@ -406,6 +406,7 @@ class sales_item(models.Model):
     sale=models.ForeignKey(SalesOrder,on_delete=models.CASCADE,null=True,blank=True)
 
 class project1(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     name=models.CharField(max_length=255)
     desc=models.CharField(max_length=255)
     c_name=models.ForeignKey(customer,on_delete=models.CASCADE,null=True,blank=True)

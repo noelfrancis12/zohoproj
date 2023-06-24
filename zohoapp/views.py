@@ -2606,8 +2606,8 @@ def proj(request):
     data=customer.objects.filter(user=udata)
     print("Hello")
     print(data)
-   
-    return render(request,'proj.html',{'data':data})
+    u=User.objects.all()
+    return render(request,'proj.html',{'data':data,'u':u})
 def vproj(request):
     proj=project1.objects.all()
     return render(request,'projlist.html',{'proj':proj})
@@ -2618,14 +2618,13 @@ def addproj(request):
         c_name=request.POST.get('c_name')
         billing=request.POST.get('billing')
         rateperhour=request.POST.get('rateperhour')
-        usern=request.POST.get('usern')
-        email=request.POST.get('email')
+       
         taskn=request.POST.get('taskn')
         taskdesc=request.POST.get('taskdesc')
         taskrate=request.POST.get('taskrate')
         budget=request.POST.get('budget')
         cat=customer.objects.get(id=c_name)
-        proj=project1(name=name,desc=desc,c_name=cat,billing=billing,rateperhour=rateperhour,usern=usern,email=email,taskn=taskn,taskdesc=taskdesc,taskrate=taskrate,budget=budget)
+        proj=project1(name=name,desc=desc,c_name=cat,billing=billing,rateperhour=rateperhour,taskn=taskn,taskdesc=taskdesc,taskrate=taskrate,budget=budget)
         proj.save() 
         
         return render(request,'proj.html')   

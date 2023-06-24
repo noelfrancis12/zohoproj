@@ -69,6 +69,7 @@
                     <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label>Billing Method*</label></div>
                     <div class="col-sm-12 col-md-6 col-lg-6">
                         <select name="billing" id="billingMethodSelect" class="form-control">
+                            <option value=""></option>
                             <option value="Fixed cost for project">Fixed cost for project</option>
                             <option value="Based on project hours">Based on project hours</option>
                             <option value="Based on staff hours">Based on staff hours</option>
@@ -94,6 +95,7 @@
                     <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label>Budget Type*</label></div>
                     <div class="col-sm-12 col-md-6 col-lg-6">
                         <select name="budget" id="budgetMethodSelect" class="form-control">
+                            <option value=""></option>
                             <option value="Total budget cost">Total budget cost</option>
                             <option value="Total project hours">Total project hours(HH:MM)</option>
                             <option value="Hours per task">Hours per task</option>
@@ -121,10 +123,14 @@
         <tbody>
             <tr id="user_row1">
                 <td>
-                    <input type="text" class="form-control" id="user1" name="usern">
+                    <select name="user_select" id="user_select" class="form-control">
+                        {% for d in u %}
+                            <option value="{{d.id}}" data-email="{{d.email}}">{{d.username}}</option>
+                        {% endfor %}
+                    </select>
                 </td>
                 <td class="text-right">
-                    <input type="email" class="form-control" id="email1" name="email">
+                    <input type="email" class="form-control" id="email1" name="email" >
                 </td>
                 <td class="text-center">
                     <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" style="width:30px">
@@ -174,15 +180,47 @@
     </div>-->
     <button type="submit" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="save-btn">Save</button>
     <button type="button" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="cancel-btn">Cancel</button>
+
+
+
     <script>
-        document.getElementById('cancel-btn').addEventListener('click', function() {
-          // Clear input fields when cancel button is clicked
-          var inputFields = document.querySelectorAll('input[type="text"]');
-          for (var i = 0; i < inputFields.length; i++) {
-            inputFields[i].value = '';
-          }
+        const addUserButton = document.getElementById('add-user-row');
+        const userTableBody = document.querySelector('#user_table tbody');
+        let rowCounter = 1;
+    
+        addUserButton.addEventListener('click', function() {
+            const newRow = document.getElementById('user_row1').cloneNode(true);
+            rowCounter++;
+            newRow.setAttribute('id', 'user_row' + rowCounter);
+    
+            const userSelect = newRow.querySelector('select[name="user_select"]');
+            const emailInput = newRow.querySelector('input[name="email"]');
+    
+            userSelect.setAttribute('name', 'user_select' + rowCounter);
+            emailInput.setAttribute('name', 'email' + rowCounter);
+    
+            userTableBody.appendChild(newRow);
+            userSelect.addEventListener('change', function() {
+            const selectedOption = userSelect.options[userSelect.selectedIndex];
+            const email = selectedOption.getAttribute('data-email');
+            emailInput.value = email;
         });
-      </script>
+        });
+    </script>
+    <script>
+        const userSelect = document.getElementById('user_select');
+        const emailInput = document.getElementById('email1');
+    
+        userSelect.addEventListener('change', function() {
+            const selectedOption = userSelect.options[userSelect.selectedIndex];
+            const email = selectedOption.getAttribute('data-email');
+            emailInput.value = email;
+        });
+           // Event delegation for delete row functionality
+           $(document).on('click', '.delete-row', function () {
+                            $(this).closest('tr').remove();
+                        });
+    </script>
     <script>
         // Wait for the document to be ready
         $(document).ready(function() {
@@ -226,24 +264,24 @@
 
 
 
-                    <script>
-                        var userRowCounter = 1;
+                   <!--<script>
+                        //var userRowCounter = 1;
                         var taskRowCounter = 1;
                 
                         // Add row function for the user table
-                        function addUserRow() {
-                            userRowCounter++;
+                       // function addUserRow() {
+                           // userRowCounter++;
                 
-                            var newRow = '<tr id="user_row' + userRowCounter + '">' +
-                                '<td><input type="text" class="form-control"  id="user'  + userRowCounter + '"></td>' +
-                                '<td class="text-right"><input type="email" class="form-control"  id="email' + userRowCounter + '"></td>' +
-                                '<td class="text-center">' +
-                                '<button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" style="width:30px">' +
-                                '<i class="fa fa-times"></i></button></td>' +
-                                '</tr>';
+                          //  var newRow = '<tr id="user_row' + userRowCounter + '">' +
+                            //    '<td><input type="text" class="form-control"  id="user'  + userRowCounter + '"></td>' +
+                             //   '<td class="text-right"><input type="email" class="form-control"  id="email' + userRowCounter + '"></td>' +
+                             //   '<td class="text-center">' +
+                             //   '<button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" style="width:30px">' +
+                             //   '<i class="fa fa-times"></i></button></td>' +
+                             //   '</tr>';
                 
-                            $('#user_table tbody').append(newRow);
-                        }
+                          //  $('#user_table tbody').append(newRow);
+                     //   }
                 
                         // Add row function for the task table
                         function addTaskRow() {
@@ -262,9 +300,9 @@
                         }
                 
                         // Event listener for Add User Row button
-                        $('#add-user-row').on('click', function () {
-                            addUserRow();
-                        });
+                      //  $('#add-user-row').on('click', function () {
+                      //      addUserRow();
+                     //   });
                 
                         // Event listener for Add Task Row button
                         $('#add-task-row').on('click', function () {
@@ -272,10 +310,10 @@
                         });
                 
                         // Event delegation for delete row functionality
-                        $(document).on('click', '.delete-row', function () {
-                            $(this).closest('tr').remove();
-                        });
-                    </script>
+                      //  $(document).on('click', '.delete-row', function () {
+                       //     $(this).closest('tr').remove();
+                      //  });
+                    </script>-->
 
 
 <script>
