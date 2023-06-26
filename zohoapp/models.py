@@ -405,6 +405,7 @@ class sales_item(models.Model):
     rate=models.TextField(max_length=255,null=True,blank=True)
     sale=models.ForeignKey(SalesOrder,on_delete=models.CASCADE,null=True,blank=True)
 
+
 class project1(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     name=models.CharField(max_length=255)
@@ -419,3 +420,9 @@ class project1(models.Model):
     budget=models.CharField(max_length=255,null=True)
     taskrate=models.CharField(max_length=255, null=True)
     
+class task(models.Model):
+    proj=models.ForeignKey(project1,on_delete=models.CASCADE,null=True,blank=True)
+    taskname=models.CharField(max_length=255) 
+    taskdes=models.CharField(max_length=255)
+    taskrph= models.CharField(max_length=255) 
+    billable=models.CharField(max_length=255)

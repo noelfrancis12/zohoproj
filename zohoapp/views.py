@@ -2607,7 +2607,8 @@ def proj(request):
     print("Hello")
     print(data)
     u=User.objects.all()
-    return render(request,'proj.html',{'data':data,'u':u})
+    tasks=task.objects.all()
+    return render(request,'proj.html',{'data':data,'u':u,'tasks':tasks})
 def vproj(request):
     proj=project1.objects.all()
     return render(request,'projlist.html',{'proj':proj})
@@ -2619,14 +2620,19 @@ def addproj(request):
         billing=request.POST.get('billing')
         rateperhour=request.POST.get('rateperhour')
        
-        taskn=request.POST.get('taskn')
-        taskdesc=request.POST.get('taskdesc')
-        taskrate=request.POST.get('taskrate')
-        budget=request.POST.get('budget')
-        cat=customer.objects.get(id=c_name)
-        proj=project1(name=name,desc=desc,c_name=cat,billing=billing,rateperhour=rateperhour,taskn=taskn,taskdesc=taskdesc,taskrate=taskrate,budget=budget)
-        proj.save() 
         
+        budget=request.POST.get('budget')
+
+        taskname=request.POST.get('taskname')
+        taskdes=request.POST.get('taskdes')
+        taskrph=request.POST.get('taskrph')
+        billable=request.POST.get('billable')
+
+        cat=customer.objects.get(id=c_name)
+        proj=project1(name=name,desc=desc,c_name=cat,billing=billing,rateperhour=rateperhour,budget=budget)
+        proj.save() 
+        tasks=task(taskname=taskname,taskdes=taskdes,taskrph=taskrph,billable=billable)
+        tasks.save()
         return render(request,'proj.html')   
 def overview(request,id):
     proj=project1.objects.filter(id=id)
