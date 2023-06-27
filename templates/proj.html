@@ -159,16 +159,16 @@
         <tbody>
             <tr id="task_row1">
                 <td>
-                    <input type="text" class="form-control" id="task1" name="taskname">
+                    <input type="text" class="form-control" id="task1" name="taskname[]">
                 </td>
                 <td class="text-right">
-                    <input type="text" class="form-control" id="desc1" name="taskdes">
+                    <input type="text" class="form-control" id="desc1" name="taskdes[]">
                 </td>
                 <td class="text-right">
-                    <input type="text" class="form-control" id="tsk1" name="taskrph">
+                    <input type="text" class="form-control" id="tsk1" name="taskrph[]">
                 </td>
                 <td class="text-center">
-                    <input  type="checkbox"  name="billable" placeholder="work phone">
+                    <input  type="checkbox"  name="billable[]" placeholder="work phone">
            
                      <label style="color: gainsboro;">Billable</label>
                     <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" style="width:30px">
@@ -209,16 +209,16 @@
             $('#task_table tbody').append(`
                 <tr id="task_row${taskRowCounter}">
                     <td>
-                        <input type="text" class="form-control" id="task${taskRowCounter}" name="taskname">
+                        <input type="text" class="form-control" id="task${taskRowCounter}" name="taskname[]">
                     </td>
                     <td class="text-right">
-                        <input type="text" class="form-control" id="desc${taskRowCounter}" name="taskdes">
+                        <input type="text" class="form-control" id="desc${taskRowCounter}" name="taskdes[]">
                     </td>
                     <td class="text-right rate-column">
-                        <input type="text" class="form-control" id="tsk${taskRowCounter}" name="taskrph">
+                        <input type="text" class="form-control" id="tsk${taskRowCounter}" name="taskrph[]">
                     </td>
                     <td class="text-center">
-                        <input  type="checkbox"  name="billable" placeholder="work phone" >
+                        <input  type="checkbox"  name="billable[]" placeholder="work phone" >
                      <label style="color: gainsboro;">Billable</label>
                         <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" style="width:30px">
                             <i class="fa fa-times"></i>
@@ -230,13 +230,13 @@
             $('#task_table tbody').append(`
                 <tr id="task_row${taskRowCounter}">
                     <td>
-                        <input type="text" class="form-control" id="task${taskRowCounter}" name="taskname">
+                        <input type="text" class="form-control" id="task${taskRowCounter}" name="taskname[]">
                     </td>
                     <td class="text-right">
-                        <input type="text" class="form-control" id="desc${taskRowCounter}" name="taskdes">
+                        <input type="text" class="form-control" id="desc${taskRowCounter}" name="taskdes[]">
                     </td>
                     <td class="text-center rate-column">
-                        <input  type="checkbox"  name="billable" placeholder="work phone" >
+                        <input  type="checkbox"  name="billable[]" placeholder="work phone" >
                      <label style="color: gainsboro;">Billable</label>
                         <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" style="width:30px">
                             <i class="fa fa-times"></i>

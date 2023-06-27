@@ -2613,27 +2613,32 @@ def vproj(request):
     proj=project1.objects.all()
     return render(request,'projlist.html',{'proj':proj})
 def addproj(request):
-    if request.method=='POST':
-        name=request.POST.get('name')
-        desc=request.POST.get('desc')
-        c_name=request.POST.get('c_name')
-        billing=request.POST.get('billing')
-        rateperhour=request.POST.get('rateperhour')
-       
-        
-        budget=request.POST.get('budget')
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        desc = request.POST.get('desc')
+        c_name = request.POST.get('c_name')
+        billing = request.POST.get('billing')
+        rateperhour = request.POST.get('rateperhour')
+        budget = request.POST.get('budget')
 
-        taskname=request.POST.get('taskname')
-        taskdes=request.POST.get('taskdes')
-        taskrph=request.POST.get('taskrph')
-        billable=request.POST.get('billable')
+        taskname1 = request.POST.getlist('taskname[]')
+        taskdes1 = request.POST.getlist('taskdes[]')
+        taskrph1= request.POST.getlist('taskrph[]')
+        billable1 = request.POST.getlist('billable[]')
 
-        cat=customer.objects.get(id=c_name)
-        proj=project1(name=name,desc=desc,c_name=cat,billing=billing,rateperhour=rateperhour,budget=budget)
-        proj.save() 
-        tasks=task(taskname=taskname,taskdes=taskdes,taskrph=taskrph,billable=billable)
-        tasks.save()
-        return render(request,'proj.html')   
+        cat = customer.objects.get(id=c_name)
+        proj = project1(name=name, desc=desc, c_name=cat, billing=billing, rateperhour=rateperhour, budget=budget)
+        proj.save()
+
+        print(taskname1)
+        mapped = zip(taskname1, taskdes1, taskrph1, billable1)
+        mapped = list(mapped)
+        for ele in mapped:
+                tasks,vare = task.objects.get_or_create(taskname=ele[0], taskdes=ele[1], taskrph=ele[2], billable=ele[3],proj=proj)
+                
+
+        return render(request, 'proj.html')
+
 def overview(request,id):
     proj=project1.objects.filter(id=id)
     print(proj)
