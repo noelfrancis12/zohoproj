@@ -126,14 +126,14 @@
         <tbody>
             <tr id="user_row1">
                 <td>
-                    <select name="user_select" id="user_select" class="form-control">
+                    <select name="user_select[]" id="user_select1" class="form-control">
                         {% for d in u %}
                             <option value="{{d.id}}" data-email="{{d.email}}">{{d.username}}</option>
                         {% endfor %}
                     </select>
                 </td>
                 <td class="text-right">
-                    <input type="email" class="form-control" id="email1" name="email" >
+                    <input type="email" class="form-control" id="email1" name="email[]" >
                 </td>
                 <td class="text-center">
                     <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" style="width:30px">
@@ -168,7 +168,7 @@
                     <input type="text" class="form-control" id="tsk1" name="taskrph[]">
                 </td>
                 <td class="text-center">
-                    <input  type="checkbox"  name="billable[]" placeholder="work phone">
+                    <input  type="checkbox" id="billable1" name="billable[]" placeholder="work phone">
            
                      <label style="color: gainsboro;">Billable</label>
                     <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" style="width:30px">
@@ -218,7 +218,7 @@
                         <input type="text" class="form-control" id="tsk${taskRowCounter}" name="taskrph[]">
                     </td>
                     <td class="text-center">
-                        <input  type="checkbox"  name="billable[]" placeholder="work phone" >
+                        <input  type="checkbox" id="billable${taskRowCounter}" name="billable[]" placeholder="work phone" >
                      <label style="color: gainsboro;">Billable</label>
                         <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" style="width:30px">
                             <i class="fa fa-times"></i>
@@ -236,7 +236,7 @@
                         <input type="text" class="form-control" id="desc${taskRowCounter}" name="taskdes[]">
                     </td>
                     <td class="text-center rate-column">
-                        <input  type="checkbox"  name="billable[]" placeholder="work phone" >
+                        <input  type="checkbox" id="billable${taskRowCounter}" name="billable[]" placeholder="work phone" >
                      <label style="color: gainsboro;">Billable</label>
                         <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" style="width:30px">
                             <i class="fa fa-times"></i>
@@ -257,13 +257,13 @@
         addUserButton.addEventListener('click', function() {
             const newRow = document.getElementById('user_row1').cloneNode(true);
             rowCounter++;
-            newRow.setAttribute('id', 'user_row' + rowCounter);
+            newRow.setAttribute('id', 'user_row1' + rowCounter);
     
-            const userSelect = newRow.querySelector('select[name="user_select"]');
-            const emailInput = newRow.querySelector('input[name="email"]');
+            const userSelect = newRow.querySelector('select[name="user_select[]"]');
+            const emailInput = newRow.querySelector('input[name="email[]"]');
     
-            userSelect.setAttribute('name', 'user_select' + rowCounter);
-            emailInput.setAttribute('name', 'email' + rowCounter);
+            userSelect.setAttribute('name', 'user_select[]' + rowCounter);
+            emailInput.setAttribute('name', 'email[]' + rowCounter);
     
             userTableBody.appendChild(newRow);
             userSelect.addEventListener('change', function() {
@@ -274,7 +274,7 @@
         });
     </script>
     <script>
-        const userSelect = document.getElementById('user_select');
+        const userSelect = document.getElementById('user_select1');
         const emailInput = document.getElementById('email1');
     
         userSelect.addEventListener('change', function() {

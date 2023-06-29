@@ -408,29 +408,29 @@ class sales_item(models.Model):
 
 
 class project1(models.Model):
-    user=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    user=models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
     
-    name=models.CharField(max_length=255)
-    desc=models.CharField(max_length=255)
+    name=models.CharField(max_length=255,null=True,blank=True)
+    desc=models.CharField(max_length=255,null=True,blank=True)
     c_name=models.ForeignKey(customer,on_delete=models.CASCADE,null=True,blank=True)
-    billing=models.CharField(max_length=255)
-    rateperhour=models.CharField(max_length=255)
-    usern=models.CharField(max_length=255)
-    email=models.CharField(max_length=255)
-    taskn=models.CharField(max_length=255)
-    taskdesc=models.CharField(max_length=255)
-    budget=models.CharField(max_length=255,null=True)
-    taskrate=models.CharField(max_length=255, null=True)
+    billing=models.CharField(max_length=255,null=True,blank=True)
+    rateperhour=models.CharField(max_length=255,null=True,blank=True)
+    usern=models.CharField(max_length=255,null=True,blank=True)
+    email=models.CharField(max_length=255,null=True,blank=True)
+    taskn=models.CharField(max_length=255,null=True,blank=True)
+    taskdesc=models.CharField(max_length=255,null=True,blank=True)
+    budget=models.CharField(max_length=255,null=True,blank=True)
+    taskrate=models.CharField(max_length=255, null=True,blank=True)
     
 class task(models.Model):
     proj=models.ForeignKey(project1,on_delete=models.CASCADE,null=True,blank=True)
-    taskname=models.CharField(max_length=255) 
-    taskdes=models.CharField(max_length=255)
-    taskrph= models.CharField(max_length=255, null=True) 
-    billable=models.CharField(max_length=255)
+    taskname=models.CharField(max_length=255,null=True,blank=True) 
+    taskdes=models.CharField(max_length=255,null=True,blank=True)
+    taskrph= models.CharField(max_length=255, null=True,blank=True) 
+    billable = models.CharField(max_length=255, default='Not Billed',null=True,blank=True)
 
 class usernamez(models.Model):
     projn=models.ForeignKey(project1,on_delete=models.CASCADE,null=True,blank=True)
-    users=models.ForeignKey(User,on_delete=models.CASCADE,null=True)
-    usernamez=models.CharField(max_length=255, null=True)
-    emailz=models.CharField(max_length=255, null=True)
+    users=models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
+    usernamez=models.CharField(max_length=255, null=True,blank=True)
+    emailz=models.CharField(max_length=255, null=True,blank=True)

@@ -2608,7 +2608,8 @@ def proj(request):
     print(data)
     u=User.objects.all()
     tasks=task.objects.all()
-    return render(request,'proj.html',{'data':data,'u':u,'tasks':tasks})
+    uz=usernamez.objects.all()
+    return render(request,'proj.html',{'data':data,'u':u,'tasks':tasks,'uz':uz})
 def vproj(request):
     proj=project1.objects.all()
     return render(request,'projlist.html',{'proj':proj})
@@ -2622,22 +2623,39 @@ def addproj(request):
         budget = request.POST.get('budget')
 
         taskname1 = request.POST.getlist('taskname[]')
+        print(taskname1)
         taskdes1 = request.POST.getlist('taskdes[]')
-        taskrph1= request.POST.getlist('taskrph[]')
+        print(taskdes1)
+        taskrph1 = request.POST.getlist('taskrph[]')
+        print(taskrph1)
         billable1 = request.POST.getlist('billable[]')
-
+        print(billable1)
+        user_select1 = request.POST.getlist('user_select[]')
+        print(user_select1)
+        email1 = request.POST.getlist('email[]')
+        print(email1)
         cat = customer.objects.get(id=c_name)
         proj = project1(name=name, desc=desc, c_name=cat, billing=billing, rateperhour=rateperhour, budget=budget)
         proj.save()
 
-        print(taskname1)
-        mapped = zip(taskname1, taskdes1, taskrph1, billable1)
-        mapped = list(mapped)
-        for ele in mapped:
-                tasks,vare = task.objects.get_or_create(taskname=ele[0], taskdes=ele[1], taskrph=ele[2], billable=ele[3],proj=proj)
-                
+        mapped_tasks = zip(taskname1, taskdes1, taskrph1, billable1)
+        mapped_tasks = list(mapped_tasks)
+        for ele in mapped_tasks:
+            billable = 'Billed' if ele[3] == 'on' else 'Not Billed'
+            tasks, created = task.objects.get_or_create(
+                taskname=ele[0], taskdes=ele[1], taskrph=ele[2], billable=billable, proj=proj
+            )
+
+        mapped_users = zip(user_select1, email1)
+        mapped_users = list(mapped_users)
+        for elez in mapped_users:
+            usrz, varez = usernamez.objects.get_or_create(
+                usernamez=elez[0], emailz=elez[1], projn=proj
+            )
 
         return render(request, 'proj.html')
+
+
 
 def overview(request,id):
     proj=project1.objects.filter(id=id)
