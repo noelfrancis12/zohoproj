@@ -2610,6 +2610,7 @@ def proj(request):
     tasks=task.objects.all()
     uz=usernamez.objects.all()
     return render(request,'proj.html',{'data':data,'u':u,'tasks':tasks,'uz':uz})
+    
 def vproj(request):
     proj=project1.objects.all()
     return render(request,'projlist.html',{'proj':proj})

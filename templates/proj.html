@@ -115,7 +115,7 @@
                     </center>
  
                     <label for="">Users</label><br>
-    <table class="table text-black" id="user_table">
+    <table class="table text-black" id="tab_logic">
         <thead>
             <tr>
                 <th>User</th>
@@ -123,8 +123,8 @@
                 <th class="text-center">Actions</th>
             </tr>
         </thead>
-        <tbody>
-            <tr id="user_row1">
+        <tbody id="items-table-body">
+            <tr id="addr0">
                 <td>
                     <select name="user_select[]" id="user_select1" class="form-control">
                         {% for d in u %}
@@ -186,6 +186,10 @@
     </div>-->
     <button type="submit" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="save-btn">Save</button>
     <button type="button" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="cancel-btn">Cancel</button>
+
+
+
+   
     <script>
         var customerSelect = document.getElementById('customer-select');
         var customerEmailInput = document.getElementById('customer-email');
@@ -250,28 +254,36 @@
 </script>
 
     <script>
-        const addUserButton = document.getElementById('add-user-row');
-        const userTableBody = document.querySelector('#user_table tbody');
-        let rowCounter = 1;
-    
-        addUserButton.addEventListener('click', function() {
-            const newRow = document.getElementById('user_row1').cloneNode(true);
-            rowCounter++;
-            newRow.setAttribute('id', 'user_row1' + rowCounter);
-    
-            const userSelect = newRow.querySelector('select[name="user_select[]"]');
-            const emailInput = newRow.querySelector('input[name="email[]"]');
-    
-            userSelect.setAttribute('name', 'user_select[]' + rowCounter);
-            emailInput.setAttribute('name', 'email[]' + rowCounter);
-    
-            userTableBody.appendChild(newRow);
-            userSelect.addEventListener('change', function() {
-            const selectedOption = userSelect.options[userSelect.selectedIndex];
-            const email = selectedOption.getAttribute('data-email');
-            emailInput.value = email;
-        });
-        });
+    $(document).ready(function(){
+    var roinc = 0
+  $('#add-user-row').click(function(){
+    roinc++
+    console.log('hi')
+  $('#items-table-body').append( 
+    `<tr id="addr0${roinc}">
+                <td>
+                    <select name="user_select[]" id="user_select1" class="form-control">
+                        {% for d in u %}
+                            <option value="{{d.id}}" data-email="{{d.email}}">{{d.username}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <td class="text-right">
+                    <input type="email" class="form-control" id="email1" name="email[]" >
+                </td>
+                <td class="text-center">
+                    <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" style="width:30px">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </td>
+
+                <td><button type="button" id="${roinc}" class="btn btn-danger remove_row">-
+</button></td>
+            </tr> `
+          
+  );
+  });
+  
     </script>
     <script>
         const userSelect = document.getElementById('user_select1');
