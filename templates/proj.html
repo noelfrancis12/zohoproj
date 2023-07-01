@@ -126,14 +126,14 @@
         <tbody id="items-table-body">
             <tr id="addr0">
                 <td>
-                    <select name="user_select[]" id="user_select1" class="form-control">
-                        {% for d in u %}
-                            <option value="{{d.id}}" data-email="{{d.email}}">{{d.username}}</option>
+                    <select name="user_select[]" id="user_select" class="form-control">
+                        {% for d in uc %}
+                            <option value="{{d.id}}" data-email="{{d.emailzz}}">{{d.usernamezz}}</option>
                         {% endfor %}
                     </select>
                 </td>
                 <td class="text-right">
-                    <input type="email" class="form-control" id="email1" name="email[]" >
+                    <input type="email" class="form-control" id="email" name="email[]" >
                 </td>
                 <td class="text-center">
                     <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" style="width:30px">
@@ -189,7 +189,91 @@
 
 
 
-   
+    <script>
+        $(document).on('click', '#user_select', function(){
+            var select = $('#user_select').val();
+            $.ajax({
+                type: "GET",
+                url: "{% url 'itemdata' %}",
+                data: {
+                    id: select
+                },
+                success: function(response){
+                    console.log(response);
+                    var data = response.email;
+                    $('#email').val(data);
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).on('click', '#user_select1', function(){
+            var select = $('#user_select1').val();
+            $.ajax({
+                type: "GET",
+                url: "{% url 'itemdata' %}",
+                data: {
+                    id: select
+                },
+                success: function(response){
+                    console.log(response);
+                    var data = response.email;
+                    $('#email1').val(data);
+                }
+            });
+        });
+    </script>
+   <script>
+    $(document).on('click', '#user_select2', function(){
+        var select = $('#user_select2').val();
+        $.ajax({
+            type: "GET",
+            url: "{% url 'itemdata' %}",
+            data: {
+                id: select
+            },
+            success: function(response){
+                console.log(response);
+                var data = response.email;
+                $('#email2').val(data);
+            }
+        });
+    });
+</script> 
+<script>
+    $(document).on('click', '#user_select3', function(){
+        var select = $('#user_select3').val();
+        $.ajax({
+            type: "GET",
+            url: "{% url 'itemdata' %}",
+            data: {
+                id: select
+            },
+            success: function(response){
+                console.log(response);
+                var data = response.email;
+                $('#email3').val(data);
+            }
+        });
+    });
+</script> 
+<script>
+    $(document).on('click', '#user_select4', function(){
+        var select = $('#user_select4').val();
+        $.ajax({
+            type: "GET",
+            url: "{% url 'itemdata' %}",
+            data: {
+                id: select
+            },
+            success: function(response){
+                console.log(response);
+                var data = response.email;
+                $('#email4').val(data);
+            }
+        });
+    });
+</script>  
     <script>
         var customerSelect = document.getElementById('customer-select');
         var customerEmailInput = document.getElementById('customer-email');
@@ -253,7 +337,7 @@
 });
 </script>
 
-    <script>
+<script>
     $(document).ready(function(){
     var roinc = 0
   $('#add-user-row').click(function(){
@@ -262,27 +346,31 @@
   $('#items-table-body').append( 
     `<tr id="addr0${roinc}">
                 <td>
-                    <select name="user_select[]" id="user_select1" class="form-control">
-                        {% for d in u %}
-                            <option value="{{d.id}}" data-email="{{d.email}}">{{d.username}}</option>
+                    <select name="user_select[]" id="user_select${roinc}" class="form-control">
+                        {% for d in uc %}
+                            <option value="{{d.id}}" data-email="{{d.emailzz}}">{{d.usernamezz}}</option>
                         {% endfor %}
                     </select>
                 </td>
                 <td class="text-right">
-                    <input type="email" class="form-control" id="email1" name="email[]" >
+                    <input type="email" class="form-control" id="email${roinc}" name="email[]" >
                 </td>
                 <td class="text-center">
-                    <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" style="width:30px">
+                    <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle remove_row" style="width:30px" id="${roinc}">
                         <i class="fa fa-times"></i>
                     </button>
                 </td>
 
-                <td><button type="button" id="${roinc}" class="btn btn-danger remove_row">-
+               
 </button></td>
             </tr> `
-          
+  )}       
   );
   });
+  $(document).on('click','.remove_row',function(){
+            var row_id = $(this).attr("id");
+            $('#addr0'+row_id+'').remove();
+        });
   
     </script>
     <script>

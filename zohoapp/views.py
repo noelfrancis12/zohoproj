@@ -2609,7 +2609,8 @@ def proj(request):
     u=User.objects.all()
     tasks=task.objects.all()
     uz=usernamez.objects.all()
-    return render(request,'proj.html',{'data':data,'u':u,'tasks':tasks,'uz':uz})
+    uc=usercreate.objects.all()
+    return render(request,'proj.html',{'data':data,'u':u,'tasks':tasks,'uz':uz,'uc':uc})
     
 def vproj(request):
     proj=project1.objects.all()
@@ -2697,3 +2698,9 @@ def delproj(request,id):
     projd=project1.objects.get(id=id)
     projd.delete()
     return redirect('vproj')
+def itemdata(request):
+    user_id = request.GET.get('id')
+    user = get_object_or_404(usercreate, id=user_id)
+    email = user.emailzz
+    return JsonResponse({'email': email})
+       

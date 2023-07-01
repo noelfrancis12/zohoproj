@@ -434,3 +434,8 @@ class usernamez(models.Model):
     users=models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
     usernamez=models.CharField(max_length=255, null=True,blank=True)
     emailz=models.CharField(max_length=255, null=True,blank=True)
+class usercreate(models.Model):
+    projnn=models.ForeignKey(project1,on_delete=models.CASCADE,null=True,blank=True)
+    userss=models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
+    usernamezz=models.CharField(max_length=255, null=True,blank=True)
+    emailzz=models.CharField(max_length=255, null=True,blank=True)
