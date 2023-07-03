@@ -2663,7 +2663,10 @@ def overview(request,id):
     proj=project1.objects.filter(id=id)
     print(proj)
     proje=project1.objects.all()
-    return render(request,'overview.html',{'proj':proj,'proje':proje})
+    usern=usernamez.objects.all()
+    taskz=task.objects.all()
+    uc=usercreate.objects.all()
+    return render(request,'overview.html',{'proj':proj,'proje':proje,'usern':usern,'taskz':taskz})
 
 def comment(request):
     proje=project1.objects.all()
@@ -2672,7 +2675,10 @@ def editproj(request,id):
     proj=project1.objects.get(id=id)
     proje=project1.objects.all()
     data=customer.objects.all()
-    return render(request,'editoverview.html',{'data':data,'proj':proj,'proje':proje})
+    uc=usercreate.objects.all()
+    usern=usernamez.objects.all()
+    taskz=task.objects.all()
+    return render(request,'editoverview.html',{'data':data,'proj':proj,'proje':proje,'uc':uc,'usern':usern,'taskz':taskz})
 def editprojdb(request,id):
    if request.method=='POST':
          proj=project1.objects.get(id=id)
@@ -2692,8 +2698,10 @@ def editprojdb(request,id):
          cat=customer.objects.get(id=c_name)
          proj.c_name=cat
          proj.save()
-         
-   return redirect('overview',id)
+         usern=usernamez.objects.all()
+         taskz=task.objects.all()
+         uc=usercreate.objects.all()
+   return redirect('overview',id,{'usern':usern,'taskz':taskz,'uc':uc})
 def delproj(request,id):
     projd=project1.objects.get(id=id)
     projd.delete()
@@ -2703,4 +2711,10 @@ def itemdata(request):
     user = get_object_or_404(usercreate, id=user_id)
     email = user.emailzz
     return JsonResponse({'email': email})
-       
+#def createuser(request):
+    # if request.method == 'POST':
+            # usernamezz = request.POST.get('usernamezz')
+            # emailzz = request.POST.get('emailzz')
+            # proj=usercreate(usernamezz=usernamezz,emailzz=emailzz)
+             #proj.save()
+             #return render(request, 'proj.html')

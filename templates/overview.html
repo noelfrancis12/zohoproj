@@ -147,8 +147,8 @@
 
 
 
-                            
-                            {% for v in proj %}
+                            <center><h1>User Details</h1></center>
+                            {% for v in usern %}
                             <label for="">Users</label><br>
                             <table class="table text-black" id="user_table">
                                 <thead>
@@ -161,10 +161,10 @@
                                 <tbody>
                                     <tr id="user_row1">
                                         <td>
-                                            <a class="text-white"  >{{v.usern}}</a>
+                                            <a class="text-white"  >{{v.usernamez}}</a>
                                         </td>
                                         <td class="text-right">
-                                            <a class="text-white"  >{{v.email}}</a>
+                                            <a class="text-white"  >{{v.emailz}}</a>
                                         </td>
                                         <td class="text-right">
                                             <a class="text-white"  >staff</a>
@@ -172,7 +172,9 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            
+                            {% endfor %}
+                            <center><h1>Task Details</h1></center>
+                            {% for v in taskz %}
                             <label for="">Tasks</label><br>
                             <table class="table text-black" id="task_table">
                                 <thead>
@@ -187,10 +189,10 @@
                                 <tbody>
                                     <tr id="task_row1">
                                         <td>
-                                            <a class="text-white"  >{{v.taskn}}</a>
+                                            <a class="text-white"  >{{v.taskname}}</a>
                                         </td>
                                         <td class="text-right">
-                                            <a class="text-white"  >{{v.taskdesc}}</a>
+                                            <a class="text-white"  >{{v.taskdes}}</a>
                                         </td>
                                         <td class="text-right">
                                             <a class="text-white"  >Billable</a>
@@ -200,9 +202,9 @@
                                     </tr>
                                 </tbody>
                             </table>
-                          
-                          
                             {% endfor %}
+                          
+                           
 
                     </div>
                     <br><br><br> <br><br>          

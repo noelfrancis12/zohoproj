@@ -124,11 +124,14 @@ urlpatterns = [
     path('editproj/<int:id>',views.editproj,name='editproj'),
     path('editprojdb/<int:id>',views.editprojdb,name='editprojdb'),
     path('delproj/<int:id>',views.delproj,name='delproj'),
+    #path('createuser', views.createuser, name='createuser'),
+
 
     path('view_sales_order',views.view_sales_order,name='view_sales_order'),
     path('create_sales_order',views.create_sales_order,name='create_sales_order'),
     path('add_customer_for_sorder',views.add_customer_for_sorder,name='add_customer_for_sorder'),
     path('payment_term_for_sorder',views.payment_term_for_sorder,name='payment_term_for_sorder'),
+    
 
     path('add_sales_order',views.add_sales_order,name='add_sales_order'),
     path('sales_order_det/<int:id>',views.sales_order_det,name='sales_order_det'),

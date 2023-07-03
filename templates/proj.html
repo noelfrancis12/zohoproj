@@ -130,7 +130,10 @@
                         {% for d in uc %}
                             <option value="{{d.id}}" data-email="{{d.emailzz}}">{{d.usernamezz}}</option>
                         {% endfor %}
+                        <option value=""><a class="d-inline-block" style="color: #3f6391" href="#">Create User</a>
+                        </option>
                     </select>
+
                 </td>
                 <td class="text-right">
                     <input type="email" class="form-control" id="email" name="email[]" >
@@ -156,8 +159,8 @@
 
             </tr>
         </thead>
-        <tbody>
-            <tr id="task_row1">
+        <tbody id="items-table-task">
+            <tr id="addt0">
                 <td>
                     <input type="text" class="form-control" id="task1" name="taskname[]">
                 </td>
@@ -179,6 +182,7 @@
         </tbody>
     </table>
     <button type="button" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="add-task-row">Add Task</button><br><br>
+
     <!--<div class="col-sm-12 col-md-6 col-lg-6">
         <input  type="checkbox"  name="w_phone" placeholder="work phone" required>
            
@@ -285,57 +289,60 @@
             customerEmailInput.value = email;
         });
     </script>
+
+
+
+
 <script>
-   $(document).ready(function() {
-    var taskRowCounter = 1;
+ $(document).ready(function(){
+  var roinc = 0;
+  
+  $('#add-task-row').click(function(){
+    roinc++;
+    $('#items-table-task').append(`
+      <tr id="addt0${roinc}">
+        <td>
+          <input type="text" class="form-control" id="task1${roinc}" name="taskname[]">
+        </td>
+        <td class="text-right">
+          <input type="text" class="form-control" id="desc1${roinc}" name="taskdes[]">
+        </td>
+        <td class="text-right rate-column">
+          <input type="text" class="form-control task-rate" id="tsk1${roinc}" name="taskrph[]">
+        </td>
+        <td class="text-center">
+          <input type="checkbox" id="billable1${roinc}" name="billable[]" placeholder="work phone">
+          <label style="color: gainsboro;">Billable</label>
+          <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" id="${roinc}" style="width:30px">
+            <i class="fa fa-times"></i>
+          </button>
+        </td>
+      </tr>
+    `);
+    applyHideShowForRateColumn();
+  });
 
-    $('#add-task-row').click(function() {
-        taskRowCounter++;
-        var selectedOption = $('#billingMethodSelect').val();
+  $('#billingMethodSelect').change(function() {
+    applyHideShowForRateColumn();
+  });
 
-        if (selectedOption === 'Based on staff hours' || selectedOption === 'Based on task hours') {
-            $('#task_table tbody').append(`
-                <tr id="task_row${taskRowCounter}">
-                    <td>
-                        <input type="text" class="form-control" id="task${taskRowCounter}" name="taskname[]">
-                    </td>
-                    <td class="text-right">
-                        <input type="text" class="form-control" id="desc${taskRowCounter}" name="taskdes[]">
-                    </td>
-                    <td class="text-right rate-column">
-                        <input type="text" class="form-control" id="tsk${taskRowCounter}" name="taskrph[]">
-                    </td>
-                    <td class="text-center">
-                        <input  type="checkbox" id="billable${taskRowCounter}" name="billable[]" placeholder="work phone" >
-                     <label style="color: gainsboro;">Billable</label>
-                        <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" style="width:30px">
-                            <i class="fa fa-times"></i>
-                        </button>
-                    </td>
-                </tr>
-            `);
-        } else if (selectedOption === 'Fixed cost for project' || selectedOption === 'Based on project hours') {
-            $('#task_table tbody').append(`
-                <tr id="task_row${taskRowCounter}">
-                    <td>
-                        <input type="text" class="form-control" id="task${taskRowCounter}" name="taskname[]">
-                    </td>
-                    <td class="text-right">
-                        <input type="text" class="form-control" id="desc${taskRowCounter}" name="taskdes[]">
-                    </td>
-                    <td class="text-center rate-column">
-                        <input  type="checkbox" id="billable${taskRowCounter}" name="billable[]" placeholder="work phone" >
-                     <label style="color: gainsboro;">Billable</label>
-                        <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" style="width:30px">
-                            <i class="fa fa-times"></i>
-                        </button>
-                    </td>
-                </tr>
-            `);
-        }
-    });
+  function applyHideShowForRateColumn() {
+    var selectedMethod = $('#billingMethodSelect').val();
+    if (selectedMethod === "Fixed cost for project" || selectedMethod === "Based on project hours") {
+      $('.rate-column').hide();
+    } else {
+      $('.rate-column').show();
+    }
+  }
 });
+
+  $(document).on('click','.delete-row',function(){
+            var row_id = $(this).attr("id");
+            $('#addt0'+row_id+'').remove();
+        });
 </script>
+
+
 
 <script>
     $(document).ready(function(){
@@ -350,6 +357,8 @@
                         {% for d in uc %}
                             <option value="{{d.id}}" data-email="{{d.emailzz}}">{{d.usernamezz}}</option>
                         {% endfor %}
+                        <option value=""><a class="d-inline-block" style="color: #3f6391" href="#">Create User</a>
+                        </option>
                     </select>
                 </td>
                 <td class="text-right">
@@ -373,20 +382,7 @@
         });
   
     </script>
-    <script>
-        const userSelect = document.getElementById('user_select1');
-        const emailInput = document.getElementById('email1');
-    
-        userSelect.addEventListener('change', function() {
-            const selectedOption = userSelect.options[userSelect.selectedIndex];
-            const email = selectedOption.getAttribute('data-email');
-            emailInput.value = email;
-        });
-           // Event delegation for delete row functionality
-           $(document).on('click', '.delete-row', function () {
-                            $(this).closest('tr').remove();
-                        });
-    </script>
+   
     <script>
         // Wait for the document to be ready
         $(document).ready(function() {
