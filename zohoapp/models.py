@@ -424,6 +424,7 @@ class project1(models.Model):
     
 class task(models.Model):
     proj=models.ForeignKey(project1,on_delete=models.CASCADE,null=True,blank=True)
+    c_name=models.ForeignKey(customer,on_delete=models.CASCADE,null=True,blank=True)
     taskname=models.CharField(max_length=255,null=True,blank=True) 
     taskdes=models.CharField(max_length=255,null=True,blank=True)
     taskrph= models.CharField(max_length=255, null=True,blank=True) 

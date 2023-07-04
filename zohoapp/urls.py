@@ -124,7 +124,7 @@ urlpatterns = [
     path('editproj/<int:id>',views.editproj,name='editproj'),
     path('editprojdb/<int:id>',views.editprojdb,name='editprojdb'),
     path('delproj/<int:id>',views.delproj,name='delproj'),
-    #path('createuser', views.createuser, name='createuser'),
+    path('createuser', views.createuser, name='createuser'),
 
 
     path('view_sales_order',views.view_sales_order,name='view_sales_order'),

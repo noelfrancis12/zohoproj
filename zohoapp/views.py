@@ -2614,7 +2614,8 @@ def proj(request):
     
 def vproj(request):
     proj=project1.objects.all()
-    return render(request,'projlist.html',{'proj':proj})
+    tsk=task.objects.all()
+    return render(request,'projlist.html',{'proj':proj,'tsk':tsk})
 def addproj(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -2663,7 +2664,7 @@ def overview(request,id):
     proj=project1.objects.filter(id=id)
     print(proj)
     proje=project1.objects.all()
-    usern=usernamez.objects.all()
+    usern=usernamez.objects.filter(projn=id)
     taskz=task.objects.all()
     uc=usercreate.objects.all()
     return render(request,'overview.html',{'proj':proj,'proje':proje,'usern':usern,'taskz':taskz})
@@ -2711,10 +2712,10 @@ def itemdata(request):
     user = get_object_or_404(usercreate, id=user_id)
     email = user.emailzz
     return JsonResponse({'email': email})
-#def createuser(request):
-    # if request.method == 'POST':
-            # usernamezz = request.POST.get('usernamezz')
-            # emailzz = request.POST.get('emailzz')
-            # proj=usercreate(usernamezz=usernamezz,emailzz=emailzz)
-             #proj.save()
-             #return render(request, 'proj.html')
+def createuser(request):
+    if request.method == 'POST':
+            usernamezz = request.POST.get('usernamezz')
+            emailzz = request.POST.get('emailzz')
+            proj=usercreate(usernamezz=usernamezz,emailzz=emailzz)
+            proj.save()
+            return render(request, 'proj.html')

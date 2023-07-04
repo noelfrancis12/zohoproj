@@ -12,6 +12,42 @@
     color: #fff;
     width: 200px;
 }
+ /* Modal styles */
+ .modal {
+      display: none; /* Hide the modal by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 15% auto; /* 15% from the top and centered */
+      padding: 20px;
+      border: 1px solid #888;
+      width: 300px; /* Set the width of the modal */
+    }
+
+    .modal-label {
+      font-weight: bold;
+    }
+
+    .modal-input {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      box-sizing: border-box;
+    }
+
+    .modal-buttons {
+      text-align: right;
+      margin-top: 20px;
+    }
 </style>
 <!-- <section > -->
     <div class="fixed-top" style="top: 7rem; margin-left: 18rem;" >
@@ -28,8 +64,8 @@
                     <label >Project name*</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6">
-                    <input  type="text" class="form-control" name="name" required>     
-                        <div class="invalid-feedback">Please fill out this field.</div>   
+                    <input  type="text" class="form-control" name="name" >     
+                           
  
                 </div>
                 
@@ -38,8 +74,8 @@
                <div class="form-group row mt-4">
                    <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label>Description</label></div>
                     <div class="col-sm-12 col-md-6 col-lg-6">
-                        <input type="text" class="form-control" name="desc" required>     
-                        <div class="invalid-feedback">Please fill out this field.</div>   
+                        <input type="text" class="form-control" name="desc" >     
+                          
  
                     </div>
 
@@ -130,8 +166,7 @@
                         {% for d in uc %}
                             <option value="{{d.id}}" data-email="{{d.emailzz}}">{{d.usernamezz}}</option>
                         {% endfor %}
-                        <option value=""><a class="d-inline-block" style="color: #3f6391" href="#">Create User</a>
-                        </option>
+                        
                     </select>
 
                 </td>
@@ -146,8 +181,8 @@
             </tr>
         </tbody>
     </table>
-    <button type="button" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="add-user-row">Add User</button><br><br><br>
-
+    <button type="button" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="add-user-row">Add User</button>
+    <button type="button" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="create-user">Create User</button><br><br><br>
     <label for="">Tasks</label><br>
     <table class="table text-black" id="task_table">
         <thead>
@@ -190,8 +225,39 @@
     </div>-->
     <button type="submit" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="save-btn">Save</button>
     <button type="button" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="cancel-btn">Cancel</button>
+    </form>
+<!-- The modal -->
+<form  method="post" action="{% url 'createuser' %}"  enctype="multipart/form-data" class="">
+    {% csrf_token %}
+<div id="myModal" class="modal">
+    <div class="modal-content">
+      <label for="username" class="modal-label">Username:</label>
+      <input type="text" id="username" class="modal-input" name="usernamezz" placeholder="Enter your username">
 
+      <label for="email" class="modal-label">Email:</label>
+      <input type="email" id="email" class="modal-input" name="emailzz" placeholder="Enter your email">
 
+      <div class="modal-buttons">
+        <button type="submit" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="create-btn">Create</button>
+        <button type="button" onclick="document.getElementById('myModal').style.display='none'" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="cancel-btn">Cancel</button>
+      </div>
+    </div>
+  </div>
+  </form>
+  <script>
+    var createUserBtn = document.getElementById("create-user");
+    var modal = document.getElementById("myModal");
+
+    createUserBtn.onclick = function() {
+      modal.style.display = "block";
+    }
+
+    var cancelBtn = document.getElementById("cancel-btn");
+
+    cancelBtn.onclick = function() {
+      modal.style.display = "none";
+    }
+  </script>
 
     <script>
         $(document).on('click', '#user_select', function(){
