@@ -2665,7 +2665,7 @@ def overview(request,id):
     print(proj)
     proje=project1.objects.all()
     usern=usernamez.objects.filter(projn=id)
-    taskz=task.objects.all()
+    taskz=task.objects.filter(proj=id)
     uc=usercreate.objects.all()
     return render(request,'overview.html',{'proj':proj,'proje':proje,'usern':usern,'taskz':taskz})
 

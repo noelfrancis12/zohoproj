@@ -43,6 +43,7 @@
                     <thead>
                       <tr>
                         <th>CUSTOMER NAME</th>
+                        <th>CUSTOMER EMAIL</th>
                         <th>PROJECT NAME</th>
                         <th>BILLING METHOD</th>
                         <th>DESCRIPTION</th>
@@ -56,6 +57,7 @@
              
                         <!--<td onclick="location.href ='{% url 'detail' v.id %}' " > {{v.name}}</td> -->
                         <td>{{v.c_name.customerName}}</td>
+                        <td>{{v.c_name.customerEmail}}</td>
                         <td>
                           <a href="{% url 'overview' v.id %}">{{v.name}}</a>
                         </td>
