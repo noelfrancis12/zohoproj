@@ -69,7 +69,7 @@
                     <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label>Billing Method*</label></div>
                     <div class="col-sm-12 col-md-6 col-lg-6">
                         <select name="billing" id="billingMethodSelect" class="form-control" >
-                            <option value=""></option>
+                            <option value="{{proj.billing}}">{{proj.billing}}</option>
                             <option value="Fixed cost for project">Fixed cost for project</option>
                             <option value="Based on project hours">Based on project hours</option>
                             <option value="Based on staff hours">Based on staff hours</option>
@@ -95,7 +95,7 @@
                     <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label>Budget Type*</label></div>
                     <div class="col-sm-12 col-md-6 col-lg-6">
                         <select name="budget" id="budgetMethodSelect" class="form-control" >
-                            <option value=""></option>
+                            <option value="{{proj.budget}}" selected>{{proj.budget}}</option>
                             <option value="Total budget cost">Total budget cost</option>
                             <option value="Total project hours">Total project hours(HH:MM)</option>
                             <option value="Hours per task">Hours per task</option>
@@ -112,7 +112,7 @@
                     </center>
                    
                     <label for="">Users</label><br>
-                    {% for v in usern %}
+                   
     <table class="table text-black" id="tab_logic">
         <thead>
             <tr>
@@ -121,11 +121,17 @@
                 <th class="text-center">Actions</th>
             </tr>
         </thead>
-       
         <tbody id="items-table-body">
+            {% for v in usern %} 
             <tr id="addr0">
                 <td>
-                    <input type="email" class="form-control" id="email" name="email[]" value="User{{v.usernamez}}">
+                    <select name="user_select[]" id="user_select" class="form-control">
+                        <option value="{{v.usernamez}}" selected>User {{v.usernamez}}</option>
+                        {% for d in uc %}
+                            <option value="{{d.id}}" data-email="{{d.emailzz}}">{{d.usernamezz}}</option>
+                        {% endfor %}
+                        
+                    </select>
 
                 </td>
                 <td class="text-right">
@@ -137,13 +143,15 @@
                     </button>
                 </td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
-    {% endfor %}
-    <button type="button" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="add-user-row">Add User</button><br><br><br>
+    
+    <button type="button" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="add-user-row">Add User</button>
+    <button type="button" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="create-user">Create User</button><br><br><br>
     
     <label for="">Tasks</label><br>
-    {% for v in taskz %}
+    
     <table class="table text-black" id="task_table">
         <thead>
             <tr>
@@ -155,6 +163,7 @@
             </tr>
         </thead>
         <tbody id="items-table-task">
+            {% for v in taskz %}
             <tr id="addt0">
                 <td>
                     <input type="text" class="form-control" id="task1" name="taskname[]" value="{{v.taskname}}">
@@ -174,9 +183,10 @@
                     </button>
                 </td>
             </tr>
+            {% endfor %}
         </tbody>
     </table>
-    {% endfor %}
+   
     <button type="button" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="add-task-row">Add Task</button><br><br>
 
     <!--<div class="col-sm-12 col-md-6 col-lg-6">

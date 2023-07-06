@@ -39,38 +39,40 @@
     
         <div class="row">
             <div class="col-sm-12 col-md-11 col-lg-11">
-                <table class="table  text-white" id="myTable">
-                    <thead>
-                      <tr>
-                        <th>CUSTOMER NAME</th>
-                        <th>CUSTOMER EMAIL</th>
-                        <th>PROJECT NAME</th>
-                        <th>BILLING METHOD</th>
-                        <th>DESCRIPTION</th>
-                        <th>RATE</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {% for v in proj %}
-             
-                      <tr id="over">
-             
-                        <!--<td onclick="location.href ='{% url 'detail' v.id %}' " > {{v.name}}</td> -->
-                        <td>{{v.c_name.customerName}}</td>
-                        <td>{{v.c_name.customerEmail}}</td>
-                        <td>
-                          <a href="{% url 'overview' v.id %}">{{v.name}}</a>
-                        </td>
-                        
-                        <td>{{v.billing}}</td>
-                        <td><span class="description-icon" title="{{v.desc}}">&#9432;</span></td>
-                        <td>{{v.rateperhour}} {{v.taskrph}}</td>
-        
-                       
-                      </tr>
-                      {% endfor %}
-                    </tbody>
-                </table>
+              <table class="table text-white" id="myTable">
+                <thead>
+                  <tr>
+                    <th>CUSTOMER NAME</th>
+                    <th>CUSTOMER EMAIL</th>
+                    <th>PROJECT NAME</th>
+                    <th>BILLING METHOD</th>
+                    <th>DESCRIPTION</th>
+                    <th>RATE</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for v in proj %}
+                  <tr id="over">
+                    <!--<td onclick="location.href ='{% url 'detail' v.id %}' " > {{v.name}}</td> -->
+                    <td>{{v.c_name.customerName}}</td>
+                    <td>{{v.c_name.customerEmail}}</td>
+                    <td>
+                      <a href="{% url 'overview' v.id %}">{{v.name}}</a>
+                    </td>
+                    <td>{{v.billing}}</td>
+                    <td><span class="description-icon" title="{{v.desc}}">&#9432;</span></td>
+                    <td>
+                      {% if v.billing == "Fixed cost for project" or v.billing == "Based on project hours" %}
+                        {{v.rateperhour}} {{v.taskrph}}
+                      {% else %}
+                        Per hour
+                      {% endif %}
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              
             </div>
             <div class="col-sm-12 col-md-1 col-lg-1"></div>
 

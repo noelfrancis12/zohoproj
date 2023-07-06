@@ -2677,32 +2677,52 @@ def editproj(request,id):
     proje=project1.objects.all()
     data=customer.objects.all()
     uc=usercreate.objects.all()
-    usern=usernamez.objects.all()
-    taskz=task.objects.all()
+    usern=usernamez.objects.filter(projn=id)
+    taskz=task.objects.filter(proj=id)
     return render(request,'editoverview.html',{'data':data,'proj':proj,'proje':proje,'uc':uc,'usern':usern,'taskz':taskz})
 def editprojdb(request,id):
-   if request.method=='POST':
-         proj=project1.objects.get(id=id)
-         proj.name=request.POST['name']
-         proj.desc=request.POST['desc']
-         proj.billing=request.POST['billing']
-         proj.rateperhour=request.POST['rateperhour']
-         proj.usern=request.POST['usern']
-         proj.email=request.POST['email']
-         proj.taskn=request.POST['taskn']
-         proj.taskdesc=request.POST['taskdesc']
-         proj.budget=request.POST['budget']
-         if request.POST['taskrate'] !=None :
-              
-            proj.taskrate=request.POST['taskrate']
-         c_name=request.POST['c_name']
-         cat=customer.objects.get(id=c_name)
-         proj.c_name=cat
-         proj.save()
-         usern=usernamez.objects.all()
-         taskz=task.objects.all()
-         uc=usercreate.objects.all()
-   return redirect('overview',id,{'usern':usern,'taskz':taskz,'uc':uc})
+  if request.method == 'POST':
+        proj=project1.objects.get(id=id)
+        proj.name = request.POST.get('name')
+        proj.desc = request.POST.get('desc')
+        proj.c_name_id = request.POST.get('c_name')
+        proj.billing = request.POST.get('billing')
+        proj.rateperhour = request.POST.get('rateperhour')
+        proj.budget = request.POST.get('budget')
+
+        taskname1 = request.POST.getlist('taskname[]')
+        print(taskname1)
+        taskdes1 = request.POST.getlist('taskdes[]')
+        print(taskdes1)
+        taskrph1 = request.POST.getlist('taskrph[]')
+        print(taskrph1)
+        billable1 = request.POST.getlist('billable[]')
+        print(billable1)
+        user_select1 = request.POST.getlist('user_select[]')
+        print(user_select1)
+        email1 = request.POST.getlist('email[]')
+        print(email1)
+       
+        
+        proj.save()
+
+        mapped_tasks = zip(taskname1, taskdes1, taskrph1, billable1)
+        mapped_tasks = list(mapped_tasks)
+        for ele in mapped_tasks:
+            billable = 'Billed' if ele[3] == 'on' else 'Not Billed'
+            tasks, created = task.objects.get_or_create(
+                taskname=ele[0], taskdes=ele[1], taskrph=ele[2], billable=billable, proj=proj
+            )
+
+        mapped_users = zip(user_select1, email1)
+        mapped_users = list(mapped_users)
+        for elez in mapped_users:
+            usrz, varez = usernamez.objects.get_or_create(
+                usernamez=elez[0], emailz=elez[1], projn=proj
+            )
+
+        
+        return redirect('overview',id)
 def delproj(request,id):
     projd=project1.objects.get(id=id)
     projd.delete()
