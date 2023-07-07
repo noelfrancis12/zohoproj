@@ -2723,6 +2723,7 @@ def editprojdb(request,id):
 
         
         return redirect('overview',id)
+  
 def delproj(request,id):
     projd=project1.objects.get(id=id)
     projd.delete()
