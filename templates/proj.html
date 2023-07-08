@@ -164,7 +164,7 @@
                 <td>
                     <select name="user_select[]" id="user_select" class="form-control">
                         {% for d in uc %}
-                            <option value="{{d.id}}" data-email="{{d.emailzz}}">{{d.usernamezz}}</option>
+                            <option value="{{d.usernamezz}}" data-email="{{d.emailzz}}">{{d.usernamezz}}</option>
                         {% endfor %}
                         
                     </select>
@@ -206,7 +206,7 @@
                     <input type="text" class="form-control" id="tsk1" name="taskrph[]">
                 </td>
                 <td class="text-center">
-                    <input  type="checkbox" id="billable1" name="billable[]" placeholder="work phone">
+                    <input  type="checkbox" id="billable1" name="billable[]" placeholder="work phone" checked>
            
                      <label style="color: gainsboro;">Billable</label>
                     <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" style="width:30px">
@@ -377,7 +377,7 @@
           <input type="text" class="form-control task-rate" id="tsk1${roinc}" name="taskrph[]">
         </td>
         <td class="text-center">
-          <input type="checkbox" id="billable1${roinc}" name="billable[]" placeholder="work phone">
+          <input type="checkbox" id="billable1${roinc}" name="billable[]" placeholder="work phone" checked>
           <label style="color: gainsboro;">Billable</label>
           <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" id="${roinc}" style="width:30px">
             <i class="fa fa-times"></i>
@@ -421,10 +421,9 @@
                 <td>
                     <select name="user_select[]" id="user_select${roinc}" class="form-control">
                         {% for d in uc %}
-                            <option value="{{d.id}}" data-email="{{d.emailzz}}">{{d.usernamezz}}</option>
+                            <option value="{{d.usernamezz}}" data-email="{{d.emailzz}}">{{d.usernamezz}}</option>
                         {% endfor %}
-                        <option value=""><a class="d-inline-block" style="color: #3f6391" href="#">Create User</a>
-                        </option>
+                        
                     </select>
                 </td>
                 <td class="text-right">

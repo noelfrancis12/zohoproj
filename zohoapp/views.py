@@ -2603,21 +2603,25 @@ def edit_sales_order(request,id):
 def proj(request):
     user_id=request.user.id
     udata=User.objects.get(id=user_id)
-    data=customer.objects.filter(user=udata)
+    data=customer.objects.all()
     print("Hello")
     print(data)
     u=User.objects.all()
     tasks=task.objects.all()
     uz=usernamez.objects.all()
     uc=usercreate.objects.all()
+    
     return render(request,'proj.html',{'data':data,'u':u,'tasks':tasks,'uz':uz,'uc':uc})
     
 def vproj(request):
-    proj=project1.objects.all()
+   
+    proj=project1.objects.filter(user=request.user)
     tsk=task.objects.all()
     return render(request,'projlist.html',{'proj':proj,'tsk':tsk})
 def addproj(request):
     if request.method == 'POST':
+        user_id=request.user.id
+        user=User.objects.get(id=user_id)
         name = request.POST.get('name')
         desc = request.POST.get('desc')
         c_name = request.POST.get('c_name')
@@ -2638,7 +2642,7 @@ def addproj(request):
         email1 = request.POST.getlist('email[]')
         print(email1)
         cat = customer.objects.get(id=c_name)
-        proj = project1(name=name, desc=desc, c_name=cat, billing=billing, rateperhour=rateperhour, budget=budget)
+        proj = project1(name=name, desc=desc, c_name=cat, billing=billing, rateperhour=rateperhour, budget=budget,user=user)
         proj.save()
 
         mapped_tasks = zip(taskname1, taskdes1, taskrph1, billable1)
@@ -2655,15 +2659,15 @@ def addproj(request):
             usrz, varez = usernamez.objects.get_or_create(
                 usernamez=elez[0], emailz=elez[1], projn=proj
             )
-
-        return render(request, 'proj.html')
+        
+    return redirect('overview', id=proj.id)
 
 
 
 def overview(request,id):
     proj=project1.objects.filter(id=id)
     print(proj)
-    proje=project1.objects.all()
+    proje=project1.objects.filter(user=request.user)
     usern=usernamez.objects.filter(projn=id)
     taskz=task.objects.filter(proj=id)
     uc=usercreate.objects.all()
@@ -2706,6 +2710,13 @@ def editprojdb(request,id):
         
         proj.save()
 
+        
+
+
+        objects_to_delete = task.objects.filter(proj_id=proj.id)
+        objects_to_delete.delete()
+
+        
         mapped_tasks = zip(taskname1, taskdes1, taskrph1, billable1)
         mapped_tasks = list(mapped_tasks)
         for ele in mapped_tasks:
@@ -2713,6 +2724,8 @@ def editprojdb(request,id):
             tasks, created = task.objects.get_or_create(
                 taskname=ele[0], taskdes=ele[1], taskrph=ele[2], billable=billable, proj=proj
             )
+
+
 
         mapped_users = zip(user_select1, email1)
         mapped_users = list(mapped_users)
@@ -2730,7 +2743,7 @@ def delproj(request,id):
     return redirect('vproj')
 def itemdata(request):
     user_id = request.GET.get('id')
-    user = get_object_or_404(usercreate, id=user_id)
+    user = get_object_or_404(usercreate, usernamezz=user_id)
     email = user.emailzz
     return JsonResponse({'email': email})
 def createuser(request):
