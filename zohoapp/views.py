@@ -2672,7 +2672,9 @@ def overview(request,id):
     usern=usernamez.objects.filter(projn=id)
     taskz=task.objects.filter(proj=id)
     uc=usercreate.objects.all()
-    project=Project.objects.all()
+    project = get_object_or_404(project1, id=id)
+    
+
     return render(request,'overview.html',{'proj':proj,'proje':proje,'usern':usern,'taskz':taskz,'project':project})
 
 def comment(request):
@@ -2754,11 +2756,10 @@ def createuser(request):
             emailzz = request.POST.get('emailzz')
             proj=usercreate(usernamezz=usernamezz,emailzz=emailzz)
             proj.save()
-            return render(request, 'proj.html')
-def update_project_status(request, project_id):
-    project = get_object_or_404(project1, pk=project_id)
-    project.active = not project.active  # Toggle the active status
+            #return render(request, 'proj.html')
+            return redirect('proj')
+def toggle_status(request, project_id):
+    project = get_object_or_404(project1, id=project_id)
+    project.active = not project.active
     project.save()
-
-    # Return the updated active status as JSON response
-    return JsonResponse({'active': project.active})
+    return JsonResponse({'status': project.active})

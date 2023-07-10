@@ -78,13 +78,8 @@
                       {% endif %}
                     </td>
                     <td>
-                      <a style="color: #ccc;" class="toggleButton btn btn-success mr-2" href="#" data-project-id="{{ v.id }}">
-                        {% if v.active %}
-                          Mark as inactive
-                        {% else %}
-                          Mark as active
-                        {% endif %}
-                      </a>
+                      <a style="color: #ccc;" class="toggleButton btn btn-success mr-2" href="#" id="actselect" data-project-id="{{ v.id }}">{{ v.active|yesno:"Active,Inactive" }}</a>
+                      
                       
                     </td>
                   </tr>
@@ -108,26 +103,19 @@
   var toggleButtons = document.querySelectorAll('.toggleButton');
 
   toggleButtons.forEach(function(button) {
-    button.addEventListener('click', function() {
-      var isActive = button.innerHTML === 'Mark as inactive';
-      var projectRow = button.closest('tr');
+    button.addEventListener('click', function(event) {
+      event.preventDefault();
+      var projectId = button.getAttribute('data-project-id');
+      var url = '/toggle-status/' + projectId + '/';
 
-      // Perform the necessary actions based on the project's current state
-      if (isActive) {
-        button.innerHTML = 'Mark as active';
-        button.classList.remove('inactive');
-        button.classList.add('active');
-        // TODO: Perform additional actions for marking as active
-      } else {
-        button.innerHTML = 'Mark as inactive';
-        button.classList.remove('active');
-        button.classList.add('inactive');
-        // TODO: Perform additional actions for marking as inactive
-      }
-
-      // Update the project's state in the table (optional)
-      var projectID = projectRow.dataset.projectId; // Assuming you have a data attribute for the project ID
-      // TODO: Update the project's state in the backend using an AJAX request or other means
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          button.innerHTML = data.status ? 'Active' : 'Inactive';
+        })
+        .catch(error => {
+          console.log('Error:', error);
+        });
     });
   });
 </script>

@@ -60,10 +60,11 @@
                         
                         <a style="color: #ccc;" class="btn btn-success mr-2" href="{% url 'editproj' v.id %}"></i>Edit</a>  
                         <a style="color: #ccc;" class="btn btn-success mr-2" href="{% url 'delproj' v.id %}"></i>Delete</a>
+
                         {% if project.active %}
-  <a style="color: #ccc;" id="toggleButton" class="btn btn-success mr-2 mark-active" href="#" data-project-id="{{ project.id }}">Mark as inactive</a>
+                        <a style="color: #ccc;" class="toggleButton btn btn-success mr-2" href="#" >Active</a>
 {% else %}
-  <a style="color: #ccc;" id="toggleButton" class="btn btn-success mr-2 mark-active" href="#" data-project-id="{{ project.id }}">Mark as active</a>
+<a style="color: #ccc;" class="toggleButton btn btn-success mr-2" href="#" >Inactive</a>
 {% endif %}
                             <label for="file-input">
                               <img src="https://cdn-icons-png.flaticon.com/128/9329/9329892.png" style="height: 40px;width: 40px;"/>
