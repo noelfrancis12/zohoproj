@@ -416,7 +416,7 @@ class project1(models.Model):
     billing=models.CharField(max_length=255,null=True,blank=True)
     rateperhour=models.CharField(max_length=255,null=True,blank=True)
     budget=models.CharField(max_length=255,null=True,blank=True)
-    
+    active= models.BooleanField(default=False)
     
 class task(models.Model):
     proj=models.ForeignKey(project1,on_delete=models.CASCADE,null=True,blank=True)
@@ -436,3 +436,11 @@ class usercreate(models.Model):
     userss=models.ForeignKey(User,on_delete=models.CASCADE,null=True,blank=True)
     usernamezz=models.CharField(max_length=255, null=True,blank=True)
     emailzz=models.CharField(max_length=255, null=True,blank=True)
+class Project(models.Model):
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    active = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
+    

@@ -31,15 +31,23 @@
 <div class="fixed-top" style="top: 7rem; margin-left: 18rem;">
     <div style="height: 600px;overflow-y: scroll;">
         <div class="row">
-            <div class="col-md-3"><a class="text-white" style="font-size: 2rem;">All Projects</a></div>
+            <div class="col-md-3"><a class="text-white" style="font-size: 2rem;">All Projects</a>
+              
+             
+            </div>
+           <div class="col-md-6"> <!--<input type='text' id='link_id'>
+              <input type='button' id='link_str' value='Search' onClick='link()'>-->
+              <input type="text" id="vendorSearchInput" class="form-control" placeholder="Search Projects..." style="margin-top: 10px; width: 30%;">
+            </div>
             <div class="col-md-6 form-inline" style="margin-left: 55rem;margin-top: -2rem;"><a style="color: #ccc;" class="btn btn-success mr-2" href="{% url 'proj' %}"><i class="fa-solid fa-plus "></i>New</a>
 
             </div>
+            
         </div>   
     
         <div class="row">
             <div class="col-sm-12 col-md-11 col-lg-11">
-              <table class="table text-white" id="myTable">
+              <table class="table text-white" id="vendorTable">
                 <thead>
                   <tr>
                     <th>CUSTOMER NAME</th>
@@ -48,6 +56,7 @@
                     <th>BILLING METHOD</th>
                     <th>DESCRIPTION</th>
                     <th>RATE</th>
+                    <th>STATUS</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -68,6 +77,16 @@
                         Per hour
                       {% endif %}
                     </td>
+                    <td>
+                      <a style="color: #ccc;" class="toggleButton btn btn-success mr-2" href="#" data-project-id="{{ v.id }}">
+                        {% if v.active %}
+                          Mark as inactive
+                        {% else %}
+                          Mark as active
+                        {% endif %}
+                      </a>
+                      
+                    </td>
                   </tr>
                   {% endfor %}
                 </tbody>
@@ -85,8 +104,53 @@
     </div>
 
 </div>
+<script>
+  var toggleButtons = document.querySelectorAll('.toggleButton');
 
+  toggleButtons.forEach(function(button) {
+    button.addEventListener('click', function() {
+      var isActive = button.innerHTML === 'Mark as inactive';
+      var projectRow = button.closest('tr');
 
+      // Perform the necessary actions based on the project's current state
+      if (isActive) {
+        button.innerHTML = 'Mark as active';
+        button.classList.remove('inactive');
+        button.classList.add('active');
+        // TODO: Perform additional actions for marking as active
+      } else {
+        button.innerHTML = 'Mark as inactive';
+        button.classList.remove('active');
+        button.classList.add('inactive');
+        // TODO: Perform additional actions for marking as inactive
+      }
+
+      // Update the project's state in the table (optional)
+      var projectID = projectRow.dataset.projectId; // Assuming you have a data attribute for the project ID
+      // TODO: Update the project's state in the backend using an AJAX request or other means
+    });
+  });
+</script>
+<script>
+
+  var vendorSearchInput = document.getElementById('vendorSearchInput');
+  var vendorRows = document.querySelectorAll('#vendorTable tbody tr');
+
+  // Add event listener to the search input
+  vendorSearchInput.addEventListener('input', function () {
+    var searchValue = vendorSearchInput.value.toLowerCase();
+
+    // Loop through vendor rows and show/hide based on search value
+    vendorRows.forEach(function (row) {
+      var vendorName = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+      if (vendorName.includes(searchValue)) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  });
+</script>
 
 
 

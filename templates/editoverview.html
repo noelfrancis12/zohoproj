@@ -128,7 +128,7 @@
                     <select name="user_select[]" id="user_select" class="form-control">
                         <option value="{{v.usernamez}}" selected>User {{v.usernamez}}</option>
                         {% for d in uc %}
-                            <option value="{{d.id}}" data-email="{{d.emailzz}}">{{d.usernamezz}}</option>
+                            <option value="{{d.usernamezz}}" data-email="{{d.emailzz}}">{{d.usernamezz}}</option>
                         {% endfor %}
                         
                     </select>
@@ -175,7 +175,7 @@
                     <input type="text" class="form-control" id="tsk1" name="taskrph[]" value="{{v.taskrph}}">
                 </td>
                 <td class="text-center">
-                    <input  type="checkbox" id="billable1" name="billable[]" placeholder="work phone" value="{{v.billable}}">
+                    <input  type="checkbox" id="billable1" name="billable[]" placeholder="work phone" value="{{v.billable}}" checked>
            
                      <label style="color: gainsboro;">Billable</label>
                     <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" style="width:30px">
@@ -197,7 +197,14 @@
     <button type="submit" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="save-btn">Save</button>
     <button type="button" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="cancel-btn">Cancel</button>
 
-
+    <script>
+        $(document).ready(function() {
+            // Delete row when the delete button is clicked
+            $(document).on('click', '.delete-row', function() {
+                $(this).closest('tr').remove();
+            });
+        });
+    </script>
 
     <script>
         $(document).on('click', '#user_select', function(){
@@ -317,7 +324,7 @@
           <input type="text" class="form-control task-rate" id="tsk1${roinc}" name="taskrph[]">
         </td>
         <td class="text-center">
-          <input type="checkbox" id="billable1${roinc}" name="billable[]" placeholder="work phone">
+          <input type="checkbox" id="billable1${roinc}" name="billable[]" placeholder="work phone" checked>
           <label style="color: gainsboro;">Billable</label>
           <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" id="${roinc}" style="width:30px">
             <i class="fa fa-times"></i>
@@ -361,10 +368,9 @@
                 <td>
                     <select name="user_select[]" id="user_select${roinc}" class="form-control">
                         {% for d in uc %}
-                            <option value="{{d.id}}" data-email="{{d.emailzz}}">{{d.usernamezz}}</option>
+                            <option value="{{d.usernamezz}}" data-email="{{d.emailzz}}">{{d.usernamezz}}</option>
                         {% endfor %}
-                        <option value=""><a class="d-inline-block" style="color: #3f6391" href="#">Create User</a>
-                        </option>
+                        
                     </select>
                 </td>
                 <td class="text-right">

@@ -2617,7 +2617,8 @@ def vproj(request):
    
     proj=project1.objects.filter(user=request.user)
     tsk=task.objects.all()
-    return render(request,'projlist.html',{'proj':proj,'tsk':tsk})
+    active=Project.objects.all()
+    return render(request,'projlist.html',{'proj':proj,'tsk':tsk,'active':active})
 def addproj(request):
     if request.method == 'POST':
         user_id=request.user.id
@@ -2671,7 +2672,8 @@ def overview(request,id):
     usern=usernamez.objects.filter(projn=id)
     taskz=task.objects.filter(proj=id)
     uc=usercreate.objects.all()
-    return render(request,'overview.html',{'proj':proj,'proje':proje,'usern':usern,'taskz':taskz})
+    project=Project.objects.all()
+    return render(request,'overview.html',{'proj':proj,'proje':proje,'usern':usern,'taskz':taskz,'project':project})
 
 def comment(request):
     proje=project1.objects.all()
@@ -2753,3 +2755,10 @@ def createuser(request):
             proj=usercreate(usernamezz=usernamezz,emailzz=emailzz)
             proj.save()
             return render(request, 'proj.html')
+def update_project_status(request, project_id):
+    project = get_object_or_404(project1, pk=project_id)
+    project.active = not project.active  # Toggle the active status
+    project.save()
+
+    # Return the updated active status as JSON response
+    return JsonResponse({'active': project.active})
