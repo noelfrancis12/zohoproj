@@ -32,12 +32,16 @@
                             <table class="table  text-white" id="myTable">
                                 
                                 <tbody>
-                                  {% for v in proje %}                    
-                                  <tr id="over">                     
-                                    <td><i class="fa-sharp fa-light fa-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<a id="aover" href="{% url 'overview' v.id %}" style="color: rgb(230, 171, 45);">{{v.name}}</a></td>
-                                    <td><i class="fa-sharp fa-light fa-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<a id="aover" href="#" style="color: rgb(230, 171, 45);">Rs. {{v.rateperhour}}</a></td>                          
-                                  </tr>
-                                  {% endfor %}
+                                    {% for v in proje %}                    
+                                    <tr id="over">                     
+                                      <td><i class="fa-sharp fa-light fa-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<a id="aover" href="{% url 'overview' v.id %}" style="color: rgb(230, 171, 45);">{{v.name}}</a></td>
+                                      <td><i class="fa-sharp fa-light fa-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp<a id="aover" href="#" style="color: rgb(230, 171, 45);">{% if v.billing == "Fixed cost for project" or v.billing == "Based on project hours" %}
+                                          {{v.rateperhour}} {{v.taskrph}}
+                                        {% else %}
+                                          Per hour
+                                        {% endif %}</a></td>                          
+                                    </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                         </div>
@@ -86,12 +90,15 @@
                     <!-- <button class="btn btn-warning">
 
                     Delete</button> -->
-                    <a href="{% url 'comment'  %}" class="btn btn-warning">Comment</a>
+                    
+                    <a href="#" class="btn btn-warning">Comment</a>
                   </div>
                     
                   </span> 
 
                   <fieldset1 id="overview" class="Overview" >
+                    <form  method="post" action="{% url 'commentdb' proj.id %}"  enctype="multipart/form-data" class="">
+                        {% csrf_token %}
                     <div style="height: 400px;overflow-y: scroll;">
                      <textarea name="comment" rows="12" cols="56"> </textarea><br>
                      <div id="over"
@@ -99,11 +106,24 @@
                     <!-- <button class="btn btn-warning">
 
                     Delete</button> -->
-                    <a href="#" class="btn btn-warning">Add Comment</a>
+                    <button type="submit" class="bg-warning">Add Comment</button>
+                    <button type="button" class="bg-warning" onclick="viewComment()">View Comment</button>
                   </div>
+</div>
+<div id="commentContainer" style="display: none;">
+    <h3>Comment:</h3>
+    
+    <p id="commentText"  >{{ proj.comment }}</p>
+   
+</div>
+</form>
 
                     </div>
-                    <br><br><br> <br><br>          
+                    <br><br><br> <br><br> 
+                    
+                    
+
+                    
                   </fieldset1> 
 
                   <fieldset2 id="comments" style="display: none;">
@@ -313,7 +333,18 @@
     </div>
 </div>
 
-
+<script>
+    function viewComment() {
+        var commentContainer = document.getElementById("commentContainer");
+        var commentText = document.getElementById("commentText");
+        
+        if (commentContainer.style.display === "none") {
+            commentContainer.style.display = "block";
+        } else {
+            commentContainer.style.display = "none";
+        }
+    }
+</script>
 <script>
    
 

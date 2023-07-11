@@ -125,7 +125,8 @@ urlpatterns = [
     path('editprojdb/<int:id>',views.editprojdb,name='editprojdb'),
     path('delproj/<int:id>',views.delproj,name='delproj'),
     path('createuser', views.createuser, name='createuser'),
-    
+    path('comment/<int:id>', views.comment, name='comment'),
+    path('commentdb/<int:id>', views.commentdb, name='commentdb'),
 
     path('view_sales_order',views.view_sales_order,name='view_sales_order'),
     path('create_sales_order',views.create_sales_order,name='create_sales_order'),
@@ -137,7 +138,7 @@ urlpatterns = [
     path('sales_order_det/<int:id>',views.sales_order_det,name='sales_order_det'),
     path('edit_sales_order/<int:id>',views.edit_sales_order,name='edit_sales_order'),
     path('delet_sales/<int:id>',views.delet_sales,name='delet_sales'),
-    path('comment', views.comment, name='comment'),
+   
     path('itemdata', views.itemdata, name='itemdata'),
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
     

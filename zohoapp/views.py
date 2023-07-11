@@ -2629,6 +2629,7 @@ def addproj(request):
         billing = request.POST.get('billing')
         rateperhour = request.POST.get('rateperhour')
         budget = request.POST.get('budget')
+        #comment=request.POST.get('comment')
 
         taskname1 = request.POST.getlist('taskname[]')
         print(taskname1)
@@ -2677,9 +2678,23 @@ def overview(request,id):
 
     return render(request,'overview.html',{'proj':proj,'proje':proje,'usern':usern,'taskz':taskz,'project':project})
 
-def comment(request):
-    proje=project1.objects.all()
+def comment(request,id):
+    proj = project1.objects.get(id=id)
+    proje=project1.objects.filter(user=request.user)
     return render(request,'comment.html',{'proj':proj,'proje':proje})
+def commentdb(request, id):
+    if request.method == 'POST':
+        comment = request.POST['comment']
+        user_id = request.user.id
+        udata = User.objects.get(id=user_id)
+        proj = project1.objects.get(id=id)  # Retrieve the project with the provided ID
+        proj.comment = comment  # Set the comment field of the project
+        proj.user = udata  # Associate the project with the user
+        proj.save()  # Save the project object with the updated comment
+
+        return redirect('comment', id)
+ 
+
 def editproj(request,id):
     proj=project1.objects.get(id=id)
     proje=project1.objects.all()

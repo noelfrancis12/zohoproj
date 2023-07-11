@@ -104,9 +104,10 @@
                       <!-- <button class="btn btn-warning">
 
                       Delete</button> -->
-                      <a href="{% url 'comment'  %}" class="btn btn-warning">Comment</a>
+                      {% for v in proj %}
+                      <a href="{% url 'comment' v.id  %}" class="btn btn-warning">Comment</a>
                     </div>
-                    
+                    {% endfor %} 
                   </span> 
 
                   <fieldset1 id="overview" class="Overview" >

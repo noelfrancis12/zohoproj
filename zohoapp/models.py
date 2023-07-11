@@ -417,6 +417,7 @@ class project1(models.Model):
     rateperhour=models.CharField(max_length=255,null=True,blank=True)
     budget=models.CharField(max_length=255,null=True,blank=True)
     active = models.BooleanField(default = False)
+    comment=models.CharField(max_length=255,null=True,blank=True)
 class task(models.Model):
     proj=models.ForeignKey(project1,on_delete=models.CASCADE,null=True,blank=True)
     c_name=models.ForeignKey(customer,on_delete=models.CASCADE,null=True,blank=True)
