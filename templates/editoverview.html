@@ -126,7 +126,7 @@
             <tr id="addr0">
                 <td>
                     <select name="user_select[]" id="user_select" class="form-control">
-                        <option value="{{v.usernamez}}" selected>User {{v.usernamez}}</option>
+                        <option value="{{v.usernamez}}" selected> {{v.usernamez}}</option>
                         {% for d in uc %}
                             <option value="{{d.usernamezz}}" data-email="{{d.emailzz}}">{{d.usernamezz}}</option>
                         {% endfor %}
@@ -222,6 +222,7 @@
                 }
             });
         });
+        
     </script>
     <script>
         $(document).on('click', '#user_select1', function(){
