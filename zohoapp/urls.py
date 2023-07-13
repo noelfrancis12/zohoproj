@@ -139,7 +139,7 @@ urlpatterns = [
     path('edit_sales_order/<int:id>',views.edit_sales_order,name='edit_sales_order'),
     path('delet_sales/<int:id>',views.delet_sales,name='delet_sales'),
    
-    path('itemdata', views.itemdata, name='itemdata'),
+    path('itemdata2', views.itemdata2, name='itemdata2'),
     re_path(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
     
     

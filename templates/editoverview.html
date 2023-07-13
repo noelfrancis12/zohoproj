@@ -122,28 +122,29 @@
             </tr>
         </thead>
         <tbody id="items-table-body">
-            {% for v in usern %} 
-            <tr id="addr0">
-                <td>
-                    <select name="user_select[]" id="user_select" class="form-control">
-                        <option value="{{v.usernamez}}" selected> {{v.usernamez}}</option>
-                        {% for d in uc %}
-                            <option value="{{d.usernamezz}}" data-email="{{d.emailzz}}">{{d.usernamezz}}</option>
-                        {% endfor %}
-                        
-                    </select>
-
-                </td>
-                <td class="text-right">
-                    <input type="email" class="form-control" id="email" name="email[]" value="{{v.emailz}}">
-                </td>
-                <td class="text-center">
-                    <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" style="width:30px">
-                        <i class="fa fa-times"></i>
-                    </button>
-                </td>
-            </tr>
-            {% endfor %}
+            {% for v in usern %}
+    <tr id="addr0">
+        <td>
+            <select name="user_select[]" class="form-control user-select" id="user_select">
+                {% for d in uc %}
+                    {% if d.usernamezz == v.usernamez %}
+                        <option value="{{ d.usernamezz }}" data-email="{{ d.emailzz }}" selected>{{ d.usernamezz }}</option>
+                    {% else %}
+                        <option value="{{ d.usernamezz }}" data-email="{{ d.emailzz }}">{{ d.usernamezz }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </td>
+        <td class="text-right">
+            <input type="email" class="form-control email-input" name="email[]" value="{{ v.emailz }}" id="email">
+        </td>
+        <td class="text-center">
+            <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" style="width:30px">
+                <i class="fa fa-times"></i>
+            </button>
+        </td>
+    </tr>
+    {% endfor %}
         </tbody>
     </table>
     
@@ -196,7 +197,20 @@
     </div>-->
     <button type="submit" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="save-btn">Save</button>
     <button type="button" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="cancel-btn">Cancel</button>
+<script>
+    $(document).ready(function() {
+    // Handle change event for user select dropdowns
+    $(document).on('change', '.user-select', function() {
+        var selectedUser = $(this).val();
+        var selectedEmail = $(this).find('option:selected').data('email');
+        $(this).closest('tr').find('.email-input').val(selectedEmail);
+    });
+    
+    // Trigger change event for existing user select dropdowns on page load
+    $('.user-select').trigger('change');
+});
 
+</script>
     <script>
         $(document).ready(function() {
             // Delete row when the delete button is clicked
@@ -211,7 +225,7 @@
             var select = $('#user_select').val();
             $.ajax({
                 type: "GET",
-                url: "{% url 'itemdata' %}",
+                url: "{% url 'itemdata2' %}",
                 data: {
                     id: select
                 },
@@ -229,7 +243,7 @@
             var select = $('#user_select1').val();
             $.ajax({
                 type: "GET",
-                url: "{% url 'itemdata' %}",
+                url: "{% url 'itemdata2' %}",
                 data: {
                     id: select
                 },
@@ -246,7 +260,7 @@
         var select = $('#user_select2').val();
         $.ajax({
             type: "GET",
-            url: "{% url 'itemdata' %}",
+            url: "{% url 'itemdata2' %}",
             data: {
                 id: select
             },
@@ -263,7 +277,7 @@
         var select = $('#user_select3').val();
         $.ajax({
             type: "GET",
-            url: "{% url 'itemdata' %}",
+            url: "{% url 'itemdata2' %}",
             data: {
                 id: select
             },
@@ -280,7 +294,7 @@
         var select = $('#user_select4').val();
         $.ajax({
             type: "GET",
-            url: "{% url 'itemdata' %}",
+            url: "{% url 'itemdata2' %}",
             data: {
                 id: select
             },
@@ -366,26 +380,26 @@
     console.log('hi')
   $('#items-table-body').append( 
     `<tr id="addr0${roinc}">
-                <td>
-                    <select name="user_select[]" id="user_select${roinc}" class="form-control">
-                        {% for d in uc %}
-                            <option value="{{d.usernamezz}}" data-email="{{d.emailzz}}">{{d.usernamezz}}</option>
-                        {% endfor %}
-                        
-                    </select>
-                </td>
-                <td class="text-right">
-                    <input type="email" class="form-control" id="email${roinc}" name="email[]" >
-                </td>
-                <td class="text-center">
-                    <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle remove_row" style="width:30px" id="${roinc}">
-                        <i class="fa fa-times"></i>
-                    </button>
-                </td>
-
-               
-</button></td>
-            </tr> `
+        <td>
+            <select name="user_select[]" class="form-control user-select"  id="user_select${roinc}">
+                {% for d in uc %}
+                    {% if d.usernamezz == v.usernamez %}
+                        <option value="{{ d.usernamezz }}" data-email="{{ d.emailzz }}" selected>{{ d.usernamezz }}</option>
+                    {% else %}
+                        <option value="{{ d.usernamezz }}" data-email="{{ d.emailzz }}">{{ d.usernamezz }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </td>
+        <td class="text-right">
+            <input type="email" class="form-control email-input" name="email[]" value="{{ v.emailz }}">
+        </td>
+        <td class="text-center">
+            <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" style="width:30px">
+                <i class="fa fa-times"></i>
+            </button>
+        </td>
+    </tr>`
   )}       
   );
   });

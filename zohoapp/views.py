@@ -2729,7 +2729,8 @@ def editprojdb(request,id):
         
         proj.save()
 
-        
+        # Delete existing usernamez objects for the project
+        usernamez.objects.filter(projn=proj).delete()
 
 
         objects_to_delete = task.objects.filter(proj_id=proj.id)
@@ -2760,7 +2761,7 @@ def delproj(request,id):
     projd=project1.objects.get(id=id)
     projd.delete()
     return redirect('vproj')
-def itemdata(request):
+def itemdata2(request):
     user_id = request.GET.get('id')
     user = get_object_or_404(usercreate, usernamezz=user_id)
     email = user.emailzz
