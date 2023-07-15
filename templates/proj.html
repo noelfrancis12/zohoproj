@@ -48,9 +48,7 @@
       text-align: right;
       margin-top: 20px;
     }
-    .form-control{
-        background-color: black transparent;
-    }
+   
 </style>
 <!-- <section > -->
     <div class="fixed-top" style="top: 7rem; margin-left: 18rem;" >
@@ -67,7 +65,7 @@
                     <label >Project name*</label>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-6">
-                    <input  type="text" class="form-control" name="name" required>     
+                    <input  type="text" class="form-control bg-dark" name="name" required>     
                     <div class="invalid-feedback">Please fill out this field.</div>  
  
                 </div>
@@ -77,7 +75,7 @@
                <div class="form-group row mt-4">
                    <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label>Description</label></div>
                     <div class="col-sm-12 col-md-6 col-lg-6">
-                        <input type="text" class="form-control" name="desc" required>     
+                        <input type="text" class="form-control bg-dark" name="desc" required>     
                         <div class="invalid-feedback">Please fill out this field.</div> 
  
                     </div>
@@ -89,7 +87,7 @@
                         <label>Customer Name*</label>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-6">
-                        <select name="c_name" id="customer-select" class="form-control">
+                        <select name="c_name" id="customer-select" class="form-control bg-dark">
                             <option value="">Select Customer</option>
                             {% for d in data %}
                             <option value="{{d.id}}" data-email="{{ d.customerEmail }}">{{d.customerName}}</option>
@@ -103,14 +101,14 @@
                         <label>Email</label>
                     </div>
                     <div class="col-sm-12 col-md-6 col-lg-6">
-                        <input type="text" id="customer-email" class="form-control" >
+                        <input type="text" id="customer-email" class="form-control bg-dark" >
                     </div>
                 </div>
 
                  <div class="form-group row mt-4">
                     <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label>Billing Method*</label></div>
                     <div class="col-sm-12 col-md-6 col-lg-6">
-                        <select name="billing" id="billingMethodSelect" class="form-control">
+                        <select name="billing" id="billingMethodSelect" class="form-control bg-dark">
                             <option value=""></option>
                             <option value="Fixed cost for project">Fixed cost for project</option>
                             <option value="Based on project hours">Based on project hours</option>
@@ -125,7 +123,7 @@
                             <label >Rate per hour*</label>
                         </div>
                         <div class="col-sm-12 col-md-6 col-lg-6">
-                            <input  type="text" class="form-control" name="rateperhour"  id="inputBox" >     
+                            <input  type="text" class="form-control bg-dark" name="rateperhour"  id="inputBox" >     
                                 
          
                         </div>
@@ -136,7 +134,7 @@
                 <div class="form-group row mt-4">
                     <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label>Budget Type*</label></div>
                     <div class="col-sm-12 col-md-6 col-lg-6">
-                        <select name="budget" id="budgetMethodSelect" class="form-control">
+                        <select name="budget" id="budgetMethodSelect" class="form-control bg-dark">
                             <option value=""></option>
                             <option value="Total budget cost">Total budget cost</option>
                             <option value="Total project hours">Total project hours(HH:MM)</option>
@@ -154,7 +152,7 @@
                     </center>
  
                     <label for="">Users</label><br>
-    <table class="table text-black" id="tab_logic">
+    <table class="table text-black " id="tab_logic">
         <thead>
             <tr>
                 <th>User</th>
@@ -165,7 +163,7 @@
         <tbody id="items-table-body">
             <tr id="addr0">
                 <td>
-                    <select name="user_select[]" id="user_select" class="form-control">
+                    <select name="user_select[]" id="user_select" class="form-control bg-dark">
                         {% for d in uc %}
                             <option value="{{d.usernamezz}}" data-email="{{d.emailzz}}">{{d.usernamezz}}</option>
                         {% endfor %}
@@ -174,7 +172,7 @@
 
                 </td>
                 <td class="text-right">
-                    <input type="email" class="form-control" id="email" name="email[]" >
+                    <input type="email" class="form-control bg-dark" id="email" name="email[]" >
                 </td>
                 <td class="text-center">
                     <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" style="width:30px">
@@ -200,13 +198,13 @@
         <tbody id="items-table-task">
             <tr id="addt0">
                 <td>
-                    <input type="text" class="form-control" id="task1" name="taskname[]">
+                    <input type="text" class="form-control bg-dark" id="task1" name="taskname[]">
                 </td>
                 <td class="text-right">
-                    <input type="text" class="form-control" id="desc1" name="taskdes[]">
+                    <input type="text" class="form-control bg-dark" id="desc1" name="taskdes[]">
                 </td>
                 <td class="text-right">
-                    <input type="text" class="form-control" id="tsk1" name="taskrph[]">
+                    <input type="text" class="form-control bg-dark" id="tsk1" name="taskrph[]">
                 </td>
                 <td class="text-center">
                     <input  type="checkbox" id="billable1" name="billable[]" placeholder="work phone" checked>
@@ -371,13 +369,13 @@
     $('#items-table-task').append(`
       <tr id="addt0${roinc}">
         <td>
-          <input type="text" class="form-control" id="task1${roinc}" name="taskname[]">
+          <input type="text" class="form-control bg-dark" id="task1${roinc}" name="taskname[]">
         </td>
         <td class="text-right">
-          <input type="text" class="form-control" id="desc1${roinc}" name="taskdes[]">
+          <input type="text" class="form-control bg-dark" id="desc1${roinc}" name="taskdes[]">
         </td>
         <td class="text-right rate-column">
-          <input type="text" class="form-control task-rate" id="tsk1${roinc}" name="taskrph[]">
+          <input type="text" class="form-control bg-dark task-rate" id="tsk1${roinc}" name="taskrph[]">
         </td>
         <td class="text-center">
           <input type="checkbox" id="billable1${roinc}" name="billable[]" placeholder="work phone" checked>
@@ -422,7 +420,7 @@
   $('#items-table-body').append( 
     `<tr id="addr0${roinc}">
                 <td>
-                    <select name="user_select[]" id="user_select${roinc}" class="form-control">
+                    <select name="user_select[]" id="user_select${roinc}" class="form-control bg-dark">
                         {% for d in uc %}
                             <option value="{{d.usernamezz}}" data-email="{{d.emailzz}}">{{d.usernamezz}}</option>
                         {% endfor %}
@@ -430,7 +428,7 @@
                     </select>
                 </td>
                 <td class="text-right">
-                    <input type="email" class="form-control" id="email${roinc}" name="email[]" >
+                    <input type="email" class="form-control bg-dark" id="email${roinc}" name="email[]" >
                 </td>
                 <td class="text-center">
                     <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle remove_row" style="width:30px" id="${roinc}">

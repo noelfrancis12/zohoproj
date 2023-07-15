@@ -51,7 +51,7 @@
             <div class="col-sm-12 col-md-8 col-lg-8">
                 <div class="row">
                     <div class="col-sm-12 col-md-8 col-lg-8 mt-3">
-                        <a class="text-white" style="font-size: 2rem;"><i class="fa-sharp fa-regular fa-circle-dot"></i>&nbsp;&nbsp;&nbsp;&nbsp;Overview</a>
+                        <a class="text-white" style="font-size: 2rem;"><i class="fa-sharp fa-regular fa-circle-dot"></i>&nbsp;&nbsp;&nbsp;&nbsp;Comments</a>
                     </div>
                     <!--<div class="col-sm-12 col-md-4 col-lg-4  mt-3">
                         <a style="color: #ccc;" class="btn btn-success mr-2" href="#"></i>Edit</a>
@@ -61,15 +61,16 @@
                 </div>
                
                 <span class="input-group mb-1 pt-3" style="border-bottom: 1px solid rgb(37, 37, 37);border-top: 1px solid rgb(37, 37, 37);">
+                    {% for v in proje %} 
                     <div id="over"
                     style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
                     <!-- <button class="btn btn-warning">
 
-                    Delete</button> -->{% for v in proje %} 
+                    Delete</button> -->
                     <a href="{% url 'overview' v.id %}" class="btn btn-warning">Overview</a>
-                    {% endfor %}
+                    
                   </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      
+                  {% endfor %}
                    
                     <div id="over"
                     style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">

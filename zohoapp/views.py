@@ -2662,7 +2662,7 @@ def addproj(request):
                 usernamez=elez[0], emailz=elez[1], projn=proj
             )
         
-    return redirect('overview', id=proj.id)
+    return redirect('vproj')
 
 
 

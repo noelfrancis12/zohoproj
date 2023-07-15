@@ -55,11 +55,13 @@
                 </div>
             </div>
             <div class="col-sm-12 col-md-8 col-lg-8">
+                {% for v in proj %}
                 <div class="row">
                     <div class="col-sm-12 col-md-8 col-lg-8 mt-3">
-                        <a class="text-white" style="font-size: 2rem;"><i class="fa-sharp fa-regular fa-circle-dot"></i>&nbsp;&nbsp;&nbsp;&nbsp;Overview</a>
+                        <a class="text-white" style="font-size: 2rem;"><i class="fa-sharp fa-regular fa-circle-dot"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{ v.name }}</a>
                     </div> 
                 </div>
+                {% endfor %}
                 <span class="input-group mb-1 pt-3" style="border-bottom: 1px solid rgb(37, 37, 37);border-top: 1px solid rgb(37, 37, 37);">
                     <div id="over" class="toggle1"
                       style="color: rgb(230, 171, 45);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
