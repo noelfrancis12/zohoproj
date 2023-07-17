@@ -31,17 +31,20 @@
 
 <div class="fixed-top" style="top: 7rem; margin-left: 18rem;">
     <div style="height: 600px;overflow-y: scroll;">
-        <div class="row">
-            <div class="col-md-3"><a class="text-white" style="font-size: 2rem;">All Projects</a>
+      <div class="row">
+        <div class="col-md-3"><a class="text-white" style="font-size: 2rem;">All Projects</a>
               
              
-            </div>
+        </div>
+      </div>
+        <div class="row mt-5">
+           
             <div class="col-md-3 "> 
               <input type="text" id="vendorSearchInput" class="form-control" placeholder="Search Projects..." >
             </div>
 
             <div class="col-md-3 form-inline" style="margin-left: 49rem;margin-top: -2rem;"><a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="btn btn-warning mr-2" href="{% url 'proj' %}"><i class="fa-solid fa-plus "></i>New</a>&nbsp;
-             
+              <button id="sortButton" class="btn btn-warning">Sort</button>
             </div>
            
             
@@ -102,6 +105,38 @@
     </div>
 
 </div>
+
+<script>
+  // Existing scripts...
+
+  var sortButton = document.getElementById('sortButton');
+  var projectRows = document.querySelectorAll('#vendorTable tbody tr');
+
+  sortButton.addEventListener('click', function() {
+    // Convert NodeList to Array for easy sorting
+    var rowsArray = Array.from(projectRows);
+
+    // Sort the rows based on the project name
+    rowsArray.sort(function(a, b) {
+      var projectNameA = a.querySelector('td:nth-child(3) a').textContent.trim();
+      var projectNameB = b.querySelector('td:nth-child(3) a').textContent.trim();
+      return projectNameA.localeCompare(projectNameB);
+    });
+
+    // Remove existing rows from the table
+    var tbody = document.querySelector('#vendorTable tbody');
+    while (tbody.firstChild) {
+      tbody.removeChild(tbody.firstChild);
+    }
+
+    // Add sorted rows back to the table
+    rowsArray.forEach(function(row) {
+      tbody.appendChild(row);
+    });
+  });
+</script>
+
+
 <script>
   var toggleButtons = document.querySelectorAll('.toggleButton');
 

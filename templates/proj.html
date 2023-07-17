@@ -56,7 +56,7 @@
           <div style="height: 600px;overflow-y: scroll;">
              <h3  class="mb-3  text-white " style="font-size: 2rem;">New Project</h3><br>     
       
-            <form  method="post" action="{% url 'addproj' %}"  enctype="multipart/form-data" class="">
+            <form  method="post" id="project-form" action="{% url 'addproj' %}"  enctype="multipart/form-data" class="">
               {% csrf_token %}
               
               
@@ -118,19 +118,20 @@
                     </div>
                 </div>
                 <div id="inputBoxContainer" style="display: none;">
-                    <div class=" form-group row">
-                        <div class="col-sm-12 col-md-3 col-lg-3 col-form-label">
-                            <label >Rate per hour*</label>
+                    <div class="form-group row">
+                      <div class="col-sm-12 col-md-3 col-lg-3 col-form-label">
+                        <label id="rateLabel">Rate per hour*</label>
+                      </div>
+                      <div class="col-sm-12 col-md-6 col-lg-6">
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <div class="input-group-text">INR</div>
+                          </div>
+                          <input type="text" class="form-control bg-dark" name="rateperhour" id="inputBox">
                         </div>
-                        <div class="col-sm-12 col-md-6 col-lg-6">
-                            <input  type="text" class="form-control bg-dark" name="rateperhour"  id="inputBox" >     
-                                
-         
-                        </div>
-                        
+                      </div>
                     </div>
-                    
-                </div>
+                  </div>
                 <div class="form-group row mt-4">
                     <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label>Budget Type*</label></div>
                     <div class="col-sm-12 col-md-6 col-lg-6">
@@ -204,7 +205,13 @@
                     <input type="text" class="form-control bg-dark" id="desc1" name="taskdes[]">
                 </td>
                 <td class="text-right">
-                    <input type="text" class="form-control bg-dark" id="tsk1" name="taskrph[]">
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                          <div class="input-group-text">INR</div>
+                        </div>
+                        <input type="text" class="form-control bg-dark" id="tsk1" name="taskrph[]">
+                      </div>
+                      
                 </td>
                 <td class="text-center">
                     <input  type="checkbox" id="billable1" name="billable[]" placeholder="work phone" checked>
@@ -245,6 +252,33 @@
     </div>
   </div>
   </form>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Get a reference to the Cancel button
+        const cancelButton = document.getElementById('cancel-btn');
+        
+        // Get a reference to the form
+        const projectForm = document.getElementById('project-form');
+        
+        // Add a click event listener to the Cancel button
+        cancelButton.addEventListener('click', function () {
+            // Reset the form to clear the entered data
+            projectForm.reset();
+        });
+    });
+</script>
+  <script>
+    $(document).ready(function () {
+        $("#billingMethodSelect").change(function () {
+            var selectedOption = $(this).val();
+            if (selectedOption === "Fixed cost for project") {
+                $("#rateLabel").text("Total project cost*");
+            } else {
+                $("#rateLabel").text("Rate per hour*");
+            }
+        });
+    });
+</script>
   <script>
     var createUserBtn = document.getElementById("create-user");
     var modal = document.getElementById("myModal");
@@ -375,7 +409,13 @@
           <input type="text" class="form-control bg-dark" id="desc1${roinc}" name="taskdes[]">
         </td>
         <td class="text-right rate-column">
-          <input type="text" class="form-control bg-dark task-rate" id="tsk1${roinc}" name="taskrph[]">
+            <div class="input-group mb-2">
+  <div class="input-group-prepend">
+    <div class="input-group-text">INR</div>
+  </div>
+  <input type="text" class="form-control bg-dark" id="tsk1${roinc}" name="taskrph[]">
+</div>
+
         </td>
         <td class="text-center">
           <input type="checkbox" id="billable1${roinc}" name="billable[]" placeholder="work phone" checked>

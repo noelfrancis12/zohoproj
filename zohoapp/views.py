@@ -13,7 +13,7 @@ from django.core.mail import EmailMessage
 from django.views import View
 from .forms import EmailForm
 from django.http import JsonResponse
-
+from django.urls import reverse
 
 def index(request):
 
@@ -2692,7 +2692,7 @@ def commentdb(request, id):
         proj.user = udata  # Associate the project with the user
         proj.save()  # Save the project object with the updated comment
 
-        return redirect('comment', id)
+        return HttpResponseRedirect(reverse('comment', args=[proj.id]))
  
 
 def editproj(request,id):

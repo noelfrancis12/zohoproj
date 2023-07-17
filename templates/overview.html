@@ -16,20 +16,22 @@
 
 <div class="fixed-top" style="top: 7rem; margin-left: 18rem;">
     <div>
+        <div class="row"><div class="col-md-6"><a class="text-white" style="font-size: 2rem;">All Projects</a>
+                        
+                        
+        </div></div>
         <div class="row">
             <div class="col-sm-12 col-md-4 col-lg-4">
                 <div class="row">
                     
-                    <div class="col-md-6"><a class="text-white" style="font-size: 2rem;">All Projects</a>
-                        
-                        
-                    </div>
+                    
+                    
                     <div class="col-md-6 "> 
                         <input type="text" id="vendorSearchInput" class="form-control" placeholder="Search Projects..." >
                       </div>
-                    <div class="col-md-2 form-inline" style="margin-left: 9rem;margin-top: -2rem;">  
-                        
-                    </div>
+                      <div class="col-md-6 form-inline" style="margin-top: 0rem;"><a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="btn btn-warning mr-2" href="{% url 'proj' %}"><i class="fa-solid fa-plus "></i>New</a>&nbsp;
+                        <button id="sortButton" class="btn btn-warning">Sort</button>
+                      </div>
                 </div>
                 <div style="height: 500px;overflow-y: scroll;">
                     <div class="row">
@@ -54,27 +56,27 @@
                     </div> 
                 </div>
             </div>
-            <div class="col-sm-12 col-md-8 col-lg-8">
+            <div class="col-sm-12 col-md-8 col-lg-8 pb-5 mb-5" >
                 {% for v in proj %}
                 <div class="row">
-                    <div class="col-sm-12 col-md-8 col-lg-8 mt-3">
-                        <a class="text-white" style="font-size: 2rem;"><i class="fa-sharp fa-regular fa-circle-dot"></i>&nbsp;&nbsp;&nbsp;&nbsp;{{ v.name }}</a>
+                    <div class="col-sm-12 col-md-8 col-lg-8 mb-2">
+                        <a class="text-white" style="font-size: 2rem;"><i class="fa-sharp fa-regular fa-circle-dot"></i>&nbsp;{{ v.name }}</a>
                     </div> 
                 </div>
                 {% endfor %}
-                <span class="input-group mb-1 pt-3" style="border-bottom: 1px solid rgb(37, 37, 37);border-top: 1px solid rgb(37, 37, 37);">
+                <span class="input-group mb-3" style="border-bottom: 1px solid rgb(37, 37, 37);border-top: 1px solid rgb(37, 37, 37);">
                     <div id="over" class="toggle1"
                       style="color: rgb(230, 171, 45);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
-                      <button onclick="fieldset1_function()"   class="btn btn-warning">Overview</button> </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                      {% for v in proj %} 
+                      <button onclick="fieldset1_function()"   class="btn btn-warning">Overview</button> </div>
+                      {% for v in proj %} &nbsp;&nbsp;&nbsp;
                     <div id="over"  class="toggle2"
                       style="color: rgb(230, 171, 45);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
-                      <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="btn btn-warning mr-2" href="{% url 'editproj' v.id %}"></i>Edit</a>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="btn btn-warning mr-2" href="{% url 'editproj' v.id %}"></i>Edit</a>  &nbsp;
                     </div>
                     <div id="over" class="toggle4"
                       style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
                       <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="btn btn-warning mr-2" href="{% url 'delproj' v.id %}"></i>Delete</a>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                    &nbsp;</div>
 
                     <div id="over" class="toggle6"
                       style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
@@ -83,7 +85,7 @@
 {% else %}
 <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="toggleButton btn btn-warning mr-2" href="#" >Inactive</a>
 {% endif %}
-                    &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                    &nbsp;
                     {% endfor %}</div>
                     <div id="over"
                       style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
@@ -91,7 +93,7 @@
 
                       Delete</button> -->
                       {% for v in proj %}
-                      <a href="{% url 'comment' v.id  %}" class="btn btn-warning">Comment</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <a href="{% url 'comment' v.id  %}" class="btn btn-warning">Comment</a>&nbsp;
                     </div>
                     {% endfor %}
                     <div id="over" class="toggle4"
@@ -101,13 +103,13 @@
                       </label>
                       <input id="file-input" type="file" style="display: none;" />
                     
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                  &nbsp;&nbsp;</div>
                   </span> 
 
                   <fieldset1 id="overview" class="Overview" >
                     <div style="height: 400px;overflow-y: scroll;">
                         {% for v in proj %}
-                        <div class="form-group row mt-4">
+                        <div class="form-group row ">
                             <div class="col-sm-12 col-md-2 col-lg-2"></div>
                             <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color:rgb(214, 75, 75) ;font-weight: bold;">Project Name:</label></div>
                              <div class="col-sm-12 col-md-6 col-lg-6 col-form-label">
@@ -430,6 +432,28 @@
         </div>
     </div>
 </div>
+<script>
+    // Add event listener to the "Sort" button
+    const sortButton = document.getElementById("sortButton");
+    sortButton.addEventListener("click", function () {
+      sortTableByName();
+    });
+  
+    // Function to sort the table by project name in ascending order
+    function sortTableByName() {
+      const table = document.getElementById("myTable");
+      const rows = Array.from(table.getElementsByTagName("tr"));
+  
+      rows.sort((a, b) => {
+        const nameA = a.cells[0].innerText.toLowerCase();
+        const nameB = b.cells[0].innerText.toLowerCase();
+        return nameA.localeCompare(nameB);
+      });
+  
+      rows.forEach((row) => table.appendChild(row));
+    }
+  </script>
+  
 
 
 <script>
