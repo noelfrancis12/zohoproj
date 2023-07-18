@@ -424,7 +424,11 @@ class task(models.Model):
     taskname=models.CharField(max_length=255,null=True,blank=True) 
     taskdes=models.CharField(max_length=255,null=True,blank=True)
     taskrph= models.CharField(max_length=255, null=True,blank=True) 
-    billable = models.CharField(max_length=255, default='Not Billed',null=True,blank=True)
+    BILLABLE_CHOICES = [
+        ('Billed', 'Billed'),
+        ('Not Billed', 'Not Billed'),
+    ]
+    billable = models.CharField(max_length=255,choices=BILLABLE_CHOICES, default='Not Billed',null=True,blank=True)
 
 class usernamez(models.Model):
     projn=models.ForeignKey(project1,on_delete=models.CASCADE,null=True,blank=True)

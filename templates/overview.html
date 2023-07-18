@@ -56,7 +56,7 @@
                     </div> 
                 </div>
             </div>
-            <div class="col-sm-12 col-md-8 col-lg-8 pb-5 mb-5" >
+            <div class="col-sm-12 col-md-8 col-lg-8"  style="margin-top: -3.5rem;">
                 {% for v in proj %}
                 <div class="row">
                     <div class="col-sm-12 col-md-8 col-lg-8 mb-2">
@@ -107,7 +107,7 @@
                   </span> 
 
                   <fieldset1 id="overview" class="Overview" >
-                    <div style="height: 400px;overflow-y: scroll;">
+                    <div style="height: 500px;overflow-y: scroll;">
                         {% for v in proj %}
                         <div class="form-group row ">
                             <div class="col-sm-12 col-md-2 col-lg-2"></div>
@@ -210,7 +210,7 @@
                                             <a class="text-white"  >{{v.taskdes}}</a>
                                         </td>
                                         <td class="text-right">
-                                            <a class="text-white"  >Billable</a>
+                                            <a class="text-white"  >{{v.billable}}</a>
                                         </td>
                                         
                                         

@@ -2643,6 +2643,15 @@ def addproj(request):
         print(user_select1)
         email1 = request.POST.getlist('email[]')
         print(email1)
+
+# Ensure all lists have the same length
+        max_length = max(len(taskname1), len(taskdes1), len(taskrph1), len(billable1))
+        taskname1.extend([''] * (max_length - len(taskname1)))
+        taskdes1.extend([''] * (max_length - len(taskdes1)))
+        taskrph1.extend([''] * (max_length - len(taskrph1)))
+        billable1.extend(['Not Billed'] * (max_length - len(billable1)))
+        
+
         cat = customer.objects.get(id=c_name)
         proj = project1(name=name, desc=desc, c_name=cat, billing=billing, rateperhour=rateperhour, budget=budget,user=user)
         proj.save()
@@ -2652,7 +2661,11 @@ def addproj(request):
         for ele in mapped_tasks:
             billable = 'Billed' if ele[3] == 'on' else 'Not Billed'
             tasks, created = task.objects.get_or_create(
-                taskname=ele[0], taskdes=ele[1], taskrph=ele[2], billable=billable, proj=proj
+                taskname=ele[0],
+                taskdes=ele[1],
+                taskrph=ele[2],
+                proj=proj,
+                billable=billable
             )
 
         mapped_users = zip(user_select1, email1)
