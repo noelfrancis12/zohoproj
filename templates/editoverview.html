@@ -205,6 +205,44 @@
     </div>-->
     <button type="submit" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="save-btn">Save</button>
     <button type="button" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="cancel-btn">Cancel</button>
+
+    <script>
+    $(document).ready(function() {
+  var billingMethodSelect = $('#billingMethodSelect');
+  var rateLabel = $('#rateLabel');
+  var inputBoxContainer = $('#inputBoxContainer');
+  var rateColumn = $('#task_table th:nth-child(3), #task_table td:nth-child(3)');
+
+  // Function to show the correct label and input based on the selected billing method
+  function showCorrectLabelAndInput() {
+    var selectedOption = billingMethodSelect.val();
+
+    if (selectedOption === 'Fixed cost for project') {
+      rateLabel.text('Total project cost*');
+      inputBoxContainer.show();
+      rateColumn.hide();
+    } else if (selectedOption === 'Based on project hours') {
+      rateLabel.text('Rate per hour*');
+      inputBoxContainer.show();
+      rateColumn.hide();
+    } else {
+      rateLabel.text('Rate per hour*');
+      inputBoxContainer.hide();
+      rateColumn.show();
+    }
+  }
+
+  // Trigger the function on page load
+  showCorrectLabelAndInput();
+
+  // Handle change event of the billing method select dropdown
+  billingMethodSelect.on('change', function() {
+    showCorrectLabelAndInput();
+  });
+});
+
+      </script>
+
     <script>
         $(document).ready(function () {
             $("#billingMethodSelect").change(function () {

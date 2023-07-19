@@ -33,7 +33,7 @@
                         <button id="sortButton" class="btn btn-warning">Sort</button>
                       </div>
                 </div>
-                <div style="height: 500px;overflow-y: scroll;">
+                <div style="height: 535px;overflow-y: scroll;">
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12">
 
@@ -56,58 +56,43 @@
                     </div> 
                 </div>
             </div>
-            <div class="col-sm-12 col-md-8 col-lg-8"  style="margin-top: -3.5rem;">
+            <div class="col-sm-12 col-md-8 col-lg-8" style="margin-top: -3.5rem;">
                 {% for v in proj %}
-                <div class="row">
-                    <div class="col-sm-12 col-md-8 col-lg-8 mb-2">
-                        <a class="text-white" style="font-size: 2rem;"><i class="fa-sharp fa-regular fa-circle-dot"></i>&nbsp;{{ v.name }}</a>
-                    </div> 
+                <div class="row align-items-center">
+                    <div class="col-8 mb-2">
+                        <div class="d-flex align-items-center">
+                            <a class="text-white" style="font-size: 1.3rem;"><i class="fa-sharp fa-regular fa-circle-dot"></i>&nbsp;{{ v.name }}</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                            <div id="over" class="toggle1" style="color: rgb(230, 171, 45);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;">
+                                <button onclick="fieldset1_function()" class="btn btn-warning">Overview</button>
+                            </div>&nbsp;
+                            <div id="over" class="toggle2" style="color: rgb(230, 171, 45);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;">
+                                <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="btn btn-warning mr-2" href="{% url 'editproj' v.id %}">Edit</a>
+                            </div>&nbsp;
+                            <div id="over" class="toggle4" style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;">
+                                <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="btn btn-warning mr-2" href="{% url 'delproj' v.id %}">Delete</a>
+                            </div>&nbsp;
+                            <div id="over" class="toggle6" style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;">
+                                {% if project.active %}
+                                <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="toggleButton btn btn-warning mr-2" href="#">Active</a>
+                                {% else %}
+                                <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="toggleButton btn btn-warning mr-2" href="#">Inactive</a>
+                                {% endif %}
+                            </div>&nbsp;
+                            <div id="over" style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;">
+                                <a href="{% url 'comment' v.id  %}" class="btn btn-warning">Comment</a>
+                            </div>&nbsp;
+                            <div id="over" class="toggle4" style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;">
+                                <label for="file-input">
+                                    <img src="https://cdn-icons-png.flaticon.com/128/9329/9329892.png" style="height: 40px;width: 40px;" />
+                                </label>
+                                <input id="file-input" type="file" style="display: none;" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 {% endfor %}
-                <span class="input-group mb-3" style="border-bottom: 1px solid rgb(37, 37, 37);border-top: 1px solid rgb(37, 37, 37);">
-                    <div id="over" class="toggle1"
-                      style="color: rgb(230, 171, 45);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
-                      <button onclick="fieldset1_function()"   class="btn btn-warning">Overview</button> </div>
-                      {% for v in proj %} &nbsp;&nbsp;&nbsp;
-                    <div id="over"  class="toggle2"
-                      style="color: rgb(230, 171, 45);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
-                      <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="btn btn-warning mr-2" href="{% url 'editproj' v.id %}"></i>Edit</a>  &nbsp;
-                    </div>
-                    <div id="over" class="toggle4"
-                      style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
-                      <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="btn btn-warning mr-2" href="{% url 'delproj' v.id %}"></i>Delete</a>
-                    &nbsp;</div>
-
-                    <div id="over" class="toggle6"
-                      style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
-                      {% if project.active %}
-                      <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="toggleButton btn btn-warning mr-2" href="#" >Active</a>
-{% else %}
-<a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="toggleButton btn btn-warning mr-2" href="#" >Inactive</a>
-{% endif %}
-                    &nbsp;
-                    {% endfor %}</div>
-                    <div id="over"
-                      style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
-                      <!-- <button class="btn btn-warning">
-
-                      Delete</button> -->
-                      {% for v in proj %}
-                      <a href="{% url 'comment' v.id  %}" class="btn btn-warning">Comment</a>&nbsp;
-                    </div>
-                    {% endfor %}
-                    <div id="over" class="toggle4"
-                    style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:22px;">
-                    <label for="file-input">
-                        <img src="https://cdn-icons-png.flaticon.com/128/9329/9329892.png" style="height: 40px;width: 40px;"/>
-                      </label>
-                      <input id="file-input" type="file" style="display: none;" />
-                    
-                  &nbsp;&nbsp;</div>
-                  </span> 
-
                   <fieldset1 id="overview" class="Overview" >
-                    <div style="height: 500px;overflow-y: scroll;">
+                    <div style="height: 550px;overflow-y: scroll;margin-top: 2rem;">
                         {% for v in proj %}
                         <div class="form-group row ">
                             <div class="col-sm-12 col-md-2 col-lg-2"></div>
