@@ -2785,8 +2785,10 @@ def createuser(request):
             emailzz = request.POST.get('emailzz')
             proj=usercreate(usernamezz=usernamezz,emailzz=emailzz)
             proj.save()
+            return JsonResponse({"username":usernamezz,"email":emailzz})
+    return render(request,"proj.html")
             #return render(request, 'proj.html')
-            return redirect('proj')
+            #return redirect('proj')
 def toggle_status(request, project_id):
     project = get_object_or_404(project1, id=project_id)
     project.active = not project.active

@@ -11,6 +11,46 @@
     .image-upload>input {
   display: none;
 }
+/* Style for the modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999; /* Set a high z-index to bring the modal to the front */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+}
+
+.modal-content {
+    background-color: #fefefe; /* Opaque background for the content */
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%;
+}
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #000;
+}
+
+/* Style for the text area */
+textarea {
+    width: 100%;
+    resize: vertical;
+    margin-bottom: 10px;
+}
+
+
 
 </style>
 
@@ -33,7 +73,7 @@
                         <button id="sortButton" class="btn btn-warning">Sort</button>
                       </div>
                 </div>
-                <div style="height: 535px;overflow-y: scroll;">
+                <div style="height: 435px;overflow-y: scroll;overflow-x: hidden; ">
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-12">
 
@@ -61,8 +101,9 @@
                 <div class="row align-items-center">
                     <div class="col-8 mb-2">
                         <div class="d-flex align-items-center">
-                            <a class="text-white" style="font-size: 1.3rem;"><i class="fa-sharp fa-regular fa-circle-dot"></i>&nbsp;{{ v.name }}</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                            <div id="over" class="toggle1" style="color: rgb(230, 171, 45);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;">
+                            <a class="text-white" style="font-size: 3rem;"><i class="fa-sharp fa-regular fa-circle-dot"></i>{{ v.name }}</a>
+                            
+                            <div id="over" class="toggle1" style="color: rgb(230, 171, 45);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;margin-left: 150px;">
                                 <button onclick="fieldset1_function()" class="btn btn-warning">Overview</button>
                             </div>&nbsp;
                             <div id="over" class="toggle2" style="color: rgb(230, 171, 45);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;">
@@ -78,8 +119,11 @@
                                 <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="toggleButton btn btn-warning mr-2" href="#">Inactive</a>
                                 {% endif %}
                             </div>&nbsp;
-                            <div id="over" style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;">
+                            <!--<div id="over" style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;">
                                 <a href="{% url 'comment' v.id  %}" class="btn btn-warning">Comment</a>
+                            </div>&nbsp;-->
+                            <div id="over" style="color: rgb(230, 171, 45); font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: 22px;">
+                                <a href="#" class="btn btn-warning" onclick="openModal()">Comment</a>
                             </div>&nbsp;
                             <div id="over" class="toggle4" style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;">
                                 <label for="file-input">
@@ -87,12 +131,13 @@
                                 </label>
                                 <input id="file-input" type="file" style="display: none;" />
                             </div>
+                        
                         </div>
                     </div>
                 </div>
                 {% endfor %}
                   <fieldset1 id="overview" class="Overview" >
-                    <div style="height: 550px;overflow-y: scroll;margin-top: 2rem;">
+                    <div style="height: 435px; overflow-y: scroll; overflow-x: hidden; margin-top: 2rem;">
                         {% for v in proj %}
                         <div class="form-group row ">
                             <div class="col-sm-12 col-md-2 col-lg-2"></div>
@@ -417,6 +462,96 @@
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div class="overlay" onclick="closeModal()"></div>
+<!-- Modal -->
+<div id="commentModal" class="modal">
+    <div class="modal-content bg-dark">
+        <span class="close" onclick="closeModal()">&times;</span>
+        
+        <textarea id="commentTextArea"  rows="4" placeholder="Enter your comment..." class="form-control bg-dark"></textarea>
+        <button class="btn btn-warning" onclick="saveComment()">Save</button>
+        <button class="btn btn-warning mt-1" onclick="viewComment()">View</button>
+        
+        <button class="btn btn-warning mt-1" onclick="clearTextArea()">Clear</button>
+    </div>
+</div>
+<!-- Hidden textarea to store previous comments -->
+<textarea id="hiddenComments" style="display: none;"></textarea>
+
+
+
+<script>
+    function saveComment() {
+        var comment = document.getElementById("commentTextArea").value;
+        var projId = '{{ proj.id }}'; // Assuming 'proj' variable is passed from Django view
+        var csrfToken = '{{ csrf_token }}'; // Assuming CSRF token is passed from Django template
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/commentdb/' + projId + '/');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.setRequestHeader('X-CSRFToken', csrfToken);
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                console.log('Comment saved:', comment);
+                closeModal();
+            } else {
+                console.error('Failed to save comment:', xhr.statusText);
+            }
+        };
+
+        xhr.send('comment=' + encodeURIComponent(comment));
+    }
+</script>
+
+
+<script>
+ // Create an array to store comments
+var comments = [];
+
+function openModal() {
+    var modal = document.getElementById("commentModal");
+    modal.style.display = "block";
+}
+
+function closeModal() {
+    var modal = document.getElementById("commentModal");
+    modal.style.display = "none";
+}
+
+function saveComment() {
+    var comment = document.getElementById("commentTextArea").value;
+    comments.push(comment); // Save the comment to the array
+    console.log("Comment saved:", comment);
+    closeModal();
+}
+
+function viewComment() {
+    var hiddenComments = document.getElementById("hiddenComments");
+    hiddenComments.value = comments.join("\n"); // Join the comments with a new line
+
+    var commentTextArea = document.getElementById("commentTextArea");
+    commentTextArea.value = hiddenComments.value; // Set the textarea value to the hidden comments
+
+    var modal = document.getElementById("commentModal");
+    modal.style.display = "block";
+}
+
+function clearTextArea() {
+    var commentTextArea = document.getElementById("commentTextArea");
+    commentTextArea.value = ""; // Clear the text in the textarea
+}
+
+// Close the modal if the user clicks outside of it
+window.onclick = function (event) {
+    var modal = document.getElementById("commentModal");
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+</script>
 <script>
     // Add event listener to the "Sort" button
     const sortButton = document.getElementById("sortButton");
