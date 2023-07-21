@@ -253,50 +253,60 @@
   </div>
   </form>
   <script>
-    function addUnit() {
-      // Get the form and form data
-      let unitForm = document.getElementById("unitForm");
-      let formData = new FormData(unitForm);
-  
-      // Send the form data through AJAX
-      $.ajax({
-        url: "{% url 'createuser' %}",
-        type: "POST",
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function(response) {
-          // Handle the success response
-          console.log(response);
-          data=response.username
-          data2=response.email
-          var x = document.getElementById("user_select");
-          var option = document.createElement("option");
-          option.text = data;
-          x.add(option);
-          var y = document.getElementById("email");
-          var option = document.createElement("option");
-          option.text = data;
-          y.add(option);
-          // Close the form and perform any other actions
-          closeForm();
-        },
-        error: function(error) {
-          // Handle the error response
-          console.log(error);
-        }
+   function addUnit() {
+  // Get the form and form data
+  let unitForm = document.getElementById("unitForm");
+  let formData = new FormData(unitForm);
+
+  // Send the form data through AJAX
+  $.ajax({
+    url: "{% url 'createuser' %}",
+    type: "POST",
+    data: formData,
+    processData: false,
+    contentType: false,
+    success: function(response) {
+      // Handle the success response
+      console.log(response);
+      var data = response.username;
+      var data2 = response.email;
+
+      // Add the newly created user and email to all user select elements
+      $('[id^="user_select"]').each(function() {
+        var option = new Option(data, data);
+        $(this).append(option);
       });
+
+      $('[id^="email"]').each(function() {
+        var option = new Option(data2, data2);
+        $(this).append(option);
+      });
+
+      // Close the form and perform any other actions
+      closeForm();
+
+      // Close the modal
+      $("#myModal").hide();
+    },
+    error: function(error) {
+      // Handle the error response
+      console.log(error);
     }
-  
-    function openForm() {
-      let formContainer = document.getElementById("myForm");
-      formContainer.style.display = "block";
-    }
-  
-    function closeForm() {
-      let formContainer = document.getElementById("myForm");
-      formContainer.style.display = "none";
-    }
+  });
+}
+
+function openForm() {
+  let formContainer = document.getElementById("myForm");
+  formContainer.style.display = "block";
+}
+
+function closeForm() {
+  let formContainer = document.getElementById("myForm");
+  formContainer.style.display = "none";
+}
+
+
+
   </script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {

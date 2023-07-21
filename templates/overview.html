@@ -463,22 +463,41 @@ textarea {
     </div>
 </div>
 <!-- Modal -->
-<div class="overlay" onclick="closeModal()"></div>
-<!-- Modal -->
 <div id="commentModal" class="modal">
+    <!-- Modal content -->
     <div class="modal-content bg-dark">
         <span class="close" onclick="closeModal()">&times;</span>
         
-        <textarea id="commentTextArea"  rows="4" placeholder="Enter your comment..." class="form-control bg-dark"></textarea>
-        <button class="btn btn-warning" onclick="saveComment()">Save</button>
-        <button class="btn btn-warning mt-1" onclick="viewComment()">View</button>
-        
-        <button class="btn btn-warning mt-1" onclick="clearTextArea()">Clear</button>
+        <form method="post" action="{% url 'commentdb' projc.id %}">
+            {% csrf_token %}
+            <textarea id="commentTextArea" name="comment" rows="4" placeholder="Enter your comment..." class="form-control bg-dark"></textarea>
+            <!-- Hidden textarea to store previous comments -->
+<textarea id="hiddenComments" style="display: none;">{{ projc.comment }}</textarea>
+
+            <button type="submit" class="btn btn-warning">Save</button>
+            <button type="button" class="btn btn-warning mt-1" onclick="viewComment()">View</button>
+            <button type="button" class="btn btn-warning mt-1" onclick="clearTextArea()">Clear</button>
+        </form>
     </div>
 </div>
-<!-- Hidden textarea to store previous comments -->
-<textarea id="hiddenComments" style="display: none;"></textarea>
 
+<script>
+    // ... Your existing JavaScript code ...
+
+    function viewComment() {
+        var commentTextArea = document.getElementById("commentTextArea");
+        var hiddenComments = document.getElementById("hiddenComments");
+
+        // Set the textarea value with the value fetched from the database
+        commentTextArea.value = hiddenComments.value;
+
+        var modal = document.getElementById("commentModal");
+        modal.style.display = "block";
+    }
+
+    // ... Your existing JavaScript code ...
+</script>
+    
 
 
 <script>
@@ -527,16 +546,7 @@ function saveComment() {
     closeModal();
 }
 
-function viewComment() {
-    var hiddenComments = document.getElementById("hiddenComments");
-    hiddenComments.value = comments.join("\n"); // Join the comments with a new line
 
-    var commentTextArea = document.getElementById("commentTextArea");
-    commentTextArea.value = hiddenComments.value; // Set the textarea value to the hidden comments
-
-    var modal = document.getElementById("commentModal");
-    modal.style.display = "block";
-}
 
 function clearTextArea() {
     var commentTextArea = document.getElementById("commentTextArea");

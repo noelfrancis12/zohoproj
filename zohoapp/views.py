@@ -2681,31 +2681,39 @@ def addproj(request):
 
 def overview(request,id):
     proj=project1.objects.filter(id=id)
+    projc = get_object_or_404(project1, id=id)
     print(proj)
     proje=project1.objects.filter(user=request.user)
     usern=usernamez.objects.filter(projn=id)
     taskz=task.objects.filter(proj=id)
     uc=usercreate.objects.all()
     project = get_object_or_404(project1, id=id)
-    
+    if request.method == 'POST':
+        comment_text = request.POST.get('comment')
+        if comment_text:
+            projc.comment = comment_text  # Set the comment field of the specific project object
+            projc.save()  # Save the project object with the updated comment
 
-    return render(request,'overview.html',{'proj':proj,'proje':proje,'usern':usern,'taskz':taskz,'project':project})
+
+    return render(request,'overview.html',{'proj':proj,'proje':proje,'usern':usern,'taskz':taskz,'project':project,'projc':projc})
 
 def comment(request,id):
     proj = project1.objects.get(id=id)
     proje=project1.objects.filter(user=request.user)
     return render(request,'comment.html',{'proj':proj,'proje':proje})
 def commentdb(request, id):
-    if request.method == 'POST':
-        comment = request.POST['comment']
-        user_id = request.user.id
-        udata = User.objects.get(id=user_id)
-        proj = project1.objects.get(id=id)  # Retrieve the project with the provided ID
-        proj.comment = comment  # Set the comment field of the project
-        proj.user = udata  # Associate the project with the user
-        proj.save()  # Save the project object with the updated comment
+    projc = get_object_or_404(project1, id=id)
 
-        return HttpResponseRedirect(reverse('comment', args=[proj.id]))
+    if request.method == 'POST':
+        comment_text = request.POST.get('comment')
+        if comment_text:
+            if projc.comment:
+                projc.comment += "\n" + comment_text  # Add new comment to existing comments
+            else:
+                projc.comment = comment_text  # If no comments exist, set it as the first comment
+            projc.save()
+
+    return redirect('overview', id=id)
  
 
 def editproj(request,id):
