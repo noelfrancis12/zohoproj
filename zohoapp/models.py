@@ -148,6 +148,7 @@ class customer(models.Model):
     department=models.CharField(max_length=100,null=True,blank=True)
     website=models.CharField(max_length=100,null=True,blank=True)
     GSTTreatment=models.CharField(max_length=100,null=True,blank=True)
+    GSTIN=models.CharField(max_length=100,null=True,blank=True)
     placeofsupply=models.CharField(max_length=100,null=True,blank=True)
     Taxpreference=models.CharField(max_length=100,null=True,blank=True)
     currency=models.CharField(max_length=100,null=True,blank=True)

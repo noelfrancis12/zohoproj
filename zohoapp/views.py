@@ -2211,10 +2211,99 @@ def profileshow(request,expense_id):
 
     return render(request, 'show_recurring.html', {'expenses': expenses,'expense':expense})
 
+def entr_custmrA(request):
+    if request.user.is_authenticated:
+        if request.method=='POST':
+            type=request.POST.get('type')
+            txtFullName=request.POST['txtFullName']
+            cpname=request.POST['cpname']
+           
+            email=request.POST.get('email')
+            wphone=request.POST.get('wphone')
+            mobile=request.POST.get('mobile')
+            skname=request.POST.get('skname')
+            desg=request.POST.get('desg')      
+            dept=request.POST.get('dept')
+            wbsite=request.POST.get('wbsite')
 
-def add_customer(request):
+            gstt=request.POST.get('v_gsttype')
+            gstin=request.POST.get('v_gstin')
+            posply=request.POST.get('posply')
+            tax1=request.POST.get('tax1')
+            crncy=request.POST.get('crncy')
+            obal=request.POST.get('obal')
+
+            select=request.POST.get('pterms')
+            pterms=payment_terms.objects.get(id=select)
+            pterms=request.POST.get('pterms')
+
+            plst=request.POST.get('plst')
+            plang=request.POST.get('plang')
+            fbk=request.POST.get('fbk')
+            twtr=request.POST.get('twtr')
+        
+            atn=request.POST.get('atn')
+            ctry=request.POST.get('ctry')
+            
+            addrs=request.POST.get('addrs')
+            addrs1=request.POST.get('addrs1')
+            bct=request.POST.get('bct')
+            bst=request.POST.get('bst')
+            bzip=request.POST.get('bzip')
+            bpon=request.POST.get('bpon')
+            bfx=request.POST.get('bfx')
+
+            sal=request.POST.get('sal')
+            ftname=request.POST.get('ftname')
+            ltname=request.POST.get('ltname')
+            mail=request.POST.get('mail')
+            bworkpn=request.POST.get('bworkpn')
+            bmobile=request.POST.get('bmobile')
+
+            bskype=request.POST.get('bskype')
+            bdesg=request.POST.get('bdesg')
+            bdept=request.POST.get('bdept')
+            u = User.objects.get(id = request.user.id)
+
+          
+            ctmr=customer(customerName=txtFullName,
+                          customerType=type,
+                        companyName=cpname,
+                        customerEmail=email,
+                        customerWorkPhone=wphone,
+                         customerMobile=mobile,skype=skname,
+                         designation=desg,department=dept,
+                           website=wbsite
+                           ,GSTTreatment=gstt,
+                           GSTIN=gstin,
+                           placeofsupply=posply, Taxpreference=tax1,
+                             currency=crncy,OpeningBalance=obal,
+                             PaymentTerms=pterms,
+                                PriceList=plst,PortalLanguage=plang,
+                                Facebook=fbk,
+                                Twitter=twtr,
+                                 Attention=atn,country=ctry,Address1=addrs,Address=addrs1,
+                                  city=bct,state=bst,zipcode=bzip,phone1=bpon,
+                                   fax=bfx,CPsalutation=sal,Firstname=ftname,
+                                    Lastname=ltname,CPemail=mail,CPphone=bworkpn,
+                                    CPmobile= bmobile,CPskype=bskype,CPdesignation=bdesg,
+                                     CPdepartment=bdept,user=u )
+            ctmr.save()  
+            
+            return redirect("add_customer")
+        return render(request,'customer.html')
+def payment_termA(request):
+    if request.method=='POST':
+        term=request.POST.get('term')
+        day=request.POST.get('day')
+        ptr=payment_terms(Terms=term,Days=day)
+        ptr.save()
+        return HttpResponse( {"message":"success"})
+
+def add_customers(request):
     sb=payment_terms.objects.all()
-    return render(request,'customer.html',{'sb':sb})
+    hi=Pricelist.objects.all()
+    return render(request,'customer.html',{'sb':sb,'hi':hi})
 def entr_custmr(request):
     if request.user.is_authenticated:
         if request.method=='POST':

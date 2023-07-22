@@ -127,7 +127,9 @@ urlpatterns = [
     path('createuser', views.createuser, name='createuser'),
     path('comment/<int:id>', views.comment, name='comment'),
     path('commentdb/<int:id>', views.commentdb, name='commentdb'),
-
+    path('entr_custmrA', views.entr_custmrA, name='entr_custmrA'),
+    path('payment_termA',views.payment_termA,name='payment_termA'),
+    path('add_customers',views.add_customers,name='add_customers'),
     path('view_sales_order',views.view_sales_order,name='view_sales_order'),
     path('create_sales_order',views.create_sales_order,name='create_sales_order'),
     path('add_customer_for_sorder',views.add_customer_for_sorder,name='add_customer_for_sorder'),
