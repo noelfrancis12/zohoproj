@@ -2282,7 +2282,7 @@ def entr_custmrA(request):
                                 PriceList=plst,PortalLanguage=plang,
                                 Facebook=fbk,
                                 Twitter=twtr,
-                                 Attention=atn,country=ctry,Address1=addrs,Address=addrs1,
+                                 Attention=atn,country=ctry,Address1=addrs,Address2=addrs1,
                                   city=bct,state=bst,zipcode=bzip,phone1=bpon,
                                    fax=bfx,CPsalutation=sal,Firstname=ftname,
                                     Lastname=ltname,CPemail=mail,CPphone=bworkpn,
@@ -2290,7 +2290,7 @@ def entr_custmrA(request):
                                      CPdepartment=bdept,user=u )
             ctmr.save()  
             
-            return redirect("add_customer")
+            return redirect("proj")
         return render(request,'customer.html')
 def payment_termA(request):
     if request.method=='POST':
