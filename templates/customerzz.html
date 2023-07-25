@@ -109,7 +109,7 @@ transition: transform 0.4s ,top 0.4s;
                 <div class="row">
                     <div class="col-8">
                        
-  <form action="{% url 'entr_custmrA' %}" method="POST" enctype="multipart/form-data"
+  <form action="{% url 'entr_custmrA1' %}" method="POST" enctype="multipart/form-data"
   style="color: azure ; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size:20px;width: 100%;">
   {% csrf_token %} 
              
@@ -782,7 +782,7 @@ $(document).on("click","#paySave",function(){
   $.ajax({
     
     type : 'POST',
-    url:"{% url 'payment_termA' %}",
+    url:"{% url 'payment_termA1' %}",
 
     data:{
       term : $("#term").val(),

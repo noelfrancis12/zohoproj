@@ -2211,7 +2211,7 @@ def profileshow(request,expense_id):
 
     return render(request, 'show_recurring.html', {'expenses': expenses,'expense':expense})
 
-def entr_custmrA(request):
+def entr_custmrA1(request):
     if request.user.is_authenticated:
         if request.method=='POST':
             type=request.POST.get('type')
@@ -2291,8 +2291,8 @@ def entr_custmrA(request):
             ctmr.save()  
             
             return redirect("proj")
-        return render(request,'customer.html')
-def payment_termA(request):
+        return render(request,'customerzz.html')
+def payment_termA1(request):
     if request.method=='POST':
         term=request.POST.get('term')
         day=request.POST.get('day')
@@ -2300,10 +2300,10 @@ def payment_termA(request):
         ptr.save()
         return HttpResponse( {"message":"success"})
 
-def add_customers(request):
+def add_customers1(request):
     sb=payment_terms.objects.all()
     hi=Pricelist.objects.all()
-    return render(request,'customer.html',{'sb':sb,'hi':hi})
+    return render(request,'customerzz.html',{'sb':sb,'hi':hi})
 def entr_custmr(request):
     if request.user.is_authenticated:
         if request.method=='POST':
