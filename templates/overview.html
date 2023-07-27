@@ -101,18 +101,19 @@ textarea {
                 <div class="row align-items-center">
                     <div class="col-8 mb-2">
                         <div class="d-flex align-items-center">
-                            <a class="text-white" style="font-size: 3rem;"><i class="fa-sharp fa-regular fa-circle-dot"></i>{{ v.name }}</a>
-                            
-                            <div id="over" class="toggle1" style="color: rgb(230, 171, 45);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;margin-left: 150px;">
+                            <div style="width: 500px;" >
+                                <a class="text-white" style="font-size: 3rem; white-space: nowrap;"><i class="fa-sharp fa-regular fa-circle-dot"></i>{{ v.name }}</a>
+                        </div>&nbsp;
+                            <div class="toggle1" style="color: rgb(230, 171, 45);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;margin-left: 150px;">
                                 <button onclick="fieldset1_function()" class="btn btn-warning">Overview</button>
                             </div>&nbsp;
-                            <div id="over" class="toggle2" style="color: rgb(230, 171, 45);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;">
+                            <div  class="toggle2" style="color: rgb(230, 171, 45);font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;">
                                 <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="btn btn-warning mr-2" href="{% url 'editproj' v.id %}">Edit</a>
                             </div>&nbsp;
-                            <div id="over" class="toggle4" style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;">
+                            <div  class="toggle4" style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;">
                                 <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="btn btn-warning mr-2" href="{% url 'delproj' v.id %}">Delete</a>
                             </div>&nbsp;
-                            <div id="over" class="toggle6" style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;">
+                            <div  class="toggle6" style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;">
                                 {% if project.active %}
                                 <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="toggleButton btn btn-warning mr-2" href="#">Active</a>
                                 {% else %}
@@ -122,10 +123,10 @@ textarea {
                             <!--<div id="over" style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;">
                                 <a href="{% url 'comment' v.id  %}" class="btn btn-warning">Comment</a>
                             </div>&nbsp;-->
-                            <div id="over" style="color: rgb(230, 171, 45); font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: 22px;">
+                            <div style="color: rgb(230, 171, 45); font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: 22px;">
                                 <a href="#" class="btn btn-warning" onclick="openModal()">Comment</a>
                             </div>&nbsp;
-                            <div id="over" class="toggle4" style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;">
+                            <div  class="toggle4" style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;">
                                 <label for="file-input">
                                     <img src="https://cdn-icons-png.flaticon.com/128/9329/9329892.png" style="height: 40px;width: 40px;" />
                                 </label>
