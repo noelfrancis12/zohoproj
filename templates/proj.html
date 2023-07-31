@@ -514,74 +514,77 @@ function openForm() {
 
 
 <script>
-    $(document).ready(function () {
-      // Initialize row counter
-      var roinc = 0;
-  
-      // Function to add a new user row
-      function addUserRow() {
-        roinc++;
-  
-        var newRow = `
-          <tr id="addr0${roinc}">
-            <td>
-              <select name="user_select[]" id="user_select${roinc}" class="form-control bg-dark">
-                {% for d in uc %}
-                  <option value="{{ d.usernamezz }}" data-email="{{ d.emailzz }}">{{ d.usernamezz }}</option>
-                {% endfor %}
-              </select>
-            </td>
-            <td class="text-right">
-              <input type="email" class="form-control bg-dark" id="email${roinc}" name="email[]" >
-            </td>
-            <td class="text-center">
-              <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle remove_row" style="width:30px" id="${roinc}">
-                <i class="fa fa-times"></i>
-              </button>
-            </td>
-          </tr>
-        `;
-  
-        // Append the new row to the table
-        $('#items-table-body').append(newRow);
-  
-        // Update the options of the newly created select element with data from the modal
-        var option = new Option($('#username').val(), $('#username').val());
-        $('#user_select' + roinc).append(option);
-  
-        // Update the email input with the email from the modal
-        $('#email' + roinc).val($('#email').val());
-      }
-  
-      // Handle click event for "Add User" button
-      $('#add-user-row').click(function () {
-        addUserRow();
-      });
-  
-     
-  
-        // After successful user creation in the modal, update all select elements with new data
-        $('[id^="user_select"]').each(function () {
-          var option = new Option($('#username').val(), $('#username').val());
-          $(this).append(option);
-        });
-  
-        // Update the email input of the newly created row
-        $('[id^="email"]').each(function () {
-          $(this).val($('#email').val());
-        });
-  
-        // Hide the modal after creating the user
-        $('#myModal').hide();
-      });
-  
-      // Handle click event for "Remove Row" button
-      $(document).on('click', '.remove_row', function () {
-        var row_id = $(this).attr("id");
-        $('#addr0' + row_id).remove();
-      });
-  
-  </script>
+  $(document).ready(function () {
+    // Initialize row counter
+    var roinc = 0;
+
+    // Function to add a new user row
+    function addUserRow() {
+      roinc++;
+
+      var newRow = `
+        <tr id="addr0${roinc}">
+          <td>
+            <select name="user_select[]" id="user_select${roinc}" class="form-control bg-dark">
+              {% for d in uc %}
+                <option value="{{ d.usernamezz }}" data-email="{{ d.emailzz }}">{{ d.usernamezz }}</option>
+              {% endfor %}
+            </select>
+          </td>
+          <td class="text-right">
+            <input type="email" class="form-control bg-dark" id="email${roinc}" name="email[]">
+          </td>
+          <td class="text-center">
+            <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle remove_row" style="width:30px" id="${roinc}">
+              <i class="fa fa-times"></i>
+            </button>
+          </td>
+        </tr>
+      `;
+
+      // Append the new row to the table
+      $('#items-table-body').append(newRow);
+
+      // Update the options of the newly created select element with data from the modal
+      var option = new Option($('#username').val(), $('#username').val());
+      $('#user_select' + roinc).append(option);
+
+      // Update the email input with the email from the modal
+      $('#email' + roinc).val($('#email').val());
+    }
+
+    // Handle click event for "Add User" button
+    $('#add-user-row').click(function () {
+      addUserRow();
+    });
+
+    // After successful user creation in the modal, update all select elements with new data
+    $('[id^="user_select"]').each(function () {
+      var option = new Option($('#username').val(), $('#username').val());
+      $(this).append(option);
+    });
+
+    // Update the email input of the newly created row
+    $('[id^="email"]').each(function () {
+      $(this).val($('#email').val());
+    });
+
+    // Hide the modal after creating the user
+    $('#myModal').hide();
+
+    // Handle click event for "Remove Row" button
+    $(document).on('click', '.remove_row', function () {
+      var row_id = $(this).attr("id");
+      $('#addr0' + row_id).remove();
+    });
+
+    // Remove the empty option from the select elements
+    $('[id^="user_select"]').each(function () {
+      $(this).find('option[value=""]').remove();
+    });
+  });
+</script>
+
   
    
     <script>
