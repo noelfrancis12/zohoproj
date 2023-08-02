@@ -2786,11 +2786,11 @@ def overview(request,id):
 
     return render(request,'overview.html',{'proj':proj,'proje':proje,'usern':usern,'taskz':taskz,'project':project,'projc':projc})
 
-def comment(request,id):
+def projcomment(request,id):
     proj = project1.objects.get(id=id)
     proje=project1.objects.filter(user=request.user)
     return render(request,'comment.html',{'proj':proj,'proje':proje})
-def commentdb(request, id):
+def projcommentdb(request, id):
     projc = get_object_or_404(project1, id=id)
 
     if request.method == 'POST':

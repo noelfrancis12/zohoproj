@@ -121,7 +121,7 @@ textarea {
                                 {% endif %}
                             </div>&nbsp;
                             <!--<div id="over" style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;">
-                                <a href="{% url 'comment' v.id  %}" class="btn btn-warning">Comment</a>
+                                <a href="{% url 'projcomment' v.id  %}" class="btn btn-warning">Comment</a>
                             </div>&nbsp;&nbsp;-->
                             <div style="color: rgb(230, 171, 45); font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: 22px;">
                                 <a href="#" class="btn btn-warning" onclick="openModal()">Comment</a>
@@ -268,7 +268,7 @@ textarea {
     <div class="modal-content bg-dark">
         <span class="close" onclick="closeModal()">&times;</span>
         
-        <form method="post" action="{% url 'commentdb' projc.id %}">
+        <form method="post" action="{% url 'projcommentdb' projc.id %}">
             {% csrf_token %}
             <textarea id="commentTextArea" name="comment" rows="4" placeholder="Enter your comment..." class="form-control bg-dark"></textarea>
             <!-- Hidden textarea to store previous comments -->
@@ -307,7 +307,7 @@ textarea {
         var csrfToken = '{{ csrf_token }}'; // Assuming CSRF token is passed from Django template
 
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/commentdb/' + projId + '/');
+        xhr.open('POST', '/projcommentdb/' + projId + '/');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.setRequestHeader('X-CSRFToken', csrfToken);
 
