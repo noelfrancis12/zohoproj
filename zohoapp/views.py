@@ -2699,15 +2699,16 @@ def proj(request):
     tasks=task.objects.all()
     uz=usernamez.objects.all()
     uc=usercreate.objects.all()
-    
-    return render(request,'proj.html',{'data':data,'u':u,'tasks':tasks,'uz':uz,'uc':uc})
+    company=company_details.objects.get(user=request.user)
+    return render(request,'proj.html',{'data':data,'u':u,'tasks':tasks,'uz':uz,'uc':uc,'company':company})
     
 def vproj(request):
    
     proj=project1.objects.filter(user=request.user)
     tsk=task.objects.all()
     active=Project.objects.all()
-    return render(request,'projlist.html',{'proj':proj,'tsk':tsk,'active':active})
+    company=company_details.objects.get(user=request.user)
+    return render(request,'projlist.html',{'proj':proj,'tsk':tsk,'active':active,'company':company})
 def addproj(request):
     if request.method == 'POST':
         user_id=request.user.id
@@ -2776,6 +2777,7 @@ def overview(request,id):
     usern=usernamez.objects.filter(projn=id)
     taskz=task.objects.filter(proj=id)
     uc=usercreate.objects.all()
+    company=company_details.objects.get(user=request.user)
     project = get_object_or_404(project1, id=id)
     if request.method == 'POST':
         comment_text = request.POST.get('comment')
@@ -2784,7 +2786,7 @@ def overview(request,id):
             projc.save()  # Save the project object with the updated comment
 
 
-    return render(request,'overview.html',{'proj':proj,'proje':proje,'usern':usern,'taskz':taskz,'project':project,'projc':projc})
+    return render(request,'overview.html',{'proj':proj,'proje':proje,'usern':usern,'taskz':taskz,'project':project,'projc':projc,'company':company})
 
 def projcomment(request,id):
     proj = project1.objects.get(id=id)
@@ -2812,7 +2814,8 @@ def editproj(request,id):
     uc=usercreate.objects.all()
     usern=usernamez.objects.filter(projn=id)
     taskz=task.objects.filter(proj=id)
-    return render(request,'editoverview.html',{'data':data,'proj':proj,'proje':proje,'uc':uc,'usern':usern,'taskz':taskz})
+    company=company_details.objects.get(user=request.user)
+    return render(request,'editoverview.html',{'data':data,'proj':proj,'proje':proje,'uc':uc,'usern':usern,'taskz':taskz,'company':company})
 def editprojdb(request,id):
   if request.method == 'POST':
         proj=project1.objects.get(id=id)

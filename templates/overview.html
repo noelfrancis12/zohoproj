@@ -67,7 +67,7 @@ textarea {
                     
                     
                     <div class="col-md-6 "> 
-                        <input type="text" id="vendorSearchInput" class="form-control" placeholder="Search Projects..." >
+                        <input type="text" id="vendorSearchInput" class="form-control bg-light text-dark" placeholder="Search Projects..." >
                       </div>
                       <div class="col-md-6 form-inline" style="margin-top: 0rem;"><a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="btn btn-warning mr-2" href="{% url 'proj' %}"><i class="fa-solid fa-plus "></i>New</a>&nbsp;
                         <button id="sortButton" class="btn btn-warning">Sort</button>
@@ -113,13 +113,7 @@ textarea {
                             <div  class="toggle4" style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;">
                                 <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="btn btn-warning mr-2" href="{% url 'delproj' v.id %}">Delete</a>
                             </div>&nbsp;
-                            <div  class="toggle6" style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;">
-                                {% if project.active %}
-                                <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="toggleButton btn btn-warning mr-2" href="#">Active</a>
-                                {% else %}
-                                <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="toggleButton btn btn-warning mr-2" href="#">Inactive</a>
-                                {% endif %}
-                            </div>&nbsp;
+                            
                             <!--<div id="over" style="color: rgb(230, 171, 45);;font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-size: 22px;">
                                 <a href="{% url 'projcomment' v.id  %}" class="btn btn-warning">Comment</a>
                             </div>&nbsp;&nbsp;-->
@@ -152,6 +146,19 @@ textarea {
                             <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color:rgb(214, 75, 75) ;font-weight: bold;">Project Description:</label></div>
                              <div class="col-sm-12 col-md-6 col-lg-6 col-form-label">
                                 <label style="font-weight: bold;">{{ v.desc }}</label>      
+                             </div>   
+                        </div>
+                        <div class="form-group row mt-4">
+                            <div class="col-sm-12 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color:rgb(214, 75, 75) ;font-weight: bold;">Status:</label></div>
+                             <div class="col-sm-12 col-md-6 col-lg-6 col-form-label">
+                                
+                                    {% if project.active %}
+                                    <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-weight: bold;" class="text-light"  href="#">Active</a>
+                                    {% else %}
+                                    <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;font-weight: bold;" class="text-light" href="#">Inactive</a>
+                                    {% endif %}
+                           
                              </div>   
                         </div>
                         <div class="form-group row mt-4">
@@ -270,7 +277,7 @@ textarea {
         
         <form method="post" action="{% url 'projcommentdb' projc.id %}">
             {% csrf_token %}
-            <textarea id="commentTextArea" name="comment" rows="4" placeholder="Enter your comment..." class="form-control bg-dark"></textarea>
+            <textarea id="commentTextArea" name="comment" rows="8" placeholder="Enter your comment..." class="form-control bg-dark" style="height: 200px;width: 100%;"></textarea>
             <!-- Hidden textarea to store previous comments -->
 <textarea id="hiddenComments" style="display: none;">{{ projc.comment }}</textarea>
 

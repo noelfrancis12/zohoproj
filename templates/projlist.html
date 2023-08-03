@@ -40,11 +40,12 @@
         <div class="row mt-5">
            
             <div class="col-md-3 "> 
-              <input type="text" id="vendorSearchInput" class="form-control" placeholder="Search Projects..." >
+              <input type="text" id="vendorSearchInput" class="form-control bg-light text-dark" placeholder="Search Projects..." >
             </div>
 
-            <div class="col-md-3 form-inline " style="margin-left: 58rem;margin-top: -2rem;"><a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="btn btn-warning mr-2" href="{% url 'proj' %}"><i class="fa-solid fa-plus "></i>New</a>&nbsp;
-              <button id="sortButton" class="btn btn-warning">Sort</button>
+            <div class="col-md-3 form-inline " style="margin-left: 58rem;margin-top: -2rem;"><button id="sortButton" class="btn btn-warning">Sort</button>&nbsp;
+              <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="btn btn-warning mr-2" href="{% url 'proj' %}"><i class="fa-solid fa-plus "></i>New</a>
+              
             </div>
            
             
@@ -69,10 +70,10 @@
                   {% for v in proj %}
                   <tr id="over">
                     <!--<td onclick="location.href ='{% url 'detail' v.id %}' " > {{v.name}}</td> -->
-                    <td>{{v.c_name.customerName}}</td>
+                    <td><a href="{% url 'overview' v.id %}" class="text-light">  {{v.c_name.customerName}} </a> </td>
                     <td>{{v.c_name.customerEmail}}</td>
                     <td>
-                      <a href="{% url 'overview' v.id %}">{{v.name}}</a>
+                      <a href="{% url 'overview' v.id %}" class="text-light">{{v.name}}</a>
                     </td>
                     <td>{{v.billing}}</td>
                     <td><span class="description-icon" title="{{v.desc}}">&#9432;</span></td>
@@ -107,20 +108,20 @@
 </div>
 
 <script>
-  // Existing scripts...
-
-  var sortButton = document.getElementById('sortButton');
-  var projectRows = document.querySelectorAll('#vendorTable tbody tr');
-
-  sortButton.addEventListener('click', function() {
+  // Sort function based on project name and customer name
+  function sortTable() {
     // Convert NodeList to Array for easy sorting
     var rowsArray = Array.from(projectRows);
 
-    // Sort the rows based on the project name
+    // Sort the rows based on the project name and customer name
     rowsArray.sort(function(a, b) {
       var projectNameA = a.querySelector('td:nth-child(3) a').textContent.trim();
       var projectNameB = b.querySelector('td:nth-child(3) a').textContent.trim();
-      return projectNameA.localeCompare(projectNameB);
+      var customerNameA = a.querySelector('td:nth-child(1)').textContent.trim();
+      var customerNameB = b.querySelector('td:nth-child(1)').textContent.trim();
+
+      // Sort first based on project name, if they are the same, then sort based on customer name
+      return projectNameA.localeCompare(projectNameB) || customerNameA.localeCompare(customerNameB);
     });
 
     // Remove existing rows from the table
@@ -133,8 +134,16 @@
     rowsArray.forEach(function(row) {
       tbody.appendChild(row);
     });
+  }
+
+  var sortButton = document.getElementById('sortButton');
+  var projectRows = document.querySelectorAll('#vendorTable tbody tr');
+
+  sortButton.addEventListener('click', function() {
+    sortTable();
   });
 </script>
+
 
 
 <script>
