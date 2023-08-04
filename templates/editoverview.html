@@ -191,7 +191,7 @@
                       
                 </td>
                 <td class="text-center">
-                    <input  type="checkbox" id="billable1" name="billable[]" placeholder="work phone" value="{{v.billable}}" checked>
+                    <input  type="checkbox" id="billable1" name="billable[]" placeholder="work phone" value="{{v.billable}}"{% if v.billable == 'Billed' %}checked{% endif %}>
            
                      <label style="color: gainsboro;">Billable</label>
                     <button type="button" class="btn btn-transparent text-danger btn-sm btn-outline-danger rounded-circle delete-row" style="width:30px">

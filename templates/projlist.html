@@ -43,8 +43,13 @@
               <input type="text" id="vendorSearchInput" class="form-control bg-light text-dark" placeholder="Search Projects..." >
             </div>
 
-            <div class="col-md-3 form-inline " style="margin-left: 58rem;margin-top: -2rem;"><button id="sortButton" class="btn btn-warning">Sort</button>&nbsp;
-              <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="btn btn-warning mr-2" href="{% url 'proj' %}"><i class="fa-solid fa-plus "></i>New</a>
+            <div class="col-md-6 form-inline " style="margin-left: 45rem;margin-top: -2rem;"><a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="btn btn-warning mr-2" href="{% url 'proj' %}"><i class="fa-solid fa-plus "></i>New</a>&nbsp;
+              <button id="sortButton" class="btn btn-warning">
+                Sort By Project <i class="fa-solid fa-caret-up" style="display:none;"></i><i class="fa-solid fa-caret-down" style="display:none;"></i>
+              </button>&nbsp;
+              <button id="sortButtonc" class="btn btn-warning">
+                Sort By Customer <i class="fa-solid fa-caret-up" style="display:none;"></i><i class="fa-solid fa-caret-down" style="display:none;"></i>
+              </button>
               
             </div>
            
@@ -108,43 +113,77 @@
 </div>
 
 <script>
-  // Sort function based on project name and customer name
-  function sortTable() {
-    // Convert NodeList to Array for easy sorting
-    var rowsArray = Array.from(projectRows);
+ var sortButton = document.getElementById('sortButton');
+var sortButtonc = document.getElementById('sortButtonc');
+var projectRows = document.querySelectorAll('#vendorTable tbody tr');
+var projectSortOrder = 'asc'; // Initial sort order for project name
+var customerSortOrder = 'asc'; // Initial sort order for customer name
 
-    // Sort the rows based on the project name and customer name
-    rowsArray.sort(function(a, b) {
-      var projectNameA = a.querySelector('td:nth-child(3) a').textContent.trim();
-      var projectNameB = b.querySelector('td:nth-child(3) a').textContent.trim();
-      var customerNameA = a.querySelector('td:nth-child(1)').textContent.trim();
-      var customerNameB = b.querySelector('td:nth-child(1)').textContent.trim();
+sortButton.addEventListener('click', function () {
+  toggleSortOrder(sortButton, 'projectName');
+  sortRows('projectName', projectSortOrder);
+});
 
-      // Sort first based on project name, if they are the same, then sort based on customer name
-      return projectNameA.localeCompare(projectNameB) || customerNameA.localeCompare(customerNameB);
-    });
+sortButtonc.addEventListener('click', function () {
+  toggleSortOrder(sortButtonc, 'customerName');
+  sortRows('customerName', customerSortOrder);
+});
 
-    // Remove existing rows from the table
-    var tbody = document.querySelector('#vendorTable tbody');
-    while (tbody.firstChild) {
-      tbody.removeChild(tbody.firstChild);
+function toggleSortOrder(button, sortBy) {
+  var ascendingIcon = button.querySelector('.fa-caret-up');
+  var descendingIcon = button.querySelector('.fa-caret-down');
+
+  if (sortBy === 'projectName') {
+    projectSortOrder = projectSortOrder === 'asc' ? 'desc' : 'asc';
+    if (projectSortOrder === 'asc') {
+      ascendingIcon.style.display = 'inline-block';
+      descendingIcon.style.display = 'none';
+    } else {
+      ascendingIcon.style.display = 'none';
+      descendingIcon.style.display = 'inline-block';
     }
+  } else if (sortBy === 'customerName') {
+    customerSortOrder = customerSortOrder === 'asc' ? 'desc' : 'asc';
+    if (customerSortOrder === 'asc') {
+      ascendingIcon.style.display = 'inline-block';
+      descendingIcon.style.display = 'none';
+    } else {
+      ascendingIcon.style.display = 'none';
+      descendingIcon.style.display = 'inline-block';
+    }
+  }
+}
 
-    // Add sorted rows back to the table
-    rowsArray.forEach(function(row) {
-      tbody.appendChild(row);
-    });
+function sortRows(sortBy, sortOrder) {
+  var rowsArray = Array.from(projectRows);
+  rowsArray.sort(function (a, b) {
+    var valueA = a.querySelector(`td:nth-child(${getSortColumnIndex(sortBy)})`).textContent.trim();
+    var valueB = b.querySelector(`td:nth-child(${getSortColumnIndex(sortBy)})`).textContent.trim();
+    return sortOrder === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+  });
+
+  var tbody = document.querySelector('#vendorTable tbody');
+  while (tbody.firstChild) {
+    tbody.removeChild(tbody.firstChild);
   }
 
-  var sortButton = document.getElementById('sortButton');
-  var projectRows = document.querySelectorAll('#vendorTable tbody tr');
-
-  sortButton.addEventListener('click', function() {
-    sortTable();
+  rowsArray.forEach(function (row) {
+    tbody.appendChild(row);
   });
+}
+
+function getSortColumnIndex(sortBy) {
+  switch (sortBy) {
+    case 'projectName':
+      return 3; // Column index (1-based) for project name
+    case 'customerName':
+      return 1; // Column index (1-based) for customer name
+    default:
+      return 3;
+  }
+}
+
 </script>
-
-
 
 <script>
   var toggleButtons = document.querySelectorAll('.toggleButton');

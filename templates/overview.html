@@ -163,6 +163,20 @@ textarea {
                         </div>
                         <div class="form-group row mt-4">
                             <div class="col-sm-12 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color:rgb(214, 75, 75) ;font-weight: bold;">Customer Name:</label></div>
+                             <div class="col-sm-12 col-md-6 col-lg-6 col-form-label">
+                                <label style="font-weight: bold;">{{ v.c_name.customerName }}</label>      
+                             </div>   
+                        </div>
+                        <div class="form-group row mt-4">
+                            <div class="col-sm-12 col-md-2 col-lg-2"></div>
+                            <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color:rgb(214, 75, 75) ;font-weight: bold;">Customer Email:</label></div>
+                             <div class="col-sm-12 col-md-6 col-lg-6 col-form-label">
+                                <label style="font-weight: bold;">{{ v.c_name.customerEmail }}</label>      
+                             </div>   
+                        </div>
+                        <div class="form-group row mt-4">
+                            <div class="col-sm-12 col-md-2 col-lg-2"></div>
                             <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color:rgb(214, 75, 75) ;font-weight: bold;">Rate per hour(in Rs.):</label></div>
                              <div class="col-sm-12 col-md-6 col-lg-6 col-form-label">
                                 <label style="font-weight: bold;">{% if v.billing == "Fixed cost for project" or v.billing == "Based on project hours" %}
@@ -186,13 +200,7 @@ textarea {
                                 <label style="font-weight: bold;">{{ v.budget }}</label>      
                              </div>   
                         </div>
-                        <div class="form-group row mt-4">
-                            <div class="col-sm-12 col-md-2 col-lg-2"></div>
-                            <div class="col-sm-12 col-md-3 col-lg-3 col-form-label"><label style="color:rgb(214, 75, 75) ;font-weight: bold;">Customer Name:</label></div>
-                             <div class="col-sm-12 col-md-6 col-lg-6 col-form-label">
-                                <label style="font-weight: bold;">{{ v.c_name.customerName }}</label>      
-                             </div>   
-                        </div>
+                     
                             {% endfor %}
 
 
