@@ -130,6 +130,10 @@ urlpatterns = [
     path('entr_custmrA1', views.entr_custmrA1, name='entr_custmrA1'),
     path('payment_termA1',views.payment_termA1,name='payment_termA1'),
     path('add_customers1',views.add_customers1,name='add_customers1'),
+    
+    path('project_customer',views.project_customer,name='project_customer'),
+    path('customer_dropdown_proj',views.customer_dropdown_proj,name='customer_dropdown_proj'),
+
     path('view_sales_order',views.view_sales_order,name='view_sales_order'),
     path('create_sales_order',views.create_sales_order,name='create_sales_order'),
     path('add_customer_for_sorder',views.add_customer_for_sorder,name='add_customer_for_sorder'),
