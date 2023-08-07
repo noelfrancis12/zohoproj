@@ -2700,7 +2700,8 @@ def proj(request):
     uz=usernamez.objects.all()
     uc=usercreate.objects.all()
     company=company_details.objects.get(user=request.user)
-    return render(request,'proj.html',{'data':data,'u':u,'tasks':tasks,'uz':uz,'uc':uc,'company':company})
+    payments=payment_terms.objects.all()
+    return render(request,'proj.html',{'data':data,'u':u,'tasks':tasks,'uz':uz,'uc':uc,'company':company,'payments':payments})
     
 def vproj(request):
    
@@ -2963,4 +2964,18 @@ def customer_dropdown_proj(request):
     for option in option_objects:
         options[option.id] = [option.id , option.customerName]
 
-    return JsonResponse(options)        
+    return JsonResponse(options) 
+def recurbills_payzzz(request):
+    if request.method == 'POST':
+        # Extract the data from the POST request
+        name = request.POST.get('name')
+        days = request.POST.get('days')
+
+        # Create a new payment_terms object and save it to the database
+        payment_term = payment_terms(Terms=name, Days=days)
+        payment_term.save()
+
+        # Return a JSON response indicating success
+        return JsonResponse({"message": "success"})
+  
+

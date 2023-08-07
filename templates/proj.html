@@ -552,7 +552,7 @@
     
                     <div class="row mt-2">
                       <div class="col-md-3 mt-2">
-                        <label for="c_curn">Currency </label>
+                        <label for="c_curn" style="color: rgb(190, 88, 88);">Currency *</label>
                       </div>
                       <div class="col-md-3 mt-2">
                         <select class="form-control text-dark bg-light" id="c_curn" name="c_curn" required>
@@ -1356,7 +1356,9 @@ $.ajax({
   <div class="modal3-content bg-dark">
     <h2>New Payment Terms</h2>
 
-    <form>
+    <form id="payment-form">
+      {% csrf_token %} {# Add the CSRF token #}
+
       <div class="form-group">
         <label for="term-name" style="color: rgb(190, 88, 88);">Term Name*</label>
         <input type="text" id="term-name" class="form-control bg-light text-dark" required>
@@ -1368,7 +1370,7 @@ $.ajax({
       </div>
 
       <div class="modal1-buttons">
-        <button type="submit" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="create-btn">Create</button>
+        <button type="submit" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="create-btnz">Create</button>
         <button type="button" onclick="document.getElementById('myModal2').style.display='none'" class="btn btn-sm text-white" style="background-color: rgb(210, 132, 30);" id="cancel-btn">Cancel</button>
       </div>
     </form>
@@ -1378,23 +1380,56 @@ $.ajax({
 
 <script>
   var createUserBtn = document.getElementById("paymentterms");
-  var modal2 = document.getElementById("myModal2");
+  var modal3 = document.getElementById("myModal2");
 
   createUserBtn.onclick = function() {
-    modal2.style.display = "block";
+    modal3.style.display = "block";
   }
 
   var cancelBtn = document.getElementById("cancel-btn");
 
   cancelBtn.onclick = function() {
-   modal1.style.display = "none";
+   modal3.style.display = "none";
   }
 </script>
 
 
-                   
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  //--------payment terms modal-----------
 
+  // Function to handle the "Create" button click event
+  $(document).on("click", "#create-btnz", function() {
+    // Get the values from the input fields
+    var termName = $("#term-name").val();
+    var numberOfDays = $("#number-of-days").val();
 
+    // Perform an AJAX POST request to the server to save the data
+    $.ajax({
+      type: 'POST',
+      url: "{% url 'recurbills_payzzz' %}",
+      data: {
+        name: termName,
+        days: numberOfDays,
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+      },
+      success: function(response) {
+        // If the request is successful, you can handle the response if needed
+        console.log(response);
+       /* // Optionally, you can close the modal after successful creation
+        document.getElementById('myModal2').style.display='none';
+         // Optionally, you can close the modal after successful creation
+         document.getElementById('myModa').style.display='block';*/
+       
+      },
+      error: function(xhr, textStatus, errorThrown) {
+        // If the request fails, you can handle the error here
+        console.error(errorThrown);
+      }
+
+    });
+  });
+</script>
 
 
 

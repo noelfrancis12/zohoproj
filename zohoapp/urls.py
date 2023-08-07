@@ -130,7 +130,9 @@ urlpatterns = [
     path('entr_custmrA1', views.entr_custmrA1, name='entr_custmrA1'),
     path('payment_termA1',views.payment_termA1,name='payment_termA1'),
     path('add_customers1',views.add_customers1,name='add_customers1'),
-    
+    path('recurbills_payzzz',views.recurbills_payzzz,name='recurbills_payzzz'),
+   
+
     path('project_customer',views.project_customer,name='project_customer'),
     path('customer_dropdown_proj',views.customer_dropdown_proj,name='customer_dropdown_proj'),
 
