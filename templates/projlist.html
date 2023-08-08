@@ -37,25 +37,25 @@
              
         </div>
       </div>
-        <div class="row mt-5">
-           
-            <div class="col-md-3 "> 
-              <input type="text" id="vendorSearchInput" class="form-control bg-light text-dark" placeholder="Search Projects..." >
-            </div>
-
-            <div class="col-md-6 form-inline " style="margin-left: 45rem;margin-top: -2rem;">
-              <button id="sortButton" class="btn btn-warning">
-                Sort By Project <i class="fa-solid fa-caret-up" style="display:none;"></i><i class="fa-solid fa-caret-down" style="display:none;"></i>
-              </button>&nbsp;
-              <button id="sortButtonc" class="btn btn-warning">
-                Sort By Customer <i class="fa-solid fa-caret-up" style="display:none;"></i><i class="fa-solid fa-caret-down" style="display:none;"></i>
-              </button>&nbsp;
-              <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="btn btn-warning mr-2" href="{% url 'proj' %}"><i class="fa-solid fa-plus "></i>New</a>
-            </div>
-           
-            
-            
-        </div>   
+      <div class="row mt-5">
+        <div class="col-md-3">
+          <input type="text" id="vendorSearchInput" class="form-control bg-light text-dark" placeholder="Search Projects...">
+        </div>
+        
+        <div class="col-md-6 form-inline" style="margin-left: 51rem; margin-top: -2rem;">
+          <select id="sortDropdown" class="form-control bg-warning" style="width: 100px;height: 28px;text-align: center;font-size: medium;">
+            <option value="" style="text-align: left;font-size: medium;" class="bg-dark text-warning" selected>Sort</option>
+            <option value="" style="text-align: left;font-size: medium;" class="bg-dark text-warning">All</option>
+            <option value="projectName" style="text-align: left;font-size: medium;" class="bg-dark text-warning">Sort By Project</option>
+            <option value="customerName" style="text-align: left;font-size: medium;" class="bg-dark text-warning">Sort By Customer</option>
+          </select>&nbsp;&nbsp;&nbsp;
+          
+          <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="btn btn-warning mr-2" href="{% url 'proj' %}">
+            <i class="fa-solid fa-plus"></i> New
+          </a>
+        </div>
+      </div>
+      
     
         <div class="row mt-3">
             <div class="col-sm-12 col-md-11 col-lg-11">
@@ -112,78 +112,55 @@
 
 </div>
 
+<!-- Your HTML code remains the same -->
+
+<!-- Your HTML code remains the same -->
+
 <script>
- var sortButton = document.getElementById('sortButton');
-var sortButtonc = document.getElementById('sortButtonc');
-var projectRows = document.querySelectorAll('#vendorTable tbody tr');
-var projectSortOrder = 'asc'; // Initial sort order for project name
-var customerSortOrder = 'asc'; // Initial sort order for customer name
+  var sortDropdown = document.getElementById('sortDropdown');
+  var projectRows = document.querySelectorAll('#vendorTable tbody tr');
+  var originalOrder = Array.from(projectRows); // Store the original order of rows
 
-sortButton.addEventListener('click', function () {
-  toggleSortOrder(sortButton, 'projectName');
-  sortRows('projectName', projectSortOrder);
-});
-
-sortButtonc.addEventListener('click', function () {
-  toggleSortOrder(sortButtonc, 'customerName');
-  sortRows('customerName', customerSortOrder);
-});
-
-function toggleSortOrder(button, sortBy) {
-  var ascendingIcon = button.querySelector('.fa-caret-up');
-  var descendingIcon = button.querySelector('.fa-caret-down');
-
-  if (sortBy === 'projectName') {
-    projectSortOrder = projectSortOrder === 'asc' ? 'desc' : 'asc';
-    if (projectSortOrder === 'asc') {
-      ascendingIcon.style.display = 'inline-block';
-      descendingIcon.style.display = 'none';
-    } else {
-      ascendingIcon.style.display = 'none';
-      descendingIcon.style.display = 'inline-block';
-    }
-  } else if (sortBy === 'customerName') {
-    customerSortOrder = customerSortOrder === 'asc' ? 'desc' : 'asc';
-    if (customerSortOrder === 'asc') {
-      ascendingIcon.style.display = 'inline-block';
-      descendingIcon.style.display = 'none';
-    } else {
-      ascendingIcon.style.display = 'none';
-      descendingIcon.style.display = 'inline-block';
-    }
-  }
-}
-
-function sortRows(sortBy, sortOrder) {
-  var rowsArray = Array.from(projectRows);
-  rowsArray.sort(function (a, b) {
-    var valueA = a.querySelector(`td:nth-child(${getSortColumnIndex(sortBy)})`).textContent.trim();
-    var valueB = b.querySelector(`td:nth-child(${getSortColumnIndex(sortBy)})`).textContent.trim();
-    return sortOrder === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+  sortDropdown.addEventListener('change', function () {
+    var sortBy = sortDropdown.value;
+    sortRows(sortBy);
   });
 
-  var tbody = document.querySelector('#vendorTable tbody');
-  while (tbody.firstChild) {
-    tbody.removeChild(tbody.firstChild);
+  function sortRows(sortBy) {
+    var rowsArray = Array.from(projectRows);
+
+    if (sortBy === '') {
+      rowsArray = originalOrder.slice(); // Restore the original order
+    } else {
+      rowsArray.sort(function (a, b) {
+        var valueA = a.querySelector(`td:nth-child(${getSortColumnIndex(sortBy)})`).textContent.trim();
+        var valueB = b.querySelector(`td:nth-child(${getSortColumnIndex(sortBy)})`).textContent.trim();
+        return valueA.localeCompare(valueB);
+      });
+    }
+
+    var tbody = document.querySelector('#vendorTable tbody');
+    while (tbody.firstChild) {
+      tbody.removeChild(tbody.firstChild);
+    }
+    rowsArray.forEach(function (row) {
+      tbody.appendChild(row);
+    });
   }
 
-  rowsArray.forEach(function (row) {
-    tbody.appendChild(row);
-  });
-}
-
-function getSortColumnIndex(sortBy) {
-  switch (sortBy) {
-    case 'projectName':
-      return 3; // Column index (1-based) for project name
-    case 'customerName':
-      return 1; // Column index (1-based) for customer name
-    default:
-      return 3;
+  function getSortColumnIndex(sortBy) {
+    switch (sortBy) {
+      case 'projectName':
+        return 3; // Column index (1-based) for project name
+      case 'customerName':
+        return 1; // Column index (1-based) for customer name
+      default:
+        return 3;
+    }
   }
-}
-
 </script>
+
+
 
 <script>
   var toggleButtons = document.querySelectorAll('.toggleButton');

@@ -306,7 +306,7 @@
                   </div>
               <div class="modal-body" style="background: rgb(32, 35, 37);">
                 <div class="card p-3 m-3">
-                  <form action="" method="post"  id="modalCustomer">
+                  <form action="" method="post"  id="modalCustomer" class="needs-validation" novalidate autocomplete="off"> 
                     {% csrf_token %}
                     <div class="row mt-2">
                       <h1>Add Customer</h1><br><br>
@@ -534,7 +534,7 @@
     
                     <div class="row mt-2">
                       <div class="col-md-3 mt-2">
-                        <label for="c_tax" style="color: rgb(190, 88, 88);">Tax Preference* </label>
+                        <label for="c_tax" >Tax Preference </label>
                       </div>
                       <div class="col-md-6 mt-2">
                         <div class="d-flex">
@@ -577,7 +577,7 @@
                       </div>
                       <div class="col-md-6 mt-2">
                         <div class="d-flex">
-                          <select class="form-control text-dark bg-light" id="c_terms" name="c_terms" required>
+                          <select class="form-control text-dark bg-light" id="c_terms" name="c_terms" >
                             <option selected value="15">NET 15</option>
                             <option value="30">NET 30</option>
                             <option value="45">NET 45</option>
@@ -1272,6 +1272,10 @@ function openForm() {
   });
 
   $(document).on("click","#customerSave",function(){
+    //$('#modalCustomer input:required').each(function() {
+   // if ($(this).val() === '')
+     // alert('error please fill all fields!');
+   // });
 
 if ($('input[name="radioCust"]:checked').val() == 'Business'){
 
@@ -1326,8 +1330,15 @@ $.ajax({
     success: function(response) {
       document.getElementById("modalCustomer").reset();
       reloadCustomer();
+      var createUserBtn = document.getElementById("create-cus");
+     var modal1 = document.getElementById("myModa");
+     modal1.style.display = "none";
+     
     },
-});        
+    
+});  
+event.preventDefault();
+      
 });
 
 function reloadCustomer() {
@@ -1396,42 +1407,47 @@ $.ajax({
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-  //--------payment terms modal-----------
+    $(document).ready(function() {
+        // Bind a click event to the "Create Payment Term" button
+        $("#paymentterms").click(function() {
+            // Display the modal to create new payment terms
+            $("#myModal2").css("display", "block");
+        });
 
-  // Function to handle the "Create" button click event
-  $(document).on("click", "#create-btnz", function() {
-    // Get the values from the input fields
-    var termName = $("#term-name").val();
-    var numberOfDays = $("#number-of-days").val();
+        // Handle form submission for adding new payment terms
+        $("#payment-form").submit(function(event) {
+            event.preventDefault(); // Prevent form submission
 
-    // Perform an AJAX POST request to the server to save the data
-    $.ajax({
-      type: 'POST',
-      url: "{% url 'recurbills_payzzz' %}",
-      data: {
-        name: termName,
-        days: numberOfDays,
-        csrfmiddlewaretoken: '{{ csrf_token }}'
-      },
-      success: function(response) {
-        // If the request is successful, you can handle the response if needed
-        console.log(response);
-       /* // Optionally, you can close the modal after successful creation
-        document.getElementById('myModal2').style.display='none';
-         // Optionally, you can close the modal after successful creation
-         document.getElementById('myModa').style.display='block';*/
-       
-      },
-      error: function(xhr, textStatus, errorThrown) {
-        // If the request fails, you can handle the error here
-        console.error(errorThrown);
-      }
+            // Extract term name and number of days from the form
+            var termName = $("#term-name").val();
+            var numberOfDays = $("#number-of-days").val();
 
+            // Perform an AJAX POST request to add the new payment term
+            $.ajax({
+                type: "POST",
+                url: "{% url 'recurbills_payzzz' %}",
+                data: {
+                    name: termName,
+                    days: numberOfDays,
+                    csrfmiddlewaretoken: '{{ csrf_token }}'
+                },
+                success: function(response) {
+                    // If the new payment term is added successfully,
+                    // update the dropdown list with the new option
+                    $("#c_terms").append(
+                        '<option value="' + termName + ' ' + response.id + '">' + termName + '</option>'
+                    );
+
+                    // Hide the modal
+                    $("#myModal2").css("display", "none");
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    console.error(errorThrown);
+                }
+            });
+        });
     });
-  });
 </script>
-
-
 
 
 {% endblock %}
