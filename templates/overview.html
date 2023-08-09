@@ -378,16 +378,27 @@ window.onclick = function (event) {
 
 </script>
 <script>
+    let sorted = false; // Keep track of whether the table is sorted
+  
+    // Store the original order of rows
+    const tables = document.getElementById("myTable");
+    const originalRows = Array.from(tables.getElementsByTagName("tr"));
+  
     // Add event listener to the "Sort" button
     const sortButton = document.getElementById("sortButton");
     sortButton.addEventListener("click", function () {
-      sortTableByName();
+      if (!sorted) {
+        sortTableByName();
+        sorted = true;
+      } else {
+        restoreOriginalOrder();
+        sorted = false;
+      }
     });
   
     // Function to sort the table by project name in ascending order
     function sortTableByName() {
-      const table = document.getElementById("myTable");
-      const rows = Array.from(table.getElementsByTagName("tr"));
+      const rows = Array.from(tables.getElementsByTagName("tr"));
   
       rows.sort((a, b) => {
         const nameA = a.cells[0].innerText.toLowerCase();
@@ -395,9 +406,15 @@ window.onclick = function (event) {
         return nameA.localeCompare(nameB);
       });
   
-      rows.forEach((row) => table.appendChild(row));
+      rows.forEach((row) => tables.appendChild(row));
+    }
+  
+    // Function to restore the original order of rows
+    function restoreOriginalOrder() {
+      originalRows.forEach((row) => tables.appendChild(row));
     }
   </script>
+  
   
 
 
