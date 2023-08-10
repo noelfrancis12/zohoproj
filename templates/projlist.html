@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
   
   #over:hover{
@@ -27,6 +27,42 @@
   .description-icon:hover::before {
     display: block;
   }
+  @media (max-width: 768px) {
+        .flowchart {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .flowchart-item {
+            width: 120px;
+        }
+        .flowchart-connector {
+            height: 50px;
+            width: 2px; 
+            margin-left: 0%; 
+            transform: translateX(-50%);
+        }
+    }
+    .btn{
+        color: rgb(218, 164, 48);
+        outline-color: azure;
+        border: 2px solid rgb(25, 91, 145);
+    }
+    .btn:hover{
+        color: darkslategray;
+        background-color: lightblue;
+        outline: none;
+        
+    }
+    a{
+        list-style: none;
+        color: azure;
+    }
+     a:hover{
+        color: rgb(218, 164, 48);
+     }
+  
+    
 </style>
 
 <div class="fixed-top" style="top: 7rem; margin-left: 18rem;">
@@ -43,16 +79,18 @@
         </div>
         
         <div class="col-md-6 form-inline" style="margin-left: 51rem; margin-top: -2rem;">
-          <select id="sortDropdown" class="form-control bg-warning" style="width: 100px;height: 30px;font-size: medium;text-align: center;">
-            <option value="" style="text-align: center;font-size: medium;" class="bg-dark text-warning" selected hidden>Sort</option>
-            <option value="" style="text-align: left;font-size: medium;" class="bg-dark text-warning">All</option>
-            <option value="projectName" style="text-align: left;font-size: medium;" class="bg-dark text-warning">Project</option>
-            <option value="customerName" style="text-align: left;font-size: medium;" class="bg-dark text-warning">Customer</option>
-          </select>&nbsp;&nbsp;&nbsp;
-          
-          <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="btn btn-warning mr-2" href="{% url 'proj' %}">
-            <i class="fa-solid fa-plus"></i> New
-          </a>
+          <a class="btn text-center px-3 " data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        role="button"><i class="fa fa-filter mx-3"></i>
+                        </a>
+                        <div class="dropdown-menu ">
+                            <a class="dropdown-item" href="" style="color:rgb(218, 164, 48) ;">All</a>
+                            <a class="dropdown-item" href="#" style="color:rgb(218, 164, 48) ;" id="sortCustomer">Customer</a>
+                            <a class="dropdown-item" href="#" style="color:rgb(218, 164, 48) ;" id="sortProject">Project</a>
+
+                        </div>&nbsp;&nbsp;&nbsp;
+                        <a style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;" class="btn btn-warning mr-2" href="{% url 'proj' %}">
+                           New
+                        </a>
         </div>
       </div>
       
@@ -111,7 +149,37 @@
     </div>
 
 </div>
-
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      const table = document.getElementById("vendorTable");
+      const sortProjectLink = document.getElementById("sortProject");
+      const sortCustomerLink = document.getElementById("sortCustomer");
+  
+      sortProjectLink.addEventListener("click", function() {
+          sortTable(table, 2); // 2 is the index of the project name column
+      });
+  
+      sortCustomerLink.addEventListener("click", function() {
+          sortTable(table, 0); // 0 is the index of the customer name column
+      });
+  
+      function sortTable(table, columnIndex) {
+          const rows = Array.from(table.tBodies[0].rows);
+  
+          rows.sort(function(rowA, rowB) {
+              const cellA = rowA.cells[columnIndex].textContent.trim();
+              const cellB = rowB.cells[columnIndex].textContent.trim();
+              return cellA.localeCompare(cellB);
+          });
+  
+          for (const row of rows) {
+              table.tBodies[0].appendChild(row);
+          }
+      }
+  });
+  </script>
+  
+  
 <!-- Your HTML code remains the same -->
 
 <!-- Your HTML code remains the same -->
@@ -209,7 +277,6 @@ vendorSearchInput.addEventListener('input', function () {
   });
 });
 </script>
-
 
 
 

@@ -2882,14 +2882,21 @@ def itemdata2(request):
     return JsonResponse({'email': email})
 def createuser(request):
     if request.method == 'POST':
-            usernamezz = request.POST.get('usernamezz')
-            emailzz = request.POST.get('emailzz')
-            proj=usercreate(usernamezz=usernamezz,emailzz=emailzz)
+        usernamezz = request.POST.get('usernamezz')
+        emailzz = request.POST.get('emailzz')
+        
+        # Check if a user with the same username already exists
+        existing_user = usercreate.objects.filter(usernamezz=usernamezz).first()
+        
+        if existing_user:
+            return JsonResponse({"status": "error", "message": "User already exists"})
+        else:
+            proj = usercreate(usernamezz=usernamezz, emailzz=emailzz)
             proj.save()
-            return JsonResponse({"username":usernamezz,"email":emailzz})
-    return render(request,"proj.html")
-            #return render(request, 'proj.html')
-            #return redirect('proj')
+            return JsonResponse({"status": "success", "username": usernamezz, "email": emailzz})
+    
+    return render(request, "proj.html")
+
 def toggle_status(request, project_id):
     project = get_object_or_404(project1, id=project_id)
     project.active = not project.active

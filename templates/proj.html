@@ -885,12 +885,10 @@
           </div>
         </div>        
   <script>
-   function addUnit() {
-  // Get the form and form data
+  function addUnit() {
   let unitForm = document.getElementById("unitForm");
   let formData = new FormData(unitForm);
 
-  // Send the form data through AJAX
   $.ajax({
     url: "{% url 'createuser' %}",
     type: "POST",
@@ -898,27 +896,29 @@
     processData: false,
     contentType: false,
     success: function(response) {
-      // Handle the success response
-      console.log(response);
-      var data = response.username;
-      var data2 = response.email;
+      if (response.status === "success") {
+        // Handle the success response for a successful creation
+        console.log(response);
+        var data = response.username;
+        var data2 = response.email;
 
-      // Add the newly created user and email to all user select elements
-      $('[id^="user_select"]').each(function() {
-        var option = new Option(data, data);
-        $(this).append(option);
-      });
+        // Add the newly created user and email to all user select elements
+        $('[id^="user_select"]').each(function() {
+          var option = new Option(data, data);
+          $(this).append(option);
+        });
 
-      $('[id^="email"]').each(function() {
-        var option = new Option(data2, data2);
-        $(this).append(option);
-      });
+        $('[id^="email"]').each(function() {
+          var option = new Option(data2, data2);
+          $(this).append(option);
+        });
 
-      // Close the form and perform any other actions
-      closeForm();
-
-      // Close the modal
-      $("#myModal").hide();
+        closeForm();
+        $("#myModal").hide();
+      } else if (response.status === "error" && response.message === "User already exists") {
+        // Handle the case where a user with the same name already exists
+        alert("User already exists");
+      }
     },
     error: function(error) {
       // Handle the error response
@@ -926,13 +926,7 @@
     }
   });
 }
-
-function openForm() {
-  let formContainer = document.getElementById("myForm");
-  formContainer.style.display = "block";
-}
-
- function closeForm() {
+function closeForm() {
         let formContainer = document.getElementById("unitForm");
        
         $("#myModal").hide(); // Hide the modal
