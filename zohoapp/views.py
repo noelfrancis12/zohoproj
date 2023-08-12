@@ -2875,7 +2875,7 @@ def delproj(request,id):
     projd=project1.objects.get(id=id)
     projd.delete()
     return redirect('vproj')
-def itemdata2(request):
+def poject_itemz(request):
     user_id = request.GET.get('id')
     user = get_object_or_404(usercreate, usernamezz=user_id)
     email = user.emailzz
